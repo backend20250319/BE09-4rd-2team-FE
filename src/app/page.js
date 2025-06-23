@@ -1,9 +1,9 @@
-import sr
+import MainPage from "@/src/app/(main)/page";
 
 export default function Home() {
   return (
     <div>
-    <mainPage />
+    <MainPage />
     </div>
   );
 }
