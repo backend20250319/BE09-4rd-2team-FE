@@ -1,4 +1,4 @@
-export default function Test() {
+export default function Footer() {
     return (
         <div>
         <h1>테스트 페이지</h1>
