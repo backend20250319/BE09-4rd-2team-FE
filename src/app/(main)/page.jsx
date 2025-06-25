@@ -1,11 +1,11 @@
 import Link from "next/link";
+import MenuTabs from "@/src/components/MenuTabs";
 
 const MainPage = () => {
     return(
-        <div>
-            <h1>네이버 블로그</h1>
-            <Link href="/blogHome"><button>블로그 홈</button></Link>
-            <button>주제별 보기</button>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', fontFamily: 'NanumGothic' }}>
+            <h1 style={{margin: '10px'}}>Naver blog</h1>
+            <MenuTabs />
         </div>
     );
 }
