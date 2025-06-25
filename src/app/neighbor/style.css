@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+/* 기본 레이아웃 */
+.container {
+    display: flex;
+    width: 999px;
+    height: 770px;
+    margin-top: 80px;
+    margin-left: -8px;
+    background-color: white;
+}
+
+/* 좌측 메뉴 영역 */
+.l__aside {
+    border-right: 1px solid #e1e1e1;
+    width: 190px;
+    height: 665px;
+    background-color: white;
+    padding: 30px 20px 0;
+    box-sizing: border-box;
+}
+
+div {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+/* 컨텐츠 영역 */
+.l__content {
+    flex: 1;
+    box-sizing: border-box;
+    padding: 35px 40px 70px;
+    height: 665px;
+    margin-left: -1px;
+    border-left : 1px solid #e1e1e1;
+}
+
+/* 사이드 메뉴 타이틀 */
+.lnb_title {
+    position: relative;
+    display: block;
+    font-family: nanumgothic, sans-serif;
+    font-size: 13px;
+    line-height: 15px;
+    font-weight: 700;
+    color: #000;
+}
+
+/* 메뉴 아이템 그룹 */
+.lnb_depth1 {
+    padding: 18px 0;
+}
+
+.lnb_depth2 {
+    margin: 12px;
+}
+
+.lnb__item {
+    display: block;
+    margin: 8px 0;
+    font-family: nanumgothic, sans-serif;
+    font-size: 12px;
+    line-height: 14px;
+    color: #333;
+}
+
+/* 로컬 메뉴 */
+.lnb__local-menu {
+    width: 150px;
+    height: 479px;
+}
+
+.lnb__local-menu :first-child {
+    padding-top: 0;
+    border-top: 0;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+.admin_buddymanage_wrap {
+    position: relative;
+}
+
+.blind {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    opacity: 0;
+    filter: Alpha(opacity=0);
+}
+
+.content-title {
+    padding-bottom: 20px;
+    border-bottom: 2px solid #3a3a3a;
+    font-family: nanumgothic, sans-serif;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 700;
+    color: #000;
+}
+
+.tab1 li {
+    float: left;
+    margin-right: -1px;
+}
+
+li {
+    list-style: none;
+}
+
+.ngb_search {
+    position: static;
+    top: 91px;
+    right: 9px;
+    zoom: 1;
+    margin-left: auto;
+}
+
+.tab1.wblist {
+    margin-top: 20px;
+}
+
+.tab1 .on {
+    position: relative;
+}
+
+.action2 {
+    position: relative;
+    width: 100%;
+    padding: 8px 0 7px;
+    clear: both; /* float 썼을 경우에 대비 */
+}
+.action2_l {
+    margin-left: 10px;
+}
