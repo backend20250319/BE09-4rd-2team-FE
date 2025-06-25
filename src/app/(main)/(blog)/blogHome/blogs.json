@@ -5,7 +5,9 @@
     "category": "건강·의학",
     "content": "매일 아침 30분 운동과 충분한 수면이 건강의 기본입니다...",
     "author": "김의사",
-    "date": "2025-06-20"
+    "date": "2025-06-20",
+    "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
   },
   {
     "id": 2,
@@ -13,7 +15,9 @@
     "category": "원예·재배",
     "content": "바질, 로즈마리, 민트 등 초보자도 쉽게 키울 수 있는 허브를 소개합니다...",
     "author": "초록손",
-    "date": "2025-06-18"
+    "date": "2025-06-18",
+    "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
   },
   {
     "id": 3,
@@ -21,7 +25,9 @@
     "category": "드라마",
     "content": "주인공의 감정 연기가 돋보이는 이번 주 에피소드...",
     "author": "드라마매니아",
-    "date": "2025-06-22"
+    "date": "2025-06-22",
+    "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
   },
   {
     "id": 4,
@@ -29,7 +35,9 @@
     "category": "자동차",
     "content": "테슬라 모델 Y vs 현대 아이오닉 7, 주행거리와 충전 속도 비교...",
     "author": "카마스터",
-    "date": "2025-06-15"
+    "date": "2025-06-15",
+    "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
   },
   {
     "id": 5,
@@ -37,7 +45,9 @@
     "category": "영화",
     "content": "액션, 로맨스, 공포 장르별로 기대되는 작품들을 소개합니다...",
     "author": "영화광",
-    "date": "2025-06-10"
+    "date": "2025-06-10",
+    "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
   },
   {
     "id": 6,
@@ -45,7 +55,9 @@
     "category": "맛집",
     "content": "한강뷰를 즐기며 갈 수 있는 이색적인 레스토랑 추천...",
     "author": "맛집탐험가",
-    "date": "2025-06-12"
+    "date": "2025-06-12",
+    "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
   },
   {
     "id": 7,
@@ -53,6 +65,8 @@
     "category": "육아·결혼",
     "content": "초보 부모를 위한 수면 패턴 조절과 목욕 방법...",
     "author": "행복한엄마",
-    "date": "2025-06-05"
+    "date": "2025-06-05",
+    "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
   }
 ]

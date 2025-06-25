@@ -10,14 +10,12 @@ export default function ChoiceMenu({categories, selected, onSelect}) {
         }
     };
 
-
     return(
         <div style={styles.menu}>
             {categories.map(category => (
                 <span
                     key={category}
                     onClick={() => onSelect(category)}
-                    className={selected === category ? "active" : ""}
                     style={{ color : selected === category ? "green" : "black",
                         fontWeight: selected === category ? "bold" : "normal",
                     cursor: "pointer"}}>
