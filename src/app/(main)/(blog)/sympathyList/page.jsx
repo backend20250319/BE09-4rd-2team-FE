@@ -75,44 +75,51 @@ const testBloggers = [
 
 export default function SympathyListPage() {
     return (
-        <div className="max-w-4xl mx-auto p-6">
-            <div className="mb-8">
-                <h1 className="text-2xl font-bold text-gray-900 mb-2">
+        <div style={{
+            maxWidth: '920px',        // 네이버와 비슷한 너비
+            margin: '0 auto',         // 중앙 정렬
+            padding: '20px'
+        }}>
+            <div style={{ marginBottom: '24px' }}>
+                <h1 style={{
+                    fontSize: '20px',
+                    fontWeight: 'bold',
+                    color: '#111827'
+                }}>
                     이 글에 공감한 블로거
                 </h1>
-                <p className="text-sm text-gray-600">
-                    총 {testBloggers.length}명의 블로거가 이 글에 공감했습니다.
-                </p>
             </div>
 
-            <div className="space-y-4 mb-8">
-                {testBloggers.map((blogger) => (
-                    <SympathyItem
-                        key={blogger.id}
-                        blogger={blogger}
-                    />
-                ))}
-            </div>
-
-            <div className="flex justify-center items-center gap-4">
-                <button
-                    className="px-4 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50"
-                    disabled={true} // 첫 페이지라고 가정
-                >
-                    이전
-                </button>
-
-                <div className="flex items-center gap-2">
-                    <span className="px-3 py-1 text-sm bg-blue-500 text-white rounded-md">1</span>
-                    <span className="px-3 py-1 text-sm text-gray-500 hover:bg-gray-100 rounded-md cursor-pointer">2</span>
-                    <span className="px-3 py-1 text-sm text-gray-500 hover:bg-gray-100 rounded-md cursor-pointer">3</span>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                {/* 왼쪽 열 */}
+                <div>
+                    {testBloggers.slice(0, 5).map((blogger) => (
+                        <SympathyItem
+                            key={blogger.id}
+                            blogger={blogger}
+                        />
+                    ))}
                 </div>
 
-                <button
-                    className="px-4 py-2 text-sm border border-gray-300 rounded-md hover:bg-gray-50"
-                >
-                    다음
-                </button>
+                {/* 오른쪽 열 */}
+                <div>
+                    {testBloggers.slice(5, 10).map((blogger) => (
+                        <SympathyItem
+                            key={blogger.id}
+                            blogger={blogger}
+                        />
+                    ))}
+                </div>
+            </div>
+
+            <div style={{
+                padding: '17px 0 20px',
+                textAlign: 'center',
+                borderTop: '1px solid #eee',
+                marginTop: '20px'
+            }}>
+                <span style={{ marginRight: '20px', cursor: 'pointer' }}>&lt; 이전</span>
+                <span style={{ cursor: 'pointer' }}>다음 &gt;</span>
             </div>
         </div>
     );
