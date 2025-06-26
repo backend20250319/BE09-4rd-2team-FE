@@ -1,4 +1,4 @@
-import MenuTabs from '@/src/components/MenuTabs';
+import MenuTabs from '@/src/components/header/MenuTabs';
 
 export default function MainPage() {
   return (
