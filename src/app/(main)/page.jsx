@@ -1,16 +1,13 @@
 import Link from "next/link";
+import MenuTabs from "@/src/components/MenuTabs";
 
 const MainPage = () => {
     return(
-        <div>
-            <h1>네이버 블로그</h1>
-            <Link href="/blogHome"><button>블로그 홈</button></Link>
-            <button>주제별 보기</button>
-            <Link href="/blogEditor">
-                <button>글 쓰기 메인으로 이동</button>
-            </Link>
-
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', fontFamily: 'NanumGothic' }}>
+            <h1 style={{margin: '10px'}}>Naver blog</h1>
+            <MenuTabs />
         </div>
+
     );
 }
 export default MainPage;
