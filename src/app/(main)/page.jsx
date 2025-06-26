@@ -1,6 +1,6 @@
-import MenuTabs from '@/src/components/MenuTabs';
+import MenuTabs from '@/src/components/header/MenuTabs';
 
-const MainPage = () => {
+export default function MainPage() {
   return (
     <div
       style={{
@@ -14,5 +14,4 @@ const MainPage = () => {
       <MenuTabs />
     </div>
   );
-};
-export default MainPage;
+}
