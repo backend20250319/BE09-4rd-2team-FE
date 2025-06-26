@@ -7,6 +7,7 @@ const MainPage = () => {
             <h1 style={{margin: '10px'}}>Naver blog</h1>
             <MenuTabs />
         </div>
+
     );
 }
 export default MainPage;
