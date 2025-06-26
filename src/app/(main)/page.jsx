@@ -1,6 +1,6 @@
 import MenuTabs from '@/src/components/MenuTabs';
 
-export default function MainPage = () => {
+export default function MainPage() {
   return (
     <div
       style={{

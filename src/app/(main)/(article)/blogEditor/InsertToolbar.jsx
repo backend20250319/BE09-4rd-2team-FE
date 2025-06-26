@@ -3,7 +3,7 @@ import './InsertToolbar.css';
 
 const InsertToolbar = ({ onInsert, onShortcut }) => {
     const tools = [
-        { label: '사진', icon: 'photo' },
+        { label: '사진', icon: 'photo'},
         { label: 'MYBOX', icon: 'mybox' },
         { label: '동영상', icon: 'video' },
         { label: '스티커', icon: 'sticker' },
