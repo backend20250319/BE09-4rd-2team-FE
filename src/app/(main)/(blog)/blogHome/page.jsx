@@ -13,7 +13,6 @@ export default function BlogHome() {
 
   return (
     <>
-      <MenuTabs />
       <div
         style={{
           width: '100%',
