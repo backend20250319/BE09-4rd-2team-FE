@@ -1,46 +1,67 @@
-"use client";
+// React의 상태 관리 훅 사용: useState, useEffect, useContext 등 React 훅을 사용하려면 클라이언트 컴포넌트여야 합니다.
+// 브라우저 전용 API 사용: window, document, localStorage 등 브라우저 환경에서만 동작하는 API를 사용할 때.
+// 이벤트 핸들링: 버튼 클릭, 입력 등 사용자 상호작용이 필요한 경우.
+// 클라이언트 사이드 라우팅: useRouter 등 클라이언트 전용 라우팅 훅을 사용할 때.
+'use client';
 
-import React from 'react';
-import TopBar from './TopBar';         // 최상단 N Blog + 발행 버튼
-import FontToolbar from './FontToolbar'; // 글꼴/텍스트 스타일 툴바
-import InsertToolbar from './InsertToolbar'; // 삽입 도구 툴바
+import { useEffect, useRef } from 'react';
+import Editor from '@toast-ui/editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
 
-const BlogEditor = () => {
-    const handlePublish = () => {
-        alert('글이 발행되었습니다!');
-        // 실제 발행 로직 연결
-    };
+export default function BlogEditor() {
+  // 에디터가 붙을 DOM 요소를 참조하기 위한 ref
+  const editorRef = useRef(null);
 
-    const handleFontChange = (type, value) => {
-        console.log(`폰트 변경: ${type} → ${value}`);
-        // 실제 글꼴/스타일 적용 로직 연결
-    };
+  useEffect(() => {
+    // ref가 연결된 DOM이 존재할 때만 Toast UI Editor 초기화
+    if (editorRef.current) {
+      new Editor({
+        el: editorRef.current, // 에디터가 렌더링될 DOM 요소
+        height: '600px', // 에디터의 높이 설정
+        initialEditType: 'wysiwyg', // 처음에 보여질 편집 형태 (Markdown 또는 WYSIWYG)
+        previewStyle: 'vertical', // 미리보기 창을 세로 정렬로 설정
 
-    const handleInsert = (type) => {
-        console.log(`${type} 삽입 요청됨`);
-        // 실제 삽입 로직 연결
-    };
+        // 툴바에 표시할 기능 아이템 설정
+        toolbarItems: [
+          // 텍스트 서식 관련 버튼들
+          ['heading', 'bold', 'italic', 'strike'],
 
-    const handleShortcut = (type) => {
-        console.log(`${type} 단축키 사용`);
-        // 실제 단축키 로직 연결
-    };
+          // 인용구와 수평선 추가
+          ['hr', 'quote'],
 
-    return (
-        <div>
-            <TopBar onPublish={handlePublish} />
+          // 목록 및 할 일 체크리스트
+          ['ul', 'ol', 'task'],
 
-            <InsertToolbar onInsert={handleInsert} onShortcut={handleShortcut} />
+          // 테이블, 링크 삽입
+          ['table', 'link'],
 
-            <FontToolbar onChange={handleFontChange} />
+          // 이미지 및 코드 삽입
+          ['image', 'code'],
 
-            {/* ↓ 실제 에디터 본문 영역 */}
-            <div style={{ minHeight: 300, padding: 24, background: "#fff" }}>
-                <h2>여기에 본문을 작성하세요.</h2>
-                {/* 실제 에디터 컴포넌트 연결 */}
-            </div>
-        </div>
-    );
-};
+          /// 에디터 ↔ 미리보기 동기화
+          ['scrollSync'],
+        ],
+      });
+    }
+  }, []);
+  // 실제 에디터가 들어갈 컨테이너 div
+  return (
+    <div className="blog-editor-container">
+      <input type="text" placeholder="제목을 입력하세요" className="title-input" />
 
-export default BlogEditor;
+      <div ref={editorRef} className="editor-section" />
+
+      <div className="options-panel">
+        <label>공개 설정</label>
+        <select>
+          <option>공개</option>
+          <option>이웃공개</option>
+          <option>비공개</option>
+        </select>
+
+        <label>태그</label>
+        <input type="text" placeholder="예: 일상, 여행" />
+      </div>
+    </div>
+  );
+}
