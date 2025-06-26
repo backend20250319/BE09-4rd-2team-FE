@@ -7,7 +7,8 @@
     "author": "김의사",
     "date": "2025-06-20",
     "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
-    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "bigCategory": "생활,노하우,쇼핑"
   },
   {
     "id": 2,
@@ -17,7 +18,8 @@
     "author": "초록손",
     "date": "2025-06-18",
     "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
-    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "bigCategory": "취미,여가,여행"
   },
   {
     "id": 3,
@@ -27,7 +29,8 @@
     "author": "드라마매니아",
     "date": "2025-06-22",
     "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
-    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "bigCategory": "엔터테인먼트,예술"
   },
   {
     "id": 4,
@@ -37,7 +40,8 @@
     "author": "카마스터",
     "date": "2025-06-15",
     "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
-    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "bigCategory": "지식,동향"
   },
   {
     "id": 5,
@@ -47,7 +51,8 @@
     "author": "영화광",
     "date": "2025-06-10",
     "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
-    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "bigCategory": "엔터테인먼트,예술"
   },
   {
     "id": 6,
@@ -57,7 +62,8 @@
     "author": "맛집탐험가",
     "date": "2025-06-12",
     "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
-    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "bigCategory": "생활,노하우,쇼핑"
   },
   {
     "id": 7,
@@ -67,6 +73,7 @@
     "author": "행복한엄마",
     "date": "2025-06-05",
     "authorImage": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
-    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg"
+    "thumbnail": "https://upload2.inven.co.kr/upload/2017/02/20/bbs/i16154468836.jpg",
+    "bigCategory": "생활,노하우,쇼핑"
   }
 ]

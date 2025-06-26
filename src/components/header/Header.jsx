@@ -6,13 +6,15 @@ export default function Header() {
       style={{
         fontFamily: 'NanumGothic',
         fontSize: '12px',
-        margin: '10px',
+        marginLeft: '180px',
+        marginRight: '150px',
+        marginTop: '20px',
+        marginBottom: '20px',
         height: '30px',
-        color: 'green',
       }}
     >
       <Link href="/" style={{ textDecoration: 'none' }}>
-        <h1>N blog</h1>
+        <h1 style={{ marginLeft: '10px' }}>N blog</h1>
       </Link>
     </div>
   );
