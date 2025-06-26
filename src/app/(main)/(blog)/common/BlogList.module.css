@@ -1,0 +1,63 @@
+.blogList {
+    margin: 16px;
+}
+
+.blogItem {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 25px;
+}
+
+.profileRow {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.profileImage {
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.authorName {
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    transition: text-decoration 0.2s;
+}
+
+.authorName:hover {
+    text-decoration: underline;
+}
+
+.authorDate {
+    color: #888;
+    font-size: 10px;
+}
+
+.titleLink {
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 10px;
+    display: block;
+    text-decoration: none;
+    transition: text-decoration 0.2s;
+}
+
+.titleLink:hover {
+    text-decoration: underline;
+}
+
+.contentLink {
+    color: #444;
+    font-size: 13px;
+    line-height: 1.7;
+    display: block;
+    text-decoration: none;
+    transition: text-decoration 0.2s;
+}
+
+.contentLink:hover {
+    text-decoration: underline;
+}
