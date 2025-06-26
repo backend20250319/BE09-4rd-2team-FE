@@ -1,0 +1,20 @@
+.menu {
+    display: flex;
+    gap: 16px;
+    border-bottom: 3px solid #ddd;
+    border-top: 1px solid #ddd;
+    padding: 16px;
+    font-family: 'NanumGothic', sans-serif;
+}
+
+.item {
+    color: black;
+    font-weight: normal;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.itemSelected {
+    color: green;
+    font-weight: bold;
+}
