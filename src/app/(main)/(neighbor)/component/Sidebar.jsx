@@ -6,7 +6,7 @@ export default function Sidebar() {
             <div className="sidebar-section" style={{borderTop:"0"}}>
                 <div className="sidebar-title">기본 정보 관리</div>
                 <ul>
-                    <li className="sidebar-content"><Link href={"/"}>블로그 정보</Link></li>
+                    <li className="sidebar-content"><Link href={"/public"}>블로그 정보</Link></li>
                     <li className="sidebar-content">기본 서체 설정</li>
                 </ul>
             </div>
