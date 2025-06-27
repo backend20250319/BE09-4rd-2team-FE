@@ -7,7 +7,6 @@ import AddedMeNeighbors from '../component/AddedMeNeighbors';
 import AddMutualNeighbor from '../component/AddMutualNeighbor';
 import '../style.css';
 
-
 export default function NeighborPage() {
     const [selectedTab,setSelectedTab] = useState('add');
 
