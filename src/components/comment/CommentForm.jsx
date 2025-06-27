@@ -28,31 +28,64 @@ const CommentForm = ({ onAddComment }) => {
     <div
       style={{
         marginBottom: '30px',
-        border: '1px solid #e1e5e9',
         borderRadius: '8px',
-        backgroundColor: '#fafbfc',
+        backgroundColor: 'white',
       }}
     >
       <form onSubmit={handleSubmit}>
         <div style={{ padding: '16px' }}>
-          <textarea
-            value={comment}
-            onChange={e => setComment(e.target.value)}
-            onFocus={handleFocus}
-            placeholder="댓글을 작성하려면 로그인 해주세요"
+          <div
             style={{
-              width: '100%',
-              minHeight: isExpanded ? '100px' : '60px',
-              padding: '12px',
+              position: 'relative',
               border: '1px solid #ddd',
               borderRadius: '4px',
-              fontSize: '14px',
-              resize: 'vertical',
-              outline: 'none',
-              transition: 'min-height 0.2s ease',
               backgroundColor: '#fff',
             }}
-          />
+          >
+            {/* 가짜 placeholder */}
+            {!comment && !isExpanded && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '12px',
+                  left: '12px',
+                  fontSize: '14px',
+                  color: '#999',
+                  pointerEvents: 'none',
+                  zIndex: 1,
+                }}
+              >
+                댓글을 작성하려면{' '}
+                <span
+                  style={{
+                    textDecoration: 'underline',
+                    cursor: 'pointer',
+                  }}
+                >
+                  로그인
+                </span>{' '}
+                해주세요
+              </div>
+            )}
+
+            <textarea
+              value={comment}
+              onChange={e => setComment(e.target.value)}
+              onFocus={handleFocus}
+              style={{
+                width: '100%',
+                boxSizing: 'border-box',
+                minHeight: isExpanded ? '100px' : '90px',
+                padding: '12px',
+                border: 'none',
+                fontSize: '14px',
+                resize: 'vertical',
+                outline: 'none',
+                transition: 'min-height 0.2s ease',
+                backgroundColor: 'transparent',
+              }}
+            />
+          </div>
 
           {isExpanded && (
             <div
