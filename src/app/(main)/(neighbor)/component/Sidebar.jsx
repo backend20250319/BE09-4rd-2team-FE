@@ -2,6 +2,13 @@ import Link from "next/link";
 
 
 export default function Sidebar({setSelectedTab}) {
+  const handleOpenPopup = () => {
+    window.open(
+      '/popup-test',                   // 띄울 페이지 경로
+      'NeighborPopupWindow',               // 창 이름 (같은 이름이면 재사용됨)
+      'width=500,height=600,scrollbars=yes,resizable=no'
+    );
+  };
     return (
         <div className="sidebar">
             <div className="sidebar-section" style={{borderTop:"0"}}>
@@ -35,6 +42,7 @@ export default function Sidebar({setSelectedTab}) {
                     <li className="sidebar-content" onClick={()=>setSelectedTab("addedMutual")}>서로이웃 신청</li>
                 </ul>
             </div>
+            <button onClick={handleOpenPopup}>이웃추가 새 창 열기</button>
             <div className="bottom-section">
                 공지사항
             </div>
