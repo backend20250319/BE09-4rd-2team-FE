@@ -53,7 +53,7 @@ return (
             <div className="first-content">
                 <div className='first-content-left'>
                     <input type="checkbox" style={{marginLeft:"15px"}} id="r3" />
-                    <label for="r3" className="mutualBuddyCheckbox">전체선택</label>
+                    <label className="mutualBuddyCheckbox">전체선택</label>
                     <button>수락</button>
                     <button>거절</button>
                 </div>

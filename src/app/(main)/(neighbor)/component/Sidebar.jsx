@@ -1,12 +1,13 @@
 import Link from "next/link";
 
-export default function Sidebar() {
+
+export default function Sidebar({setSelectedTab}) {
     return (
         <div className="sidebar">
             <div className="sidebar-section" style={{borderTop:"0"}}>
                 <div className="sidebar-title">기본 정보 관리</div>
                 <ul>
-                    <li className="sidebar-content"><Link href={"/public"}>블로그 정보</Link></li>
+                    <li className="sidebar-content">블로그 정보</li>
                     <li className="sidebar-content">기본 서체 설정</li>
                 </ul>
             </div>
@@ -29,9 +30,9 @@ export default function Sidebar() {
             <div className="sidebar-section">
                 <div className="sidebar-title">이웃 관리</div>
                 <ul>
-                    <li className="sidebar-content">내가 추가한 이웃</li>
-                    <li className="sidebar-content">나를 추가한 이웃</li>
-                    <li className="sidebar-content">서로이웃 신청</li>
+                  <li className="sidebar-content" onClick={()=>setSelectedTab('add')}>내가 추가한 이웃</li>
+                  <li className="sidebar-content" onClick={()=>setSelectedTab('addedMe')}>나를 추가한 이웃</li>
+                    <li className="sidebar-content" onClick={()=>setSelectedTab("addedMutual")}>서로이웃 신청</li>
                 </ul>
             </div>
             <div className="bottom-section">
