@@ -4,7 +4,7 @@ import MenuTabs from '@/src/components/header/MenuTabs';
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
-      <body>
+      <body style={{ marginLeft: '180px', marginRight: '150px' }}>
         <Header />
         <MenuTabs />
         {children}

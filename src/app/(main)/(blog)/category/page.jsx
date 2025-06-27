@@ -35,7 +35,7 @@ export default function CategoryPage() {
   });
 
   return (
-    <div style={{ marginLeft: '180px', marginRight: '150px' }}>
+    <div>
       <BigChoiceMenu
         categories={['주제설정', ...bigCategories]}
         selected={bigSelected}
