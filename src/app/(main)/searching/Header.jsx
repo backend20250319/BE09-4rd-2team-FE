@@ -1,32 +1,32 @@
-"use client";
-import { useState, useRef, useEffect } from "react";
-import "./Header.css"; // 스타일은 별도 작성 필요
+'use client';
+import { useState, useRef, useEffect } from 'react';
+import './Header.css'; // 스타일은 별도 작성 필요
 
 export default function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("글");
+  const [selectedOption, setSelectedOption] = useState('글');
   const dropdownRef = useRef(null);
 
-  const options = ["글", "블로그", "별명.아이디"];
+  const options = ['글', '블로그', '별명.아이디'];
 
   // 드롭다운 토글
-  const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
+  const toggleDropdown = () => setIsDropdownOpen(prev => !prev);
 
   // 옵션 선택
-  const handleSelect = (option) => {
+  const handleSelect = option => {
     setSelectedOption(option);
     setIsDropdownOpen(false);
   };
 
   // 외부 클릭 시 드롭다운 닫기
   useEffect(() => {
-    const handleClickOutside = (e) => {
+    const handleClickOutside = e => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setIsDropdownOpen(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
@@ -36,25 +36,21 @@ export default function Header() {
           <a className="link-naver" href="http://www.naver.com">
             <span className="blind">blog</span>
           </a>
-          <a className="link-blog" href="/searching">
+          <a className="link-blog" href="/blogHome">
             <span className="blind">naver</span>
           </a>
         </div>
         <div className="area-search" role="search">
           <fieldset className="fieldset">
             <div className="search">
-              <div
-                className="area-dropdown"
-                data-set="search"
-                ref={dropdownRef}
-              >
+              <div className="area-dropdown" data-set="search" ref={dropdownRef}>
                 <a
                   href="#"
                   className="selected-option"
                   role="button"
                   aria-haspopup="true"
                   aria-expanded={isDropdownOpen}
-                  onClick={(e) => {
+                  onClick={e => {
                     e.preventDefault();
                     toggleDropdown();
                   }}
@@ -66,15 +62,13 @@ export default function Header() {
                 </a>
                 {isDropdownOpen && (
                   <div className="dropdown-select">
-                    {options.map((option) => (
+                    {options.map(option => (
                       <div key={option}>
                         <a
                           href="#"
-                          className={`item${
-                            selectedOption === option ? " selected" : ""
-                          }`}
+                          className={`item${selectedOption === option ? ' selected' : ''}`}
                           aria-selected={selectedOption === option}
-                          onClick={(e) => {
+                          onClick={e => {
                             e.preventDefault();
                             handleSelect(option);
                           }}
@@ -101,7 +95,7 @@ export default function Header() {
               className="button button-blog"
               role="button"
               aria-label="블로그 검색"
-              onClick={(e) => {
+              onClick={e => {
                 e.preventDefault();
                 // 검색 함수 구현 필요
               }}
