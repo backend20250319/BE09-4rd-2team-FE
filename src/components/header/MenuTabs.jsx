@@ -15,7 +15,7 @@ export default function MenuTabs() {
   const pathname = usePathname();
 
   return (
-    <div style={{ marginLeft: '180px', marginRight: '150px' }}>
+    <div>
       <nav className={styles.menuBar}>
         {menuItems.map(item => {
           const isActive = pathname === item.href;

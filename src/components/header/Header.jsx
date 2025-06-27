@@ -6,8 +6,6 @@ export default function Header() {
       style={{
         fontFamily: 'NanumGothic',
         fontSize: '12px',
-        marginLeft: '180px',
-        marginRight: '150px',
         marginTop: '20px',
         marginBottom: '20px',
         height: '30px',

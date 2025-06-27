@@ -3,7 +3,7 @@ import BlogList from '@/src/app/(main)/(blog)/common/BlogList';
 
 export default function NeighborPost() {
   return (
-    <div style={{ marginLeft: '180px', marginRight: '150px' }}>
+    <div>
       <h1>이웃새글</h1>
       <BlogList blogs={neighbors} />
     </div>
