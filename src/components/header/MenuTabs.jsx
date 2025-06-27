@@ -1,0 +1,35 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import styles from './MenuTabs.module.css';
+
+const menuItems = [
+  { name: '블로그 홈', href: '/blogHome' },
+  { name: '주제별 보기', href: '/category' },
+  { name: '이웃새글', href: '/neighborPost' },
+  { name: '글쓰기', href: '/blogEditor' },
+];
+
+export default function MenuTabs() {
+  const pathname = usePathname();
+
+  return (
+    <div style={{ marginLeft: '180px', marginRight: '150px' }}>
+      <nav className={styles.menuBar}>
+        {menuItems.map(item => {
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`${styles.menuLink} ${isActive ? styles.menuLinkActive : ''}`}
+            >
+              {item.name}
+            </Link>
+          );
+        })}
+      </nav>
+    </div>
+  );
+}

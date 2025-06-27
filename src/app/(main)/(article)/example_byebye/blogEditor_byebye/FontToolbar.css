@@ -1,0 +1,33 @@
+/* 1번째 최상단 툴바 */
+.font-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* 2번쨰 삽입도구 툴바 */
+.font-toolbar select,
+.font-toolbar button {
+    height: 32px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 4px;
+    font-size: 15px;
+    margin-right: 4px;
+    padding: 0 12px;
+    cursor: pointer;
+}
+
+/* 3번째 글꼴 툴바 */
+.font-toolbar button {
+    width: 32px;
+    font-weight: bold;
+    background: #fff;
+    transition: background 0.2s;
+}
+.font-toolbar button:hover {
+    background: #e5e5e5;
+}
