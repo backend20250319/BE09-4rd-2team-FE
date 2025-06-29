@@ -120,7 +120,6 @@ function PostList() {
   // 목록 숨김 상태
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-
   // 페이지네이션 상태
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5);
@@ -135,9 +134,8 @@ function PostList() {
 
   // 목록 닫기 버튼 클릭 핸들러
   const handleCollapse = () => {
-  setIsCollapsed(!isCollapsed);
+    setIsCollapsed(!isCollapsed);
   };
-
 
   // 페이지 버튼 클릭 핸들러
   const handlePageClick = (pageNum) => {
@@ -153,40 +151,52 @@ function PostList() {
   return (
     <div>
       <div className="menus">
-      <div className="menu1">
-        <ul>
-          <li>
-            <a href="#" className="link">
-              프롤로그
-            </a>
-          </li>
-          <li>
-            <a href="#" className="link blog-link">
-              블로그
-            </a>
-          </li>
-        </ul>
+        <div className="menu1">
+          <ul>
+            <li>
+              <a href="#" className="link">
+                프롤로그
+              </a>
+              <img
+                src="https://blogimgs.pstatic.net/nblog/spc.gif"
+                className="bar"
+              ></img>
+            </li>
+            <li>
+              <a href="#" className="link blog-link">
+                블로그
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className="menu2">
+          <ul>
+            <li>
+              <a href="#" className="link">
+                지도
+              </a>
+              <img
+                src="https://blogimgs.pstatic.net/nblog/spc.gif"
+                className="bar"
+              ></img>
+            </li>
+            <li>
+              <a href="#" className="link">
+                서재
+              </a>
+              <img
+                src="https://blogimgs.pstatic.net/nblog/spc.gif"
+                className="bar"
+              ></img>
+            </li>
+            <li>
+              <a href="#" className="link">
+                안부
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div className="menu2">
-        <ul>
-          <li>
-            <a href="#" className="link">
-              지도
-            </a>
-          </li>
-          <li>
-            <a href="#" className="link">
-              서재
-            </a>
-          </li>
-          <li>
-            <a href="#" className="link">
-              안부
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
       <div className="post-list-table">
         <div className="post-list-header">
           <span className="post-list-title">
