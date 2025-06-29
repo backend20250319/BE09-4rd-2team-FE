@@ -200,62 +200,76 @@ function PostList() {
       <div className="post-list-table">
         <div className="post-list-header">
           <span className="post-list-title">
-            <b>전체보기</b>{" "}
+            <span className="clickable-title" onClick={handleCollapse}>
+              전체보기
+            </span>{" "}
             <span className="post-count">{posts.length}개의 글</span>
           </span>
-          <button className="collapse-btn">목록닫기</button>
+          <button className="collapse-btn" onClick={handleCollapse}>
+            {isCollapsed ? "목록열기" : "목록닫기"}
+          </button>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th className="title-col">글 제목</th>
-              <th className="views-col">조회수</th>
-              <th className="date-col">작성일</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentPosts.map((post) => (
-              <tr key={post.id}>
-                <td className="title-cell">
-                  <span className="main-title">{post.title}</span>
-                  {post.commentCount > 0 && (
-                    <span className="comment-count">({post.commentCount})</span>
-                  )}
-                  {post.visibility && (
-                    <span className="post-tag">{post.visibility}</span>
-                  )}
-                </td>
-                <td className="views-cell">{post.views}</td>
-                <td className="date-cell">{post.date}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="post-list-bottom">
-          <div></div>
-          <select
-            className="row-select"
-            value={postsPerPage}
-            onChange={handlePostsPerPageChange}
-          >
-            <option value={5}>5줄 보기</option>
-            <option value={10}>10줄 보기</option>
-            <option value={15}>15줄 보기</option>
-            <option value={20}>20줄 보기</option>
-            <option value={30}>30줄 보기</option>
-          </select>
-        </div>
-        <div className="pagination">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
-            <button
-              key={num}
-              className={`page-btn${num === currentPage ? " active" : ""}`}
-              onClick={() => handlePageClick(num)}
-            >
-              {num}
-            </button>
-          ))}
-        </div>
+        {!isCollapsed && (
+          <>
+            <table>
+              <thead>
+                <tr>
+                  <th className="title-col">글 제목</th>
+                  <th className="views-col">조회수</th>
+                  <th className="date-col">작성일</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentPosts.map((post) => (
+                  <tr key={post.id}>
+                    <td className="title-cell">
+                      <span className="main-title">{post.title}</span>
+                      {post.commentCount > 0 && (
+                        <span className="comment-count">
+                          ({post.commentCount})
+                        </span>
+                      )}
+                      {post.visibility && (
+                        <span className="post-tag">{post.visibility}</span>
+                      )}
+                    </td>
+                    <td className="views-cell">{post.views}</td>
+                    <td className="date-cell">{post.date}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="post-list-bottom">
+              <button className="manage-btn">글관리 열기</button>
+              <select
+                className="row-select"
+                value={postsPerPage}
+                onChange={handlePostsPerPageChange}
+              >
+                <option value={5}>5줄 보기</option>
+                <option value={10}>10줄 보기</option>
+                <option value={15}>15줄 보기</option>
+                <option value={20}>20줄 보기</option>
+                <option value={30}>30줄 보기</option>
+              </select>
+            </div>
+            <div className="pagination">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (num) => (
+                  <button
+                    key={num}
+                    className={`page-btn${
+                      num === currentPage ? " active" : ""
+                    }`}
+                    onClick={() => handlePageClick(num)}
+                  >
+                    {num}
+                  </button>
+                )
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
