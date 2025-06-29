@@ -3,6 +3,7 @@ import { React, useState } from "react";
 import BlackHeader from "./BlackHeader";
 import BlogTitle from "./BlogTitle";
 import PostList from "./PostList";
+import Profile from "./Profile";
 import "./MyBlog.css";
 
 export default function myBlog() {
@@ -19,6 +20,9 @@ export default function myBlog() {
           <BlogTitle />
           <div>
             <PostList posts={posts} />
+          </div>
+          <div>
+            <Profile />
           </div>
         </div>
       </main>
