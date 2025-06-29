@@ -1,0 +1,167 @@
+.menus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 982px;
+}
+
+.menu1 ul,
+.menu2 ul {
+  display: flex;
+  gap: 12px; /* 메뉴 사이 여백 */
+  margin: 0;
+  list-style: none;
+  font-size: 10pt;
+  padding: 20px;
+}
+
+.blog-link {
+  color: black;
+  text-decoration: none;
+  transition: text-decoration 0.2s;
+}
+
+.link {
+  color: grey;
+  text-decoration: none;
+  transition: text-decoration 0.2s;
+}
+
+.link:hover,
+.blog-link:hover {
+  text-decoration: underline;
+}
+
+.post-list-table {
+  font-family: "Apple SD Gothic Neo", Arial, sans-serif;
+  background: #fff;
+  border: none;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.post-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.post-list-title {
+  font-size: 18px;
+}
+
+.post-count {
+  color: #888;
+  font-size: 15px;
+  margin-left: 6px;
+}
+
+.collapse-btn {
+  background: none;
+  border: none;
+  color: #222;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+th,
+td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+th.title-col,
+td.title-cell {
+  width: 60%;
+}
+
+th.views-col,
+td.views-cell {
+  width: 12%;
+  text-align: center;
+}
+
+th.date-col,
+td.date-cell {
+  width: 18%;
+  text-align: center;
+}
+
+.main-title {
+  font-weight: 500;
+}
+
+.comment-count {
+  color: #888;
+  margin-left: 4px;
+}
+
+.post-tag {
+  display: inline-block;
+  background: #f5f5f5;
+  color: #666;
+  font-size: 12px;
+  border-radius: 12px;
+  padding: 2px 10px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.post-list-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.manage-btn {
+  border: 1px solid #ddd;
+  background: #fafafa;
+  border-radius: 4px;
+  padding: 6px 18px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.row-select {
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 14px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 4px;
+}
+
+.page-btn {
+  border: none;
+  background: none;
+  color: #222;
+  font-size: 15px;
+  padding: 4px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.page-btn.active,
+.page-btn:hover {
+  background: #e5e5e5;
+  color: #1ec800;
+}
