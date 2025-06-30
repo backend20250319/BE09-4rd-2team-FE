@@ -121,7 +121,7 @@ export default function SympathyListPage() {
           marginTop: '20px',
         }}
       >
-        <span style={{ marginRight: '20px', cursor: 'pointer' }}>&lt; 이전</span>
+        <span style={{ marginRight: '20px', cursor: 'not-allowed', color: '#ccc' }}>&lt; 이전</span>
         <span style={{ cursor: 'pointer' }}>다음 &gt;</span>
       </div>
     </div>

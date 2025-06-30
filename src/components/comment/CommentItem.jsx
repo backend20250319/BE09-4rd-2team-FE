@@ -34,17 +34,27 @@ const CommentItem = ({ comment, onLike }) => {
             width: '36px',
             height: '36px',
             borderRadius: '50%',
-            backgroundColor: '#4a90e2',
+            //backgroundColor: '#4a90e2',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             color: 'white',
             fontSize: '14px',
             fontWeight: 'bold',
+            overflow: 'hidden',
             flexShrink: 0,
           }}
         >
-          {getInitial(comment.author)}
+          {/*{getInitial(comment.author)}*/}
+          <img
+            src={`https://i.pravatar.cc/36?u=${comment.author}`}
+            alt={comment.author}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
         </div>
 
         {/* 댓글 내용 영역 */}
