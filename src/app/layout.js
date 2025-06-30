@@ -1,14 +1,10 @@
-import Header from '@/src/components/header/Header';
 import MenuTabs from '@/src/components/header/MenuTabs';
+import Header from '@/src/app/(main)/searching/Header';
 
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
-      <body>
-        <Header />
-        <MenuTabs />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
