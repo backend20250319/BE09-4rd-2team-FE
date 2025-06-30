@@ -1,11 +1,13 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
-import './Header.css'; // 스타일은 별도 작성 필요
+import './Header.css';
+import { useRouter } from 'next/navigation'; // 스타일은 별도 작성 필요
 
 export default function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState('글');
   const dropdownRef = useRef(null);
+  const router = useRouter();
 
   const options = ['글', '블로그', '별명.아이디'];
 
@@ -97,7 +99,7 @@ export default function Header() {
               aria-label="블로그 검색"
               onClick={e => {
                 e.preventDefault();
-                // 검색 함수 구현 필요
+                router.push('/searchResult');
               }}
             >
               <i className="sp-common icon-search"></i>

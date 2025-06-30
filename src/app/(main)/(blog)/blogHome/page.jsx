@@ -3,6 +3,8 @@ import { useState } from 'react';
 import ChoiceMenu from '@/src/app/(main)/(blog)/common/ChoiceMenu';
 import BlogList from '@/src/app/(main)/(blog)/common/BlogList';
 import blogs from '../common/blogs.json';
+import Header from '@/src/app/(main)/searching/Header';
+import MenuTabs from '@/src/components/header/MenuTabs';
 
 const categories = [...new Set(blogs.map(b => b.category))];
 
@@ -12,6 +14,8 @@ export default function BlogHome() {
 
   return (
     <div style={{ fontFamily: 'NanumGothic' }}>
+      <Header />
+      <MenuTabs />
       <div style={{ textAlign: 'center', margin: '54px 0' }}>
         <p style={{ lineHeight: '2' }}>
           로그아웃 상태입니다. <br /> 로그인하여 이웃새글을 확인해보세요.

@@ -5,6 +5,8 @@ import blogs from '@/src/app/(main)/(blog)/common/blogs.json';
 import { useState } from 'react';
 import BlogList from '@/src/app/(main)/(blog)/common/BlogList';
 import BigChoiceMenu from '@/src/app/(main)/(blog)/common/BigChoiceMenu';
+import Header from '@/src/app/(main)/searching/Header';
+import MenuTabs from '@/src/components/header/MenuTabs';
 
 export default function CategoryPage() {
   // 대주제 목록
@@ -36,6 +38,8 @@ export default function CategoryPage() {
 
   return (
     <div>
+      <Header />
+      <MenuTabs />
       <BigChoiceMenu
         categories={['주제설정', ...bigCategories]}
         selected={bigSelected}
