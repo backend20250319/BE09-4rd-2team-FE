@@ -1,3 +1,5 @@
+import styles from './OptionMenu.module.css';
+
 export default function OptionMenu({ categories, selected, onSelect }) {
   return (
     <div className={styles.menu}>
