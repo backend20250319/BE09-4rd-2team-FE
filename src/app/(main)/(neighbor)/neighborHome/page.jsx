@@ -22,6 +22,8 @@ export default function NeighborPage() {
                 return null;
         }
     };
+
+
     return (
       <div>
         <div className="neighbor-container">
