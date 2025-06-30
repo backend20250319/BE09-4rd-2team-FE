@@ -1,67 +1,96 @@
-// React의 상태 관리 훅 사용: useState, useEffect, useContext 등 React 훅을 사용하려면 클라이언트 컴포넌트여야 합니다.
-// 브라우저 전용 API 사용: window, document, localStorage 등 브라우저 환경에서만 동작하는 API를 사용할 때.
-// 이벤트 핸들링: 버튼 클릭, 입력 등 사용자 상호작용이 필요한 경우.
-// 클라이언트 사이드 라우팅: useRouter 등 클라이언트 전용 라우팅 훅을 사용할 때.
 'use client';
 
-import { useEffect, useRef } from 'react';
-import Editor from '@toast-ui/editor';
-import '@toast-ui/editor/dist/toastui-editor.css';
+import React, { useState, useRef } from 'react';
+// 툴바 컴포넌트 import
+import { Toolbar } from '@/src/app/(main)/(article)/blogEditor/toolbar/insertToolbar';
+// 제목 입력 컴포넌트 import
+import TitleInput from './editor/titleinput';
+// 본문 입력 컴포넌트 import
+import ContentEditor from './editor/contenteditor';
+// 헤더 스타일 import (동작하지 않아도 로드)
+import styles from './header.css';
+import Image from 'next/image';
 
 export default function BlogEditor() {
-  // 에디터가 붙을 DOM 요소를 참조하기 위한 ref
-  const editorRef = useRef(null);
+  styles; // CSS가 빌드에 포함되도록만 처리
+  // 제목모드, 본문모드
+  const [activeSection, setActiveSection] = useState('title');
+  // 제목 상태
+  const [title, setTitle] = useState('');
+  // 내용 상태
+  const [content, setContent] = useState('');
+  // 제목에서 엔터 시 내용으로 이동하기 위한 ref
+  const contentRef = useRef(null);
 
-  useEffect(() => {
-    // ref가 연결된 DOM이 존재할 때만 Toast UI Editor 초기화
-    if (editorRef.current) {
-      new Editor({
-        el: editorRef.current, // 에디터가 렌더링될 DOM 요소
-        height: '600px', // 에디터의 높이 설정
-        initialEditType: 'wysiwyg', // 처음에 보여질 편집 형태 (Markdown 또는 WYSIWYG)
-        previewStyle: 'vertical', // 미리보기 창을 세로 정렬로 설정
+  // 저장 버튼 동작
+  const handleSave = () => {
+    const blogPost = { title, content };
+    console.log('저장:', blogPost);
+  };
 
-        // 툴바에 표시할 기능 아이템 설정
-        toolbarItems: [
-          // 텍스트 서식 관련 버튼들
-          ['heading', 'bold', 'italic', 'strike'],
+  // 발행 버튼 동작
+  const handlePublish = () => {
+    const blogPost = { title, content };
+    console.log('발행:', blogPost);
+  };
 
-          // 인용구와 수평선 추가
-          ['hr', 'quote'],
-
-          // 목록 및 할 일 체크리스트
-          ['ul', 'ol', 'task'],
-
-          // 테이블, 링크 삽입
-          ['table', 'link'],
-
-          // 이미지 및 코드 삽입
-          ['image', 'code'],
-
-          /// 에디터 ↔ 미리보기 동기화
-          ['scrollSync'],
-        ],
-      });
-    }
-  }, []);
-  // 실제 에디터가 들어갈 컨테이너 div
   return (
-    <div className="blog-editor-container">
-      <input type="text" placeholder="제목을 입력하세요" className="title-input" />
+    <div className="flex flex-col h-screen bg-[#f5f5f5]">
+      <header className="flex items-center px-4 py-2 border-b">
+        <a href="/" className="flex items-center">
+          <img
+            src="/images/editor/header/n-logo.svg"
+            alt="Naver Logo"
+            className="w-6 h-6 inline-block align-middle"
+          />
+          <img
+            src="/images/editor/header/blog-logo.svg"
+            alt="Naver Blog Logo"
+            className="h-6 ml-1 inline-block align-middle"
+          />
+        </a>
 
-      <div ref={editorRef} className="editor-section" />
+        {/* 저장/발행 버튼 */}
+        <div className="space-x-2">
+          <button onClick={handleSave}>저장</button>
+          <button onClick={handlePublish}>발행</button>
+        </div>
+      </header>
 
-      <div className="options-panel">
-        <label>공개 설정</label>
-        <select>
-          <option>공개</option>
-          <option>이웃공개</option>
-          <option>비공개</option>
-        </select>
+      {/* 삽입 툴바 (이미지, 링크 등) */}
+      <Toolbar />
 
-        <label>태그</label>
-        <input type="text" placeholder="예: 일상, 여행" />
+      {/* 서식 툴바 (굵게, 기울임, 글꼴 등) */}
+      <div className="flex items-center px-6 py-3 bg-white border-b">
+        <button className="px-2 py-1 hover:bg-gray-100 rounded">굵게</button>
+        <button className="px-2 py-1 hover:bg-gray-100 rounded">기울임</button>
+        <button className="px-2 py-1 hover:bg-gray-100 rounded">글꼴</button>
       </div>
+
+      {/* 본문 작성 영역 */}
+      <main className="flex justify-center py-8">
+        <div className="se_editor_wrap w-full max-w-4xl bg-white shadow-md rounded px-8 py-10">
+          {/* 제목: onFocus로 상태 전환 */}
+          <div className="se_title_wrap">
+            <TitleInput
+              title={title}
+              setTitle={setTitle}
+              contentRef={contentRef} // 넘겨주기
+              onFocus={() => setActiveSection('title')}
+            />
+          </div>
+
+          {/* ✅ 본문: onFocus로 상태 전환 */}
+          <div className="se_content_wrap">
+            <ContentEditor
+              content={content}
+              setContent={setContent}
+              contentRef={contentRef} // 넘겨주고 있네
+              onFocus={() => setActiveSection('content')}
+            />
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
