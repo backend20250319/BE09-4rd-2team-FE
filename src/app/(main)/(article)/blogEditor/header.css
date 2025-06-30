@@ -1,0 +1,36 @@
+/* tailwind 자동적용으로 css가 안먹혀서 새로 모듈처럼 만들어준 header.css */
+
+.flex.items-center {
+    font-size: 0;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+header img {
+    height: 32px; /* 원하는 크기로 조정 */
+    margin-right: 8px;
+}
+
+header a {
+    display: inline-block;
+}
+
+header div {
+    display: flex;
+}
+
+header button {
+    margin-left: 8px;
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
