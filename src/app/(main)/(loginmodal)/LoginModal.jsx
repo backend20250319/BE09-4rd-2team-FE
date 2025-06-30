@@ -1,24 +1,27 @@
-'use client'
+'use client';
 
-import {useState} from "react";
+import { useState } from 'react';
 import NewsCard from './NewsCard';
 import Activity from './Activity';
 import NeighborList from './NeighborList';
+import './loginModalstyle.css';
 
-export default function LoginModal(){
-  const [isLogin,setIstLogin] = useState(false);
+export default function LoginModal() {
+  const [isLogin, setIstLogin] = useState(false);
 
   const handleLogin = () => setIstLogin(true);
-  const handleLogout = () =>setIstLogin(false);
+  const handleLogout = () => setIstLogin(false);
   const [activeTab, setActiveTab] = useState('소식');
   return (
     <div>
       {isLogin ? (
         <>
           <button onClick={handleLogout}>로그아웃</button>
-          <div className='ugc-login'>
+          <div className="ugc-login">
             <p className="top-text">네이버를 보다 편리하고 안전하게 이용하세요.</p>
-            <button className='login-button'><strong>NAVER</strong>로그인</button>
+            <button className="login-button">
+              <strong>NAVER</strong>로그인
+            </button>
             <div className="login-footer">
               <div className="left-links">
                 <div>아이디 찾기</div>
@@ -39,7 +42,9 @@ export default function LoginModal(){
                 <div className="avatar"></div>
                 <div>
                   <div className="nickname">dla6963</div>
-                  <div className="visit">오늘 <span className="green">0명</span> 방문</div>
+                  <div className="visit">
+                    오늘 <span className="green">0명</span> 방문
+                  </div>
                 </div>
               </div>
               <button className="logout-btn">로그아웃</button>
