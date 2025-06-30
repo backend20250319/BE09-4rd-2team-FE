@@ -1,5 +1,5 @@
-import Link from "next/link";
 
+import {useState} from "react";
 
 export default function Sidebar({setSelectedTab}) {
   const handleOpenPopup = () => {
@@ -9,6 +9,7 @@ export default function Sidebar({setSelectedTab}) {
       'width=500,height=600,scrollbars=yes,resizable=no'
     );
   };
+  const [showModal, setShowModal] = useState(false);
     return (
         <div className="sidebar">
             <div className="sidebar-section" style={{borderTop:"0"}}>
