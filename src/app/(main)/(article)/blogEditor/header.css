@@ -13,10 +13,12 @@ header {
     border-bottom: 1px solid #ddd;
 }
 
-header img {
-    height: 32px; /* 원하는 크기로 조정 */
-    margin-right: 8px;
+.header-logo img {
+    width: 24px;   /* 원하는 크기로 제한 */
+    height: 24px;  /* 비율 유지하려면 하나만 설정해도 됨 */
+    display: inline-block;
 }
+
 
 header a {
     display: inline-block;

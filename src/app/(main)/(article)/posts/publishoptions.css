@@ -1,0 +1,68 @@
+.publish-options {
+    position: absolute;
+    top: 3rem;
+    right: 0;
+    width: 340px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+}
+
+.publish-options .title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.option-row {
+    margin-bottom: 12px;
+}
+
+.option-row .label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.option-row select,
+.option-row input[type="text"] {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.checkbox-group label {
+    font-size: 13px;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.actions button {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.actions .publish-btn {
+    background: #03c75a;
+    color: #fff;
+    border: none;
+}
