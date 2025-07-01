@@ -36,3 +36,13 @@ header button {
     border-radius: 4px;
     cursor: pointer;
 }
+
+/* 로고 이미지 래퍼를 쓰기 위한 부모 래퍼 */
+.logo-area {
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 수직 정렬 */
+}
+
+.logo-img.blog-logo {
+    margin-left: 4px; /* 원하면 8~16px 정도 */
+}

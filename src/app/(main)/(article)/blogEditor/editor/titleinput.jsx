@@ -11,7 +11,7 @@ export default function TitleInput({ title, setTitle, contentRef }) {
     if (text === '') {
       e.currentTarget.innerHTML = '';
     }
-    setTitle(text); // ✅ 제목은 setTitle로만!
+    setTitle(text); // 제목은 setTitle로만!
   };
 
   // 엔터키 누르면 contentRef로 포커스 이동
