@@ -1,17 +1,13 @@
 'use client';
-
 import React, { useState, useRef } from 'react';
-// 툴바 컴포넌트 import
-import { Toolbar } from '@/src/app/(main)/(article)/blogEditor/toolbar/insertToolbar';
-// 제목 입력 컴포넌트 import
-import TitleInput from './editor/titleinput';
-// 본문 입력 컴포넌트 import
-import ContentEditor from './editor/contenteditor';
+import { Toolbar } from '@/src/app/(main)/(article)/blogEditor/toolbar/InsertToolbar';
+import TitleInput from './editor/TitleInput';
+import ContentEditor from './editor/ContentEditor';
 // 헤더 스타일 import (동작하지 않아도 로드)
-import styles from './header.css';
-import PublishOptions from "../posts/publishoption";
-
-import Header from "@/src/app/(main)/(article)/blogEditor/header";
+import styles from './Header.css';
+import PublishOptions from '@/src/app/(main)/(article)/blogEditor/posts/PublishOption';
+import Header from '@/src/app/(main)/(article)/blogEditor/Header';
+import './editor/Editor.css';
 
 export default function BlogEditor() {
   styles; // CSS가 빌드에 포함되도록만 처리
@@ -29,23 +25,17 @@ export default function BlogEditor() {
 
   return (
     <div className="flex flex-col h-screen bg-[#f5f5f5]">
-        <>
-            <Header
-                title={title}
-                content={content}
-                onOpenPublishOptions={() => setShowPublishOptions(true)}
-            />
+      <>
+        <Header
+          title={title}
+          content={content}
+          onOpenPublishOptions={() => setShowPublishOptions(true)}
+        />
 
-            {showPublishOptions && (
-                <PublishOptions onClose={() => setShowPublishOptions(false)} />
-            )}
+        {showPublishOptions && <PublishOptions onClose={() => setShowPublishOptions(false)} />}
 
-            <main>
-                {/* 입력창 */}
-            </main>
-        </>
-
-
+        <main>{/* 입력창 */}</main>
+      </>
 
       {/* 삽입 툴바 (이미지, 링크 등) */}
       <Toolbar />

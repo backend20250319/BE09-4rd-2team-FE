@@ -1,5 +1,3 @@
-/* tailwind 자동적용으로 css가 안먹혀서 새로 모듈처럼 만들어준 header.css */
-
 .flex.items-center {
     font-size: 0;
 }
@@ -35,4 +33,14 @@ header button {
     background: #fff;
     border-radius: 4px;
     cursor: pointer;
+}
+
+/* 로고 이미지 래퍼를 쓰기 위한 부모 래퍼 */
+.logo-area {
+    display: flex; /* 가로 배치 */
+    align-items: center; /* 수직 정렬 */
+}
+
+.logo-img.blog-logo {
+    margin-left: 4px; /* 원하면 8~16px 정도 */
 }
