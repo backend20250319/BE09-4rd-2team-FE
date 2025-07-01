@@ -1,5 +1,3 @@
-/* tailwind 자동적용으로 css가 안먹혀서 새로 모듈처럼 만들어준 header.css */
-
 .flex.items-center {
     font-size: 0;
 }

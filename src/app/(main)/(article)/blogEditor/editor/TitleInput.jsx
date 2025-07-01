@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import './title.css';
+import './Title.css';
 
 export default function TitleInput({ title, setTitle, contentRef }) {
   const ref = useRef(null);

@@ -1,30 +1,35 @@
 .publish-options {
     position: absolute;
-    top: 3rem;
+    top: 50px;
     right: 0;
-    width: 340px;
+    width: 400px;
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 16px;
+    padding: 50px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     z-index: 1000;
     font-family: Arial, sans-serif;
 }
 
 .publish-options .title {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     margin-bottom: 12px;
 }
 
 .option-row {
-    margin-bottom: 12px;
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd; /* 줄 추가 */
+    padding: 12px 0;
 }
 
 .option-row .label {
-    display: block;
-    font-weight: bold;
+    display: inline-block;
+    width: 80px;
     margin-bottom: 4px;
 }
 

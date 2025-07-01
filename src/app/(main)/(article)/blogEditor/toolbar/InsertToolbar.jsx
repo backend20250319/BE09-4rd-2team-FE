@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import './sprite.css';
+import './Sprite.css';
 import UploadImage from '../../../../../components/uploadimage/UploadImage';
 
 // 좌측 삽입 도구 (bg- prefix로 수정)

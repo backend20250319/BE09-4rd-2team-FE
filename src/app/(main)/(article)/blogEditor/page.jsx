@@ -1,13 +1,13 @@
 'use client';
 import React, { useState, useRef } from 'react';
-import { Toolbar } from '@/src/app/(main)/(article)/blogEditor/toolbar/insertToolbar';
-import TitleInput from './editor/titleinput';
-import ContentEditor from './editor/contenteditor';
+import { Toolbar } from '@/src/app/(main)/(article)/blogEditor/toolbar/InsertToolbar';
+import TitleInput from './editor/TitleInput';
+import ContentEditor from './editor/ContentEditor';
 // 헤더 스타일 import (동작하지 않아도 로드)
-import styles from './header.css';
-import PublishOptions from '@/src/app/(main)/(article)/blogEditor/posts/publishoption';
-import Header from '@/src/app/(main)/(article)/blogEditor/header';
-import './editor/editor.css';
+import styles from './Header.css';
+import PublishOptions from '@/src/app/(main)/(article)/blogEditor/posts/PublishOption';
+import Header from '@/src/app/(main)/(article)/blogEditor/Header';
+import './editor/Editor.css';
 
 export default function BlogEditor() {
   styles; // CSS가 빌드에 포함되도록만 처리
