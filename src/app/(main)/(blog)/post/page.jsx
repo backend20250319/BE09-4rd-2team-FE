@@ -6,9 +6,20 @@ import SympathyList from '@/src/app/(main)/(blog)/sympathyList/page';
 
 export default function PostPage() {
   const [activeTab, setActiveTab] = useState(null); // 'sympathy' | 'comments' | null
+  const [isLiked, setIsLiked] = useState(false);
+  const [sympathyCount, setSympathyCount] = useState(10);
 
-  const sympathyCount = 10;
   const commentCount = 5;
+
+  // 공감 버튼 클릭 핸들러
+  const handleLikeClick = () => {
+    setIsLiked(!isLiked);
+    if (!isLiked) {
+      setSympathyCount(sympathyCount + 1);
+    } else {
+      setSympathyCount(sympathyCount - 1);
+    }
+  };
 
   return (
     <div
@@ -24,20 +35,20 @@ export default function PostPage() {
           display: 'flex',
           gap: '8px',
           marginBottom: '20px',
-          paddingBottom: '16px',
-          borderBottom: '1px solid #f1f3f4',
         }}
       >
         {/* 공감 버튼 */}
         <button
-          onClick={() => setActiveTab(activeTab === 'sympathy' ? null : 'sympathy')}
+          onClick={() => {
+            setActiveTab(activeTab === 'sympathy' ? null : 'sympathy');
+            handleLikeClick();
+          }}
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
             padding: '8px 12px',
             border: '1px solid #ddd',
-            borderRadius: '4px',
             backgroundColor: activeTab === 'sympathy' ? '#f8f9fa' : '#fff',
             cursor: 'pointer',
             fontSize: '14px',
@@ -46,12 +57,10 @@ export default function PostPage() {
         >
           <span
             style={{
-              fontSize: '13px',
-              color: '#666',
-              letterSpacing: '-4px',
+              fontSize: '16px',
             }}
           >
-            ♡♡
+            {isLiked ? '❤️' : '🤍'}
           </span>
 
           <span>공감 {sympathyCount}</span>
@@ -69,7 +78,6 @@ export default function PostPage() {
             gap: '6px',
             padding: '8px 12px',
             border: '1px solid #ddd',
-            borderRadius: '4px',
             backgroundColor: activeTab === 'comments' ? '#f8f9fa' : '#fff',
             cursor: 'pointer',
             fontSize: '14px',
@@ -84,7 +92,6 @@ export default function PostPage() {
               backgroundColor: '#ff4757',
               color: 'white',
               padding: '2px 4px',
-              borderRadius: '2px',
               marginLeft: '2px',
             }}
           >

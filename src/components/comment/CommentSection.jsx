@@ -64,10 +64,9 @@ const CommentSection = () => {
     <div
       style={{
         maxWidth: '920px',
-        margin: '40px auto',
+        margin: '10px auto',
         padding: '20px',
         backgroundColor: '#ffffff',
-        border: '1px solid #e1e5e9', // 전체 테두리 추가
       }}
     >
       {/* 댓글 목록 */}

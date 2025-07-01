@@ -80,9 +80,8 @@ export default function SympathyListPage() {
         maxWidth: '920px', // 네이버와 비슷한 너비
         margin: '0 auto', // 중앙 정렬
         padding: '20px',
-        backgroundColor: '#ffffff', // ← 추가
-        border: '1px solid #e1e5e9', // ← 추가
-        borderRadius: '8px', // ← 추가
+        backgroundColor: '#ffffff',
+        border: '1px solid #e1e5e9',
       }}
     >
       <div style={{ marginBottom: '24px' }}>

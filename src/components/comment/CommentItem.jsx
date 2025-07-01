@@ -106,7 +106,6 @@ const CommentItem = ({ comment, onLike }) => {
             style={{
               background: 'none',
               border: '1px solid #ddd',
-              borderRadius: '4px',
               color: '#666',
               fontSize: '12px',
               cursor: 'pointer',
@@ -134,7 +133,6 @@ const CommentItem = ({ comment, onLike }) => {
             gap: '4px',
             background: 'none',
             border: '1px solid #ddd',
-            borderRadius: '4px',
             cursor: 'pointer',
             fontSize: '12px',
             color: '#666',
