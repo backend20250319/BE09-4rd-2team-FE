@@ -2,30 +2,13 @@
 
 import { useState } from 'react';
 import CommentSection from '@/src/components/comment/CommentSection';
+import SympathyList from '@/src/app/(main)/(blog)/sympathyList/page';
 
 export default function PostPage() {
   const [activeTab, setActiveTab] = useState(null); // 'sympathy' | 'comments' | null
 
-  // 더미 데이터
-  const sympathyCount = 122;
-  const commentCount = 12;
-
-  // 공감한 블로거 더미 컴포넌트 (임시)
-  const SympathyList = () => (
-    <div
-      style={{
-        maxWidth: '920px',
-        margin: '0 auto',
-        padding: '20px',
-        backgroundColor: '#ffffff',
-        border: '1px solid #e1e5e9',
-        borderRadius: '8px',
-      }}
-    >
-      <h3>이 글에 공감한 블로거</h3>
-      <p>공감한 블로거 목록이 여기에 표시됩니다.</p>
-    </div>
-  );
+  const sympathyCount = 10;
+  const commentCount = 5;
 
   return (
     <div
