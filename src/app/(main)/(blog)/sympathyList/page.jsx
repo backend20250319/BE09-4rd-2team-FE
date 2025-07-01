@@ -77,8 +77,8 @@ export default function SympathyListPage() {
   return (
     <div
       style={{
-        maxWidth: '920px', // 네이버와 비슷한 너비
-        margin: '0 auto', // 중앙 정렬
+        maxWidth: '920px',
+        margin: '0 auto',
         padding: '20px',
         backgroundColor: '#ffffff',
         border: '1px solid #e1e5e9',

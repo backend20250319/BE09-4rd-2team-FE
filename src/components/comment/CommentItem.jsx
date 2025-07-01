@@ -1,6 +1,11 @@
 'use client';
 
+import { useState } from 'react';
+
 const CommentItem = ({ comment, onLike }) => {
+  const [isCommentLiked, setIsCommentLiked] = useState(false);
+  const [commentLikeCount, setCommentLikeCount] = useState(comment.likes || 0);
+
   const getInitial = name => {
     return name ? name.charAt(0) : '?';
   };
@@ -12,6 +17,21 @@ const CommentItem = ({ comment, onLike }) => {
         {index < content.split('\n').length - 1 && <br />}
       </span>
     ));
+  };
+
+  // 댓글 공감 클릭 핸들러
+  const handleCommentLike = () => {
+    setIsCommentLiked(!isCommentLiked);
+    if (!isCommentLiked) {
+      setCommentLikeCount(commentLikeCount + 1);
+    } else {
+      setCommentLikeCount(commentLikeCount - 1);
+    }
+
+    // 부모 컴포넌트 onLike 함수도 호출 (기존 로직 유지)
+    if (onLike) {
+      onLike();
+    }
   };
 
   return (
@@ -126,7 +146,7 @@ const CommentItem = ({ comment, onLike }) => {
         }}
       >
         <button
-          onClick={onLike}
+          onClick={handleCommentLike}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -139,8 +159,8 @@ const CommentItem = ({ comment, onLike }) => {
             padding: '4px 8px',
           }}
         >
-          <span>♡</span>
-          <span>{comment.likes}</span>
+          <span style={{ fontSize: '14px' }}>{isCommentLiked ? '❤️' : '🤍'}</span>
+          <span>{commentLikeCount}</span>
         </button>
       </div>
     </div>
