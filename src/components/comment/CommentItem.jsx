@@ -90,7 +90,7 @@ const CommentItem = ({ comment, onLike }) => {
         </div>
       </div>
 
-      {/* 댓글 내용 영역 - 이미지 밑에서 시작 */}
+      {/* 댓글 내용 영역 */}
       <div
         style={{
           marginLeft: '5px',
@@ -109,7 +109,7 @@ const CommentItem = ({ comment, onLike }) => {
           {formatContent(comment.content)}
         </div>
 
-        {/* 시간 */}
+        {/* 작성 시간 */}
         <div
           style={{
             fontSize: '12px',
@@ -137,7 +137,7 @@ const CommentItem = ({ comment, onLike }) => {
         </div>
       </div>
 
-      {/* 공감 버튼 - 오른쪽 하단 */}
+      {/* 공감 버튼 */}
       <div
         style={{
           position: 'absolute',

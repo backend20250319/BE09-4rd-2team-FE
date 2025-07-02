@@ -112,7 +112,7 @@ export default function PostPage() {
 
       {activeTab === 'comments' && (
         <div style={{ marginTop: '20px' }}>
-          {/* 댓글 영역 - 테두리 없이 */}
+          {/* 댓글 영역 */}
           <div style={{ border: 'none' }}>
             <CommentSection />
           </div>

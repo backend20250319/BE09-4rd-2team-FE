@@ -62,13 +62,9 @@ const CommentSection = () => {
     setComments([...comments, newComment]);
   };
 
-  const handleLikeComment = () => {
-    // 간단한 더미 함수
-  };
+  const handleLikeComment = () => {};
 
-  const handleDeleteComment = () => {
-    // 간단한 더미 함수
-  };
+  const handleDeleteComment = () => {};
 
   return (
     <div
