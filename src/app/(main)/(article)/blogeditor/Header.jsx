@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import PublishOptions from '@/src/app/(main)/(article)/blogEditor/posts/PublishOption';
+import PublishOptions from '@/src/app/(main)/(article)/blogeditor/posts/PublishOption.jsx';
 import React, { useState } from 'react';
 
 export default function Header({ title, content, onOpenPublishOptions }) {
@@ -41,11 +41,9 @@ export default function Header({ title, content, onOpenPublishOptions }) {
       {/* 저장/발행 버튼 */}
       <div className="space-x-2">
         <button onClick={handleSave}>저장</button>
-        <button onClick={handlePublish} className="publish-btn">
+        <button onClick={onOpenPublishOptions} className="publish-btn">
           발행
         </button>
-
-        {showPublishOptions && <PublishOptions onClose={() => setShowPublishOptions(false)} />}
       </div>
     </header>
   );

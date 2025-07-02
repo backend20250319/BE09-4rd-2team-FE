@@ -1,13 +1,14 @@
 'use client';
 import React, { useState, useRef } from 'react';
-import { Toolbar } from '@/src/app/(main)/(article)/blogEditor/toolbar/InsertToolbar';
+import { Toolbar } from '@/src/app/(main)/(article)/blogeditor/toolbar/InsertToolbar';
 import TitleInput from './editor/TitleInput';
 import ContentEditor from './editor/ContentEditor';
 // 헤더 스타일 import (동작하지 않아도 로드)
 import styles from './Header.css';
-import PublishOptions from '@/src/app/(main)/(article)/blogEditor/posts/PublishOption';
-import Header from '@/src/app/(main)/(article)/blogEditor/Header';
+import PublishOptions from '@/src/app/(main)/(article)/blogeditor/posts/PublishOption.jsx';
+import Header from '@/src/app/(main)/(article)/blogeditor/Header';
 import './editor/Editor.css';
+// import PublishModal from './PublishModal'; // 모달 창 열고 닫기에 쓰임
 
 export default function BlogEditor() {
   styles; // CSS가 빌드에 포함되도록만 처리
@@ -22,6 +23,7 @@ export default function BlogEditor() {
   // 제목에서 엔터 시 내용으로 이동하기 위한 ref
   const contentRef = useRef(null);
   const [showPublishOptions, setShowPublishOptions] = useState(false);
+  const [showSubjectOptions, setShowSubjectOptions] = useState(false);
 
   return (
     <div className="flex flex-col h-screen bg-[#f5f5f5]">
@@ -32,7 +34,14 @@ export default function BlogEditor() {
           onOpenPublishOptions={() => setShowPublishOptions(true)}
         />
 
-        {showPublishOptions && <PublishOptions onClose={() => setShowPublishOptions(false)} />}
+        {showPublishOptions && (
+          <PublishOptions
+            onClose={() => setShowPublishOptions(false)}
+            onOpenSubject={() => setShowSubjectOptions(true)}
+            showSubjectOptions={showSubjectOptions}
+            onCloseSubject={() => setShowSubjectOptions(false)}
+          />
+        )}
 
         <main>{/* 입력창 */}</main>
       </>
