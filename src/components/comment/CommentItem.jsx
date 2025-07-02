@@ -1,6 +1,11 @@
 'use client';
 
+import { useState } from 'react';
+
 const CommentItem = ({ comment, onLike }) => {
+  const [isCommentLiked, setIsCommentLiked] = useState(false);
+  const [commentLikeCount, setCommentLikeCount] = useState(comment.likes || 0);
+
   const getInitial = name => {
     return name ? name.charAt(0) : '?';
   };
@@ -14,6 +19,21 @@ const CommentItem = ({ comment, onLike }) => {
     ));
   };
 
+  // 댓글 공감 클릭 핸들러
+  const handleCommentLike = () => {
+    setIsCommentLiked(!isCommentLiked);
+    if (!isCommentLiked) {
+      setCommentLikeCount(commentLikeCount + 1);
+    } else {
+      setCommentLikeCount(commentLikeCount - 1);
+    }
+
+    // 부모 컴포넌트 onLike 함수도 호출 (기존 로직 유지)
+    if (onLike) {
+      onLike();
+    }
+  };
+
   return (
     <div
       style={{
@@ -22,10 +42,13 @@ const CommentItem = ({ comment, onLike }) => {
         position: 'relative',
       }}
     >
+      {/* 프로필 이미지 + 닉네임 (한 줄) */}
       <div
         style={{
           display: 'flex',
+          alignItems: 'center',
           gap: '12px',
+          marginBottom: '8px',
         }}
       >
         {/* 프로필 이미지 */}
@@ -34,77 +57,107 @@ const CommentItem = ({ comment, onLike }) => {
             width: '36px',
             height: '36px',
             borderRadius: '50%',
-            backgroundColor: '#4a90e2',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             color: 'white',
             fontSize: '14px',
             fontWeight: 'bold',
+            overflow: 'hidden',
             flexShrink: 0,
           }}
         >
-          {getInitial(comment.author)}
+          <img
+            src={`https://i.pravatar.cc/36?u=${comment.author}`}
+            alt={comment.author}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
         </div>
 
-        {/* 댓글 내용 영역 */}
-        <div style={{ flex: 1 }}>
-          {/* 닉네임 */}
-          <div
-            style={{
-              fontWeight: 'bold',
-              fontSize: '14px',
-              color: '#333',
-              marginBottom: '6px',
-            }}
-          >
-            {comment.author}
-          </div>
-
-          {/* 댓글 내용 */}
-          <div
-            style={{
-              fontSize: '14px',
-              lineHeight: '1.5',
-              color: '#333',
-              marginBottom: '8px',
-              wordBreak: 'break-word',
-            }}
-          >
-            {formatContent(comment.content)}
-          </div>
-
-          {/* 시간 */}
-          <div
-            style={{
-              fontSize: '12px',
-              color: '#999',
-              marginBottom: '6px',
-            }}
-          >
-            {comment.timestamp}
-          </div>
-
-          {/* 답글 버튼 - 시간 아래 */}
-          <div>
-            <button
-              style={{
-                background: 'none',
-                border: '1px solid #ddd',
-                borderRadius: '4px',
-                color: '#666',
-                fontSize: '12px',
-                cursor: 'pointer',
-                padding: '4px 8px',
-              }}
-            >
-              답글
-            </button>
-          </div>
+        {/* 닉네임 */}
+        <div
+          style={{
+            fontWeight: 'bold',
+            fontSize: '14px',
+            color: '#333',
+          }}
+        >
+          {comment.author}
         </div>
       </div>
 
-      {/* 공감 버튼 - 오른쪽 하단 */}
+      {/* 댓글 내용 영역 */}
+      <div
+        style={{
+          marginLeft: '5px',
+        }}
+      >
+        {/* 🔥 비밀댓글 표시 - 새로 추가된 부분 */}
+        {comment.isSecret && (
+          <div
+            style={{
+              fontSize: '12px',
+              color: '#888',
+              marginBottom: '6px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              padding: '2px 6px',
+              backgroundColor: '#f8f9fa',
+              borderRadius: '4px',
+              width: 'fit-content',
+            }}
+          >
+            🔒 <span>비밀댓글</span>
+          </div>
+        )}
+
+        {/* 댓글 내용 */}
+        <div
+          style={{
+            fontSize: '14px',
+            lineHeight: '1.5',
+            color: '#333',
+            marginBottom: '8px',
+            wordBreak: 'break-word',
+          }}
+        >
+          {formatContent(comment.content)}
+        </div>
+
+        {/* 작성 시간 */}
+        <div
+          style={{
+            fontSize: '12px',
+            color: '#999',
+            marginBottom: '6px',
+          }}
+        >
+          {comment.timestamp}
+        </div>
+
+        {/* 답글 버튼 */}
+        <div>
+          <button
+            style={{
+              background: 'none',
+              border: '1px solid #ddd',
+              color: '#666',
+              fontSize: '12px',
+              cursor: 'pointer',
+              padding: '4px 8px',
+            }}
+          >
+            답글
+          </button>
+        </div>
+      </div>
+
+      {/* 공감 버튼 */}
       <div
         style={{
           position: 'absolute',
@@ -113,22 +166,21 @@ const CommentItem = ({ comment, onLike }) => {
         }}
       >
         <button
-          onClick={onLike}
+          onClick={handleCommentLike}
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '4px',
             background: 'none',
             border: '1px solid #ddd',
-            borderRadius: '4px',
             cursor: 'pointer',
             fontSize: '12px',
             color: '#666',
             padding: '4px 8px',
           }}
         >
-          <span>♡</span>
-          <span>{comment.likes}</span>
+          <span style={{ fontSize: '14px' }}>{isCommentLiked ? '❤️' : '🤍'}</span>
+          <span>{commentLikeCount}</span>
         </button>
       </div>
     </div>
