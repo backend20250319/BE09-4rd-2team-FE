@@ -96,6 +96,26 @@ const CommentItem = ({ comment, onLike }) => {
           marginLeft: '5px',
         }}
       >
+        {/* 🔥 비밀댓글 표시 - 새로 추가된 부분 */}
+        {comment.isSecret && (
+          <div
+            style={{
+              fontSize: '12px',
+              color: '#888',
+              marginBottom: '6px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              padding: '2px 6px',
+              backgroundColor: '#f8f9fa',
+              borderRadius: '4px',
+              width: 'fit-content',
+            }}
+          >
+            🔒 <span>비밀댓글</span>
+          </div>
+        )}
+
         {/* 댓글 내용 */}
         <div
           style={{
