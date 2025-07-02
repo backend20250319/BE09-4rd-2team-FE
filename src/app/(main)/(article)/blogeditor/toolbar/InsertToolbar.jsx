@@ -1,5 +1,7 @@
 'use client';
 
+// 여기는 jsx를 같이 사용
+
 import React from 'react';
 import './Sprite.css';
 import UploadImage from '../../../../../components/uploadimage/UploadImage';
