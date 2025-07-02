@@ -1,9 +1,9 @@
 .se_title {
     width: 100%;
-    font-size: 1.5rem;
-    font-weight: 400;
+    font-size: 32px;
+    font-weight: 340;
     outline: none;
-    padding: 0.5rem 0;
+    padding: 0.6rem;
 }
 
 .se_title:empty::before {
