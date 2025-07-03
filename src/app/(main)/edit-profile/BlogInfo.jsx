@@ -1,21 +1,9 @@
-import React from "react";
-import "./BlogBasicInfo.css";
+import React from 'react';
+import './BlogBasicInfo.css';
 
 export default function BlogBasicInfo() {
   return (
     <div className="blog-admin-container">
-      <div className="sidebar">
-        <div className="sidebar-title">기본 설정 관리</div>
-        <ul className="sidebar-menu">
-          <li className="active">기본 정보 관리</li>
-          <li>사생활 보호</li>
-          <li>스팸차단</li>
-          <li>열린 이웃</li>
-          <li>공지사항</li>
-          <li>블로그 이용 Tip</li>
-          <li>블로그 스마트봇</li>
-        </ul>
-      </div>
       <div className="main-content">
         <h2 className="section-title">블로그 정보</h2>
         <form className="basic-info-form">
@@ -41,10 +29,7 @@ export default function BlogBasicInfo() {
           </div>
           <div className="form-row">
             <label htmlFor="description">소개글</label>
-            <textarea
-              id="description"
-              placeholder="블로그 소개글을 입력하세요."
-            />
+            <textarea id="description" placeholder="블로그 소개글을 입력하세요." />
           </div>
           <div className="form-row">
             <label htmlFor="topic">내 블로그 주제</label>
@@ -70,9 +55,7 @@ export default function BlogBasicInfo() {
               </div>
               <div>
                 <input type="checkbox" id="profile-public" />
-                <label htmlFor="profile-public">
-                  네이버 프로필에도 적용합니다.
-                </label>
+                <label htmlFor="profile-public">네이버 프로필에도 적용합니다.</label>
               </div>
             </div>
           </div>
@@ -85,10 +68,7 @@ export default function BlogBasicInfo() {
                 className="cover-img"
               />
               <div className="img-desc">
-                <span>
-                  커버 이미지는 3MB 이하의 jpg, gif, png 파일만 등록할 수
-                  있습니다.
-                </span>
+                <span>커버 이미지는 3MB 이하의 jpg, gif, png 파일만 등록할 수 있습니다.</span>
                 <a href="#">이미지 업로드/삭제</a>
               </div>
             </div>
