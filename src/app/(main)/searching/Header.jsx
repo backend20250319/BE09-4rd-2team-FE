@@ -32,23 +32,10 @@ export default function Header({ selected = '글' }) {
   const handleSearch = e => {
     e.preventDefault();
 
-    // 선택된 옵션에 따라 경로 지정
-    let targetPath = '';
-    switch (selectedOption) {
-      case '글':
-        targetPath = '/contentResult';
-        break;
-      case '블로그':
-        targetPath = '/blogResult';
-        break;
-      case '별명.아이디':
-        targetPath = '/idResult';
-        break;
-      default:
-        targetPath = '/contentResult';
-    }
-
-    router.push(`${targetPath}?query=${encodeURIComponent(searchQuery)}`);
+    // 선택된 옵션과 검색어를 쿼리스트링으로 전달
+    const encodedOption = encodeURIComponent(selectedOption);
+    const encodedQuery = encodeURIComponent(searchQuery);
+    router.push(`/searchResult?mode=${encodedOption}&query=${encodedQuery}`);
   };
 
   return (
