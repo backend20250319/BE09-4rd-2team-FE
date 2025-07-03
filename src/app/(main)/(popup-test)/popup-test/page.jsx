@@ -3,7 +3,7 @@ import '../../(neighbor)/style.css'
 export default function NeighborPopupPage() {
 
   return (
-    <div style={{ padding: '30px', fontFamily: "나눔스퀘어"}}>
+    <div className="popup-container" style={{ padding: '30px', fontFamily: "나눔스퀘어"}} >
       <h2 style={{ fontSize: '20px', fontWeight: 'bold'}}>이웃추가</h2>
       <p className="popup-buddy-box">
         <strong style={{ color: '#00c73c' }}>말꽃나까</strong>님을
