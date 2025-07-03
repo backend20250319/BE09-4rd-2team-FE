@@ -5,12 +5,14 @@ import { useState } from 'react';
 const CommentForm = ({ onAddComment }) => {
   const [comment, setComment] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isSecret, setIsSecret] = useState(false);
 
   const handleSubmit = e => {
     e.preventDefault();
     if (comment.trim()) {
-      onAddComment(comment.trim());
+      onAddComment(comment.trim(), isSecret);
       setComment('');
+      setIsSecret(false);
       setIsExpanded(false);
     }
   };
@@ -42,7 +44,6 @@ const CommentForm = ({ onAddComment }) => {
               backgroundColor: '#fff',
             }}
           >
-            {/* 가짜 placeholder */}
             {!comment && !isExpanded && (
               <div
                 style={{
@@ -117,6 +118,8 @@ const CommentForm = ({ onAddComment }) => {
                 >
                   <input
                     type="checkbox"
+                    checked={isSecret}
+                    onChange={e => setIsSecret(e.target.checked)}
                     style={{
                       width: '16px',
                       height: '16px',
