@@ -4,7 +4,7 @@ import BlackHeader from './BlackHeader';
 import BlogTitle from './BlogTitle';
 import PostList from './PostList';
 import Profile from './Profile';
-import MyPostBox from './MyPostBox';
+import MyPostBox from '../../../components/blogpage/MyPostBox';
 
 export default function myBlog() {
   // 샘플 글 데이터
