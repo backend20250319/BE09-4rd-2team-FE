@@ -5,7 +5,6 @@ export default function MainPage() {
   return (
     <div>
       <BlogHome />
-      <LoginModal />
     </div>
   );
 }
