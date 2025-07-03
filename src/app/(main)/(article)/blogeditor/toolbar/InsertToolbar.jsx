@@ -1,7 +1,9 @@
 'use client';
 
+// 여기는 jsx를 같이 사용
+
 import React from 'react';
-import './sprite.css';
+import './Sprite.css';
 import UploadImage from '../../../../../components/uploadimage/UploadImage';
 
 // 좌측 삽입 도구 (bg- prefix로 수정)
@@ -31,7 +33,7 @@ const rightTools = [
 export function Toolbar() {
   const handleImageUpload = url => {
     console.log('삽입할 이미지 URL:', url);
-    // 👉 Toast UI 등에서 사용
+    // Toast UI 등에서 사용
   };
 
   return (
@@ -42,7 +44,7 @@ export function Toolbar() {
         alignItems: 'center',
         background: '#fff',
         borderBottom: '1px solid #ddd',
-        padding: 0, // ✅ 좌우 여백 제거
+        padding: 0, // 좌우 여백 제거
         height: '52px', // 원본 높이 비슷하게 맞추기
       }}
     >

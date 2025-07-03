@@ -5,7 +5,7 @@ import CommentForm from './CommentForm';
 import CommentList from './CommentList';
 
 const CommentSection = () => {
-  const [comments] = useState([
+  const [comments, setComments] = useState([
     {
       id: 1,
       author: '쏭블리',
@@ -48,26 +48,31 @@ const CommentSection = () => {
     },
   ]);
 
-  const handleAddComment = () => {
-    // 간단한 더미 함수
+  const handleAddComment = (content, isSecret) => {
+    const newComment = {
+      id: Date.now(),
+      author: '새로운 사용자',
+      content: content,
+      timestamp: new Date().toLocaleString('ko-KR'),
+      likes: 0,
+      isLiked: false,
+      isSecret: isSecret,
+    };
+
+    setComments([...comments, newComment]);
   };
 
-  const handleLikeComment = () => {
-    // 간단한 더미 함수
-  };
+  const handleLikeComment = () => {};
 
-  const handleDeleteComment = () => {
-    // 간단한 더미 함수
-  };
+  const handleDeleteComment = () => {};
 
   return (
     <div
       style={{
         maxWidth: '920px',
-        margin: '40px auto',
+        margin: '10px auto',
         padding: '20px',
         backgroundColor: '#ffffff',
-        border: '1px solid #e1e5e9', // 전체 테두리 추가
       }}
     >
       {/* 댓글 목록 */}

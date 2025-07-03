@@ -4,7 +4,7 @@
 // contentRef 를 외부에서 전달받아 제목에서 포커스 이동 가능
 import { useRef } from 'react';
 // 본문 영역 전용 CSS
-import './content.css';
+import './Content.css';
 
 export default function ContentEditor({ content, setContent, contentRef }) {
   // 입력이 끝나고 포커스를 잃으면 내용을 저장
