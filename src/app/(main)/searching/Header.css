@@ -121,6 +121,8 @@ body {
   font-size: 13px;
   cursor: pointer;
   transition: background 0.2s;
+  text-decoration: none;
+  font-family: NanumGothic, sans-serif;
 }
 
 .dropdown-select .item.selected,
@@ -136,7 +138,6 @@ body {
 
 /* 선택된 옵션 */
 .selected-option {
-  gap: 40px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -145,7 +146,12 @@ body {
   color: #00ab33;
   height: 35px;
   padding-left: 8px;
-  line-height: 7px;
+  white-space: nowrap;
+  width: 90%;
+  justify-content: space-between;
+  gap : 0;
+  text-decoration: none;
+  font-family: NanumGothic, sans-serif;
 }
 
 .icon-arrow {
