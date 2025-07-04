@@ -1,13 +1,19 @@
+/* page.jsx */
+
 'use client';
 import React, { useState, useRef } from 'react';
-import { Toolbar } from '@/src/app/(main)/(article)/blogeditor/toolbar/InsertToolbar';
+import { Toolbar } from '@/src/app/(main)/(article)/blog-editor/toolbar/InsertToolbar';
 import TitleInput from './editor/TitleInput';
 import ContentEditor from './editor/ContentEditor';
 // 헤더 스타일 import (동작하지 않아도 로드)
 import styles from './Header.css';
-import PublishOptions from '@/src/app/(main)/(article)/blogeditor/posts/PublishOption.jsx';
-import Header from '@/src/app/(main)/(article)/blogeditor/Header';
+// 발행 설정창
+import PublishOptions from '@/src/app/(main)/(article)/blog-editor/posts/PublishOption.jsx';
+import SubjectSettings from '@/src/app/(main)/(article)/blog-editor/posts/SubjectSettings';
+// 최상단 툴바
+import Header from '@/src/app/(main)/(article)/blog-editor/Header';
 import './editor/Editor.css';
+import Modal from './posts/Modal';
 // import PublishModal from './PublishModal'; // 모달 창 열고 닫기에 쓰임
 
 export default function BlogEditor() {
@@ -23,10 +29,11 @@ export default function BlogEditor() {
   // 제목에서 엔터 시 내용으로 이동하기 위한 ref
   const contentRef = useRef(null);
   const [showPublishOptions, setShowPublishOptions] = useState(false);
-  const [showSubjectOptions, setShowSubjectOptions] = useState(false);
+  const [showSubjectSettings, setShowSubjectSettings] = useState(false);
+  const [selectedSubject, setSelectedSubject] = useState('주제 선택 안 함');
 
   return (
-    <div className="flex flex-col h-screen bg-[#f5f5f5]">
+    <div>
       <>
         <Header
           title={title}
@@ -34,13 +41,35 @@ export default function BlogEditor() {
           onOpenPublishOptions={() => setShowPublishOptions(true)}
         />
 
+        {/* 주제설정창 ON */}
         {showPublishOptions && (
-          <PublishOptions
-            onClose={() => setShowPublishOptions(false)}
-            onOpenSubject={() => setShowSubjectOptions(true)}
-            showSubjectOptions={showSubjectOptions}
-            onCloseSubject={() => setShowSubjectOptions(false)}
-          />
+          <Modal onClose={() => setShowPublishOptions(false)}>
+            <PublishOptions
+              onClose={() => setShowPublishOptions(false)}
+              onOpenSubject={() => {
+                setShowPublishOptions(false); // 발행설정 모달 끔
+                setShowSubjectSettings(true); // 주제설정 모달 켬
+              }}
+              selectedSubject={selectedSubject}
+            />
+          </Modal>
+        )}
+
+        {/* 발행설정창 ON */}
+        {showSubjectSettings && (
+          <Modal onClose={() => setShowSubjectSettings(false)}>
+            <SubjectSettings
+              onClose={() => {
+                setShowSubjectSettings(false);
+                setShowPublishOptions(true);
+              }}
+              onConfirm={subject => {
+                setSelectedSubject(subject);
+                setShowSubjectSettings(false);
+                setShowPublishOptions(true);
+              }}
+            />
+          </Modal>
         )}
 
         <main>{/* 입력창 */}</main>
@@ -48,13 +77,6 @@ export default function BlogEditor() {
 
       {/* 삽입 툴바 (이미지, 링크 등) */}
       <Toolbar />
-
-      {/*/!* 서식 툴바 (굵게, 기울임, 글꼴 등) *!/*/}
-      {/*<div className="flex items-center px-6 py-3 bg-white border-b">*/}
-      {/*  <button className="px-2 py-1 hover:bg-gray-100 rounded">굵게</button>*/}
-      {/*  <button className="px-2 py-1 hover:bg-gray-100 rounded">기울임</button>*/}
-      {/*  <button className="px-2 py-1 hover:bg-gray-100 rounded">글꼴</button>*/}
-      {/*</div>*/}
 
       {/* 본문 작성 영역 */}
       <main className="flex justify-center py-8">
