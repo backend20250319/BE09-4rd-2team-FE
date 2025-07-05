@@ -1,7 +1,7 @@
 import React from 'react';
-import './MyPostBoxFooterIcons.css';
+import './PostBoxFooterIcons.css';
 
-export default function MyPostBoxFooterIcons() {
+export default function PostBoxFooterIcons() {
   return (
     <div className="post-footer">
       {/* 좌측: 공감/댓글 */}
@@ -10,24 +10,19 @@ export default function MyPostBoxFooterIcons() {
         <button className="action-btn">💬 댓글 쓰기</button>
       </div>
 
-      {/* 우측: 아이콘 + 관리버튼 */}
+      {/* 우측: 아이콘 + 관리버튼 🗝️ 수정/삭제버튼 */}
       <div className="post-icons-manage">
         <div className="share-icons">
+          <button className="icon-btn blog-spi" aria-label="블로그 보내기"></button>
           <button className="icon-btn cafe-spi" aria-label="카페 보내기"></button>
-          <button className="icon-btn keep-spi" aria-label="keep 보내기"></button> {/*-252px 0px;*/}
-          <button className="icon-btn memo-spi" aria-label="memo 보내기"></button>{' '}
+          <button className="icon-btn keep-spi" aria-label="keep 보내기"></button>
+          {/*-252px 0px;*/}
+          <button className="icon-btn memo-spi" aria-label="memo 보내기"></button>
           {/*-252px -64px;*/}
-          <button className="icon-btn realse-spi" aria-label="기타 보내기 펼치기 "></button>{' '}
+          <button className="icon-btn realse-spi" aria-label="기타 보내기 펼치기 "></button>
           {/*-252px -96px;*/}
-          {/*-252px -64px;*/}
         </div>
         <div className="manage-btns">
-          <a href="#" className="owner-btn">
-            수정
-          </a>
-          <a href="#" className="owner-btn">
-            삭제
-          </a>
           <a
             href="#"
             id="configBtn1"
@@ -36,7 +31,7 @@ export default function MyPostBoxFooterIcons() {
             aria-haspopup="true"
             aria-expanded="false"
           >
-            설정 <i className="bu_arr"></i>
+            인쇄
           </a>
         </div>
       </div>

@@ -38,6 +38,9 @@
     cursor: pointer;
     text-indent: -9999px;
 }
+.icon-btn.blog-spi {
+    background-position: -134px -210px;
+}
 
 .icon-btn.cafe-spi {
     background-position: -166px -210px;
@@ -84,8 +87,3 @@
     background: #f9f9f9;
 }
 
-.bu_arr::before {
-    content: "▼";
-    font-size: 10px;
-    margin-left: 4px;
-}

@@ -1,47 +1,48 @@
 import React from 'react';
-import '../my-blog-box/MyPostBox.css';
+import './PostBox.css';
+import PostBoxFooterIcons from './PostBoxFooterIcons';
+import MyPostMetaAction from './PostMetaAction';
+import TagButtons from './TagButton';
 
-export default function MyPostBox({ post, onEdit, onDelete }) {
+export default function PostBox({ post, onEdit, onDelete }) {
+  /* 🗝️ post 데이터 받아오기 */
+  const { category, blogTitle, nickName, date, profileImageUrl, content, tags } = post;
+
   return (
     <div className="post-box">
-      {/* 게시판 */}
-      <div className="board-name">게시판</div>
+      {/* 게시판 카테고리 */}
+      <h1 className="post-category">{category}</h1>
 
-      {/* 제목 */}
-      <h1 className="post-title">{post.title}</h1>
+      {/* 글 제목 */}
+      <h2 className="post-title">{blogTitle}</h2>
 
-      {/* 작성자, 날짜 */}
+      {/* 작성자 정보 */}
       <div className="post-meta">
-        <img src={post.profileImage} alt="프로필" className="author-img" />
-        <span className="post-author">{post.author}</span>
-        <span className="post-date">{post.date}</span>
+        <div className="post-author-info">
+          <img
+            src={profileImageUrl || 'https://ssl.pstatic.net/static/blog/m/img_default.gif'}
+            alt={`${nickName} 프로필`}
+            className="profile-img2"
+          />
+          <span className="post-author-name">{nickName}</span>
+          <span className="post-date">{date}</span>
+        </div>
+
+        <MyPostMetaAction onEdit={onEdit} onDelete={onDelete} />
       </div>
 
-      {/* 본문 */}
-      <p className="post-content">{post.content}</p>
+      {/* HTML 콘텐츠 렌더링 */}
+      {/* angerouslySetInnerHTML는 이름처럼 XSS 보안 문제가 생길 수 있으니, 실서비스라면 백엔드에서 반드시 HTML Sanitizing 처리.지금은 테스트니까 그대로 사용해도 됩니다.*/}
+      <div
+        className="post-content"
+        dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, '<br>') }}
+      ></div>
 
-      {/* 해시태그 */}
-      <div className="tags">
-        {post.tags.map((tag, i) => (
-          <button key={i} className="tag-btn">
-            #{tag}
-          </button>
-        ))}
-      </div>
+      {/* 태그 출력 */}
+      <TagButtons tags={tags} />
 
-      {/* 액션 버튼들 */}
-      <div className="post-actions">
-        <button className="action-button">💗 공감</button>
-        <button className="action-button">💬 댓글</button>
-        <button className="action-button">🔗 공유</button>
-        <button className="owner-button" onClick={onEdit}>
-          수정
-        </button>
-        <button className="owner-button" onClick={onDelete}>
-          삭제
-        </button>
-        <button className="owner-button">설정</button>
-      </div>
+      {/* 공감/댓글 등 */}
+      <PostBoxFooterIcons />
     </div>
   );
 }

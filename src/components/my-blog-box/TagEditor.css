@@ -48,4 +48,5 @@
     padding: 6px 12px;
     cursor: pointer;
     flex-shrink: 0;    /* 버튼은 크기 줄지 않음 */
+    color: #888; /* 폰트색 연하게 */
 }

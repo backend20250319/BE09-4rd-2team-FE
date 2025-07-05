@@ -28,7 +28,7 @@ export default function myBlog() {
                 blogTitle: '프로젝트',
                 nickName: '꼬미',
                 date: '2025.6.29 13:47',
-                imageUrls: '',
+                profileImageUrl: '',
                 content: '프론트엔드가 어렵다...\n' + '\n' + '리액트도 어렵다...\n',
                 tags: ['프론트엔드', '리액트'],
               }}
