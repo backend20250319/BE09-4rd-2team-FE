@@ -20,6 +20,9 @@ export default function myBlog() {
     },
   ]);
 
+  // 🗝️ 샘플 프로필 데이터
+  const [profileData] = useState([{}]);
+
   return (
     <>
       <BlackHeader />
@@ -33,7 +36,7 @@ export default function myBlog() {
           <div>
             {/* 🗝️카테고리, 제목, 닉네임, 작성일시, 이미지, 내용, 태그 받아오기 */}
             <PostBox
-              posts={{
+              post={{
                 category: '게시판',
                 blogTitle: '기본 제목',
                 nickName: '나는누구인가',
@@ -54,7 +57,7 @@ export default function myBlog() {
             />
           </div>
           <div>
-            <Profile />
+            <Profile profileData={profileData} />
           </div>
         </div>
       </main>
