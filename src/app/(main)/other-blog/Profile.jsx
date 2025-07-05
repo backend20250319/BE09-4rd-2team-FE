@@ -20,7 +20,7 @@ export default function Profile({ profileData }) {
           alt="프로필"
         />
         <div className="profile-info">
-          <div className="profile-nickName">나는누구인가</div>
+          <div className="profile-nickame">나는누구인가</div>
           <div className="profile-id">아이디</div>
           <div className="profile-badges">
             <a href="#">
