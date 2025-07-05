@@ -1,118 +1,118 @@
-import React, { useState } from "react";
-import "./PostList.css";
+import React, { useState } from 'react';
+import './PostList.css';
 
 const posts = [
   {
     id: 1,
-    title: "장마철의 시작, 빗소리와 함께",
+    title: '장마철의 시작, 빗소리와 함께',
     commentCount: 6,
     visibility: null, // 공개
     views: 14,
-    date: "2025. 6. 15.",
+    date: '2025. 6. 15.',
   },
   {
     id: 2,
-    title: "여름 바다에서의 하루",
+    title: '여름 바다에서의 하루',
     commentCount: 9,
     visibility: null, // 공개
     views: 38,
-    date: "2025. 6. 20.",
+    date: '2025. 6. 20.',
   },
   {
     id: 3,
-    title: "무더운 여름밤, 선풍기와 함께",
+    title: '무더운 여름밤, 선풍기와 함께',
     commentCount: 0,
     visibility: null, // 공개
     views: 0,
-    date: "2025. 6. 25.",
+    date: '2025. 6. 25.',
   },
   {
     id: 4,
-    title: "장맛비에 젖은 도시 풍경",
+    title: '장맛비에 젖은 도시 풍경',
     commentCount: 7,
-    visibility: "비공개",
+    visibility: '비공개',
     views: 38,
-    date: "2025. 6. 18.",
+    date: '2025. 6. 18.',
   },
   {
     id: 5,
-    title: "여름철 시원한 음료 추천",
+    title: '여름철 시원한 음료 추천',
     commentCount: 4,
     visibility: null, // 공개
     views: 41,
-    date: "2025. 6. 22.",
+    date: '2025. 6. 22.',
   },
   {
     id: 6,
-    title: "봄맞이 방 청소 후기",
+    title: '봄맞이 방 청소 후기',
     commentCount: 2,
     visibility: null, // 공개
     views: 15,
-    date: "2025. 2. 20.",
+    date: '2025. 2. 20.',
   },
   {
     id: 7,
-    title: "친구와 함께한 제주 여행",
+    title: '친구와 함께한 제주 여행',
     commentCount: 5,
-    visibility: "서로이웃공개",
+    visibility: '서로이웃공개',
     views: 32,
-    date: "2025. 2. 10.",
+    date: '2025. 2. 10.',
   },
   {
     id: 8,
-    title: "새로운 취미, 자전거 타기",
+    title: '새로운 취미, 자전거 타기',
     commentCount: 1,
     visibility: null, // 공개
     views: 8,
-    date: "2025. 1. 28.",
+    date: '2025. 1. 28.',
   },
   {
     id: 9,
-    title: "2025년 목표 세우기",
+    title: '2025년 목표 세우기',
     commentCount: 3,
-    visibility: "비공개",
+    visibility: '비공개',
     views: 3,
-    date: "2025. 1. 1.",
+    date: '2025. 1. 1.',
   },
   {
     id: 10,
-    title: "겨울방학 알차게 보내는 법",
+    title: '겨울방학 알차게 보내는 법',
     commentCount: 6,
-    visibility: "검색비허용",
+    visibility: '검색비허용',
     views: 27,
-    date: "2024. 12. 22.",
+    date: '2024. 12. 22.',
   },
   {
     id: 11,
-    title: "내가 사랑하는 카페 TOP3",
+    title: '내가 사랑하는 카페 TOP3',
     commentCount: 0,
     visibility: null, // 공개
     views: 11,
-    date: "2024. 12. 10.",
+    date: '2024. 12. 10.',
   },
   {
     id: 12,
-    title: "첫 눈 오는 날의 기록",
+    title: '첫 눈 오는 날의 기록',
     commentCount: 4,
-    visibility: "서로이웃공개",
+    visibility: '서로이웃공개',
     views: 19,
-    date: "2024. 11. 29.",
+    date: '2024. 11. 29.',
   },
   {
     id: 13,
-    title: "가을 단풍 여행 사진첩",
+    title: '가을 단풍 여행 사진첩',
     commentCount: 7,
     visibility: null, // 공개
     views: 44,
-    date: "2024. 11. 12.",
+    date: '2024. 11. 12.',
   },
   {
     id: 14,
-    title: "블로그 시작! 첫 글",
+    title: '블로그 시작! 첫 글',
     commentCount: 2,
     visibility: null, // 공개
     views: 5,
-    date: "2024. 10. 1.",
+    date: '2024. 10. 1.',
   },
 ];
 
@@ -138,16 +138,16 @@ function PostList() {
   };
 
   // 페이지 버튼 클릭 핸들러
-  const handlePageClick = (pageNum) => {
+  const handlePageClick = pageNum => {
     setCurrentPage(pageNum);
   };
 
   // 줄 수 변경 핸들러
-  const handlePostsPerPageChange = (e) => {
+  const handlePostsPerPageChange = e => {
     setPostsPerPage(Number(e.target.value));
     setCurrentPage(1); // 줄 수 바꿀 때 1페이지로 이동
   };
-
+  <span style="font-weight: bold;">프롤로그</span> | <span style="font-weight: bold;">블로그</span>;
   return (
     <div>
       <div className="menus">
@@ -157,10 +157,7 @@ function PostList() {
               <a href="#" className="link">
                 프롤로그
               </a>
-              <img
-                src="https://blogimgs.pstatic.net/nblog/spc.gif"
-                className="bar"
-              ></img>
+              <img src="https://blogimgs.pstatic.net/nblog/spc.gif" className="bar"></img>
             </li>
             <li>
               <a href="#" className="link blog-link">
@@ -175,19 +172,13 @@ function PostList() {
               <a href="#" className="link">
                 지도
               </a>
-              <img
-                src="https://blogimgs.pstatic.net/nblog/spc.gif"
-                className="bar"
-              ></img>
+              <img src="https://blogimgs.pstatic.net/nblog/spc.gif" className="bar"></img>
             </li>
             <li>
               <a href="#" className="link">
                 서재
               </a>
-              <img
-                src="https://blogimgs.pstatic.net/nblog/spc.gif"
-                className="bar"
-              ></img>
+              <img src="https://blogimgs.pstatic.net/nblog/spc.gif" className="bar"></img>
             </li>
             <li>
               <a href="#" className="link">
@@ -202,11 +193,11 @@ function PostList() {
           <span className="post-list-title">
             <span className="clickable-title" onClick={handleCollapse}>
               전체보기
-            </span>{" "}
+            </span>{' '}
             <span className="post-count">{posts.length}개의 글</span>
           </span>
           <button className="collapse-btn" onClick={handleCollapse}>
-            {isCollapsed ? "목록열기" : "목록닫기"}
+            {isCollapsed ? '목록열기' : '목록닫기'}
           </button>
         </div>
         {!isCollapsed && (
@@ -220,18 +211,14 @@ function PostList() {
                 </tr>
               </thead>
               <tbody>
-                {currentPosts.map((post) => (
+                {currentPosts.map(post => (
                   <tr key={post.id}>
                     <td className="title-cell">
                       <span className="main-title">{post.title}</span>
                       {post.commentCount > 0 && (
-                        <span className="comment-count">
-                          ({post.commentCount})
-                        </span>
+                        <span className="comment-count">({post.commentCount})</span>
                       )}
-                      {post.visibility && (
-                        <span className="post-tag">{post.visibility}</span>
-                      )}
+                      {post.visibility && <span className="post-tag">{post.visibility}</span>}
                     </td>
                     <td className="views-cell">{post.views}</td>
                     <td className="date-cell">{post.date}</td>
@@ -254,19 +241,15 @@ function PostList() {
               </select>
             </div>
             <div className="pagination">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                (num) => (
-                  <button
-                    key={num}
-                    className={`page-btn${
-                      num === currentPage ? " active" : ""
-                    }`}
-                    onClick={() => handlePageClick(num)}
-                  >
-                    {num}
-                  </button>
-                )
-              )}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(num => (
+                <button
+                  key={num}
+                  className={`page-btn${num === currentPage ? ' active' : ''}`}
+                  onClick={() => handlePageClick(num)}
+                >
+                  {num}
+                </button>
+              ))}
             </div>
           </>
         )}

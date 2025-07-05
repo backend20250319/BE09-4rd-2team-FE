@@ -12,9 +12,6 @@ export default function SubjectSettings({ onClose, onConfirm }) {
     <div className="subject-settings">
       <div className="header">
         <h3 className="title">주제 설정</h3>
-        <button className="close-btn" onClick={onClose}>
-          &times;
-        </button>
       </div>
 
       <p className="description">

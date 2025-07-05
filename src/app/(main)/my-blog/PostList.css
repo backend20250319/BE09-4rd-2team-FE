@@ -4,7 +4,11 @@
   align-items: center;
   width: 100%;
   max-width: 982px;
+  padding: 32px 0;
+  margin: 0 auto;
 }
+
+
 
 .menu1 ul,
 .menu2 ul {
@@ -50,8 +54,7 @@
   border: none;
   padding: 32px 0px;
   width: 100%;
-  max-width: 982px;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 

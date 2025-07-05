@@ -1,30 +1,23 @@
-import React, { useState } from "react";
-import "./Profile.css";
+import React, { useState } from 'react';
+import './Profile.css';
 
 export default function Profile() {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleToggle = () => {
-    setIsOpen((prev) => !prev);
+    setIsOpen(prev => !prev);
   };
 
   return (
     <div className="profile-area">
       <div className="profile-left">
-        <img
-          className="profile-img"
-          src="/assets/images/myblog/profile.png"
-          alt="꼬미 프로필"
-        />
+        <img className="profile-img" src="/assets/images/myblog/profile.png" alt="꼬미 프로필" />
         <div className="profile-info">
           <div className="profile-nickname">꼬미</div>
           <div className="profile-id">bloblaa</div>
           <div className="profile-badges">
             <a href="#">
-              <img
-                src="https://blogimgs.pstatic.net/blog20/tag/tag_edit.gif"
-                alt="edit"
-              />
+              <img src="https://blogimgs.pstatic.net/blog20/tag/tag_edit.gif" alt="edit" />
             </a>
             <span className="profile-link">
               프로필 <span className="profile-arrow">▸</span>
@@ -34,14 +27,10 @@ export default function Profile() {
       </div>
       <div className="profile-center">
         <div className="profile-category">
-          <div
-            className="category-title"
-            onClick={handleToggle}
-            style={{ cursor: "pointer" }}
-          >
+          <div className="category-title" onClick={handleToggle} style={{ cursor: 'pointer' }}>
             <b className="title-category">카테고리</b>
             <span
-              className={`category-arrow${!isOpen ? " rotated" : ""}`}
+              className={`category-arrow${!isOpen ? ' rotated' : ''}`}
               style={{ marginLeft: 8 }}
             >
               ⌄
@@ -53,10 +42,7 @@ export default function Profile() {
                 <span className="category-all">
                   전체보기 <span className="category-count">(1)</span>
                   <a href="#">
-                    <img
-                      src="https://blogimgs.pstatic.net/skin/b1/btn_edit.gif"
-                      alt="edit"
-                    />
+                    <img src="https://blogimgs.pstatic.net/skin/b1/btn_edit.gif" alt="edit" />
                   </a>
                 </span>
               </li>
@@ -68,7 +54,7 @@ export default function Profile() {
                     alt="new"
                     width={10}
                     height={10}
-                    style={{ marginTop: "2px" }}
+                    style={{ marginTop: '2px' }}
                   />
                 </span>
               </li>

@@ -1,5 +1,5 @@
 import React from 'react';
-import './MyPostBox.css';
+import '../my-blog-box/MyPostBox.css';
 
 export default function MyPostBox({ post, onEdit, onDelete }) {
   return (

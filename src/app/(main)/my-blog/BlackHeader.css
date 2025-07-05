@@ -15,7 +15,7 @@ body {
 }
 
 .header-inner {
-  width: 982px;
+  max-width: 982px;;
   margin: auto;
 }
 
