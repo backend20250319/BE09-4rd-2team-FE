@@ -8,7 +8,7 @@ const menuItems = [
   { name: '블로그 홈', href: '/blogHome' },
   { name: '주제별 보기', href: '/category' },
   { name: '이웃새글', href: '/neighborPost' },
-  { name: '글쓰기', href: '/blogEditor' },
+  { name: '글쓰기', href: '/blog-editor' },
 ];
 
 export default function MenuTabs() {

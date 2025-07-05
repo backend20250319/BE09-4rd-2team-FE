@@ -1,24 +1,9 @@
-// PublishOptions.jsx
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import './PublishOptions.css';
-import SubjectSettings from './SubjectSettings.jsx';
 
-export default function PublishOptions({ onClose, onConfirm }) {
-  // 주제 설정 모달 표시 여부 상태
-  const [showSubjectSettings, setShowSubjectSettings] = useState(false);
-  // 선택된 주제 라벨 상태
-  const [selectedSubject, setSelectedSubject] = useState('주제 선택 안 함');
-
-  // 주제 설정창에서 '확인' 버튼을 눌렀을 때 호출되는 콜백
-  // subject: 선택된 주제 문자열
-  const handleSubjectConfirm = subject => {
-    setSelectedSubject(subject); // 선택값 업데이트
-    setShowSubjectSettings(false); // 모달 닫기
-    onConfirm(subject); // 부모에게 선택값 전달
-  };
-
+export default function PublishOptions({ onClose, onOpenSubject, selectedSubject }) {
   return (
     <div className="publish-options">
       <h3 className="title">발행 설정</h3>
@@ -33,25 +18,13 @@ export default function PublishOptions({ onClose, onConfirm }) {
         </select>
       </div>
 
-      {/* 주제 선택: 버튼 클릭 시 SubjectSettings 모달 오픈 */}
+      {/* 주제 선택: 버튼 클릭 시 부모에서 넘긴 onOpenSubject 실행 */}
       <div className="option-row">
         <label className="label">주제</label>
-        <button
-          type="button"
-          className="subject-trigger"
-          onClick={() => setShowSubjectSettings(true)} // 모달 열기
-        >
+        <button type="button" className="subject-trigger" onClick={onOpenSubject}>
           {selectedSubject} &gt;
         </button>
       </div>
-
-      {/* 모달 렌더링: showSubjectSettings가 true일 때만 표시 */}
-      {showSubjectSettings && (
-        <SubjectSettings
-          onClose={() => setShowSubjectSettings(false)} // 모달 닫기
-          onConfirm={handleSubjectConfirm} // 선택값 콜백
-        />
-      )}
 
       {/* 공개 설정 */}
       <div className="option-row">
@@ -94,7 +67,7 @@ export default function PublishOptions({ onClose, onConfirm }) {
         </div>
       </div>
 
-      {/* 태그 편집 */}
+      {/* 태그 입력 */}
       <div className="option-row">
         <label className="label">태그 편집</label>
         <input type="text" placeholder="#태그 입력 (최대 30개)" />
@@ -120,7 +93,7 @@ export default function PublishOptions({ onClose, onConfirm }) {
         </label>
       </div>
 
-      {/* 하단 버튼 */}
+      {/* 닫기/발행 버튼 */}
       <div className="actions">
         <button onClick={onClose}>닫기</button>
         <button className="publish-btn">발행</button>

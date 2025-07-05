@@ -4,7 +4,7 @@ import BlackHeader from './BlackHeader';
 import BlogTitle from './BlogTitle';
 import PostList from './PostList';
 import Profile from './Profile';
-import MyPostBox from './MyPostBox';
+import MyPostBox from '@/src/components/my-blog-box/MyPostBox';
 
 export default function myBlog() {
   // 샘플 글 데이터
@@ -24,11 +24,12 @@ export default function myBlog() {
           <div>
             <MyPostBox
               post={{
-                title: '프로젝트',
-                author: '꼬미',
+                category: '게시판',
+                blogTitle: '프로젝트',
+                nickName: '꼬미',
                 date: '2025.6.29 13:47',
-                profileImage: '/images/profile.png',
-                content: '프론트엔드 어렵다...',
+                profileImageUrl: '',
+                content: '프론트엔드가 어렵다...\n' + '\n' + '리액트도 어렵다...\n',
                 tags: ['프론트엔드', '리액트'],
               }}
               onEdit={() => console.log('수정')}
