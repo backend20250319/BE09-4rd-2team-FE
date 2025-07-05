@@ -5,6 +5,7 @@ import BlogList from '@/src/app/(main)/(blog)/common/BlogList';
 import blogs from '../common/blogs.json';
 import Header from '@/src/app/(main)/searching/Header';
 import MenuTabs from '@/src/components/header/MenuTabs';
+import LoginModal from '@/src/app/(main)/(loginmodal)/LoginModal';
 
 const categories = [...new Set(blogs.map(b => b.category))];
 
@@ -29,7 +30,7 @@ export default function BlogHome() {
         />
         <BlogList blogs={filtered} />
       </div>
-      {/*</div>*/}
+      <LoginModal />
     </div>
   );
 }

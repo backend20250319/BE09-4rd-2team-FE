@@ -1,12 +1,10 @@
 'use client';
 
-// 여기는 jsx를 같이 사용
-
 import React from 'react';
 import './Sprite.css';
 import UploadImage from '../../../../../components/uploadimage/UploadImage';
 
-// 좌측 삽입 도구 (bg- prefix로 수정)
+// 좌측 삽입 도구
 const leftTools = [
   { key: 'photo', sprite: 'bg-photo', label: '사진' },
   { key: 'mybox', sprite: 'bg-mybox', label: 'MYBOX' },
@@ -33,19 +31,17 @@ const rightTools = [
 export function Toolbar() {
   const handleImageUpload = url => {
     console.log('삽입할 이미지 URL:', url);
-    // Toast UI 등에서 사용
   };
 
   return (
     <div
       style={{
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between', // 좌우 배치
         alignItems: 'center',
         background: '#fff',
         borderBottom: '1px solid #ddd',
-        padding: 0, // 좌우 여백 제거
-        height: '52px', // 원본 높이 비슷하게 맞추기
+        height: '52px',
       }}
     >
       {/* 좌측 도구 */}
@@ -61,15 +57,15 @@ export function Toolbar() {
       >
         {leftTools.map(tool =>
           tool.key === 'photo' ? (
-            <li key={tool.key} style={{ display: 'flex' }}>
+            <li key={tool.key}>
               <UploadImage onUpload={handleImageUpload} />
             </li>
           ) : (
-            <li key={tool.key} style={{ display: 'flex' }}>
+            <li key={tool.key}>
               <button
                 style={{
                   minWidth: '40px',
-                  height: '54px',
+                  height: '52px',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
@@ -110,11 +106,11 @@ export function Toolbar() {
         }}
       >
         {rightTools.map(tool => (
-          <li key={tool.key} style={{ display: 'flex' }}>
+          <li key={tool.key}>
             <button
               style={{
                 minWidth: '40px',
-                height: '54px',
+                height: '52px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',

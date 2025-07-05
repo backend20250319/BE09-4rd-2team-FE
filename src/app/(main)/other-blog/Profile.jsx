@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import './Profile.css';
 
-export default function Profile() {
+export default function Profile({ profileData }) {
   const [isOpen, setIsOpen] = useState(true);
+
+  /* 🗝️ 프로필 데이터 받아오기 */
+  const { nickName, userId, profileImageUrl, categories, activity } = profileData;
 
   const handleToggle = () => {
     setIsOpen(prev => !prev);
@@ -11,10 +14,14 @@ export default function Profile() {
   return (
     <div className="profile-area">
       <div className="profile-left">
-        <img className="profile-img" src="/assets/images/myblog/profile.png" alt="꼬미 프로필" />
+        <img
+          className="profile-img"
+          src="https://ssl.pstatic.net/static/blog/m/img_default.gif"
+          alt="프로필"
+        />
         <div className="profile-info">
-          <div className="profile-nickname">꼬미</div>
-          <div className="profile-id">bloblaa</div>
+          <div className="profile-nickName">나는누구인가</div>
+          <div className="profile-id">아이디</div>
           <div className="profile-badges">
             <a href="#">
               <img src="https://blogimgs.pstatic.net/blog20/tag/tag_edit.gif" alt="edit" />
