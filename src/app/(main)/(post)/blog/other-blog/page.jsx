@@ -6,13 +6,23 @@ import PostList from '@/src/components/post/blog-header-footer/PostList';
 import Profile from '@/src/components/post/blog-header-footer/Profile';
 import PostBox from '/src/components/post/other-blog-box/PostBox';
 
-export default function myBlog() {
+export default function otherBlog() {
+  // 🗝️ 게시글 글 데이터 입력
+  const posts = [
+    {
+      id: 1,
+      title: '첫 번째 글',
+      content: '안녕하세요, 나는누구인가의 블로그입니다.',
+      nickname: '나는누구인가',
+    },
+  ];
+
   // 🗝️ PostBox 샘플 데이터 입력
   const post = [
     {
       category: '게시판',
       blogTitle: '기본 제목',
-      nickName: '나는누구인가',
+      nickname: '나는누구인가',
       date: '2025.6.29 13:47',
       profileImageUrl: '',
       content: `기본 텍스트 \n
@@ -38,13 +48,13 @@ export default function myBlog() {
       <main>
         <div className="whole-border">
           {/* 🗝️블로그 타이틀 받아오기*/}
-          <BlogTitle nickname={posts[0].nickName} />
+          <BlogTitle nickname={posts[0].nickname} />
           <div>
             <PostList posts={posts} />
           </div>
           <div>
             {/* 🗝️ 게시글: 카테고리, 제목, 닉네임, 작성일시, 이미지, 내용, 태그 받아오기 */}
-            <PostBox post={posts[0]} />
+            <PostBox post={post[0]} />
           </div>
           <div>
             {/* 🗝️ 프로필 데이터 받아오기 */}

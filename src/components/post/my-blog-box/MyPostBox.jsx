@@ -4,8 +4,16 @@ import MyPostBoxFooterIcons from './MyPostBoxFooterIcons';
 import MyPostMetaAction from './MyPostMetaAction';
 import TagEditor from './TapEditor';
 
-export default function MyPostBox({ post, onEdit, onDelete }) {
-  const { category, blogTitle, nickname, date, profileImageUrl, content, tags } = post;
+export default function MyPostBox({ myPost = {}, onEdit, onDelete }) {
+  const {
+    category = '',
+    blogTitle = '',
+    nickname = '',
+    date = '',
+    profileImageUrl = '',
+    content = '',
+    tags = [],
+  } = myPost;
 
   return (
     <div className="post-box">

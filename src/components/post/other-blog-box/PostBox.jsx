@@ -4,9 +4,17 @@ import PostBoxFooterIcons from './PostBoxFooterIcons';
 import MyPostMetaAction from './PostMetaAction';
 import TagButtons from './TagButton';
 
-export default function PostBox({ post, onEdit, onDelete }) {
+export default function PostBox({ post = {}, onEdit, onDelete }) {
   /* 🗝️ post 데이터 받아오기 */
-  const { category, blogTitle, nickName, date, profileImageUrl, content, tags } = post;
+  const {
+    category = '',
+    blogTitle = '',
+    nickname = '',
+    date = '',
+    profileImageUrl = '',
+    content = '',
+    tags = [],
+  } = post;
 
   return (
     <div className="post-box">
@@ -21,10 +29,10 @@ export default function PostBox({ post, onEdit, onDelete }) {
         <div className="post-author-info">
           <img
             src={profileImageUrl || 'https://ssl.pstatic.net/static/blog/m/img_default.gif'}
-            alt={`${nickName} 프로필`}
+            alt={`${nickname} 프로필`}
             className="profile-img2"
           />
-          <span className="post-author-name">{nickName}</span>
+          <span className="post-author-name">{nickname}</span>
           <span className="post-date">{date}</span>
         </div>
 
@@ -36,7 +44,7 @@ export default function PostBox({ post, onEdit, onDelete }) {
       <div
         className="post-content"
         dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, '<br>') }}
-      ></div>
+      />
 
       {/* 태그 출력 */}
       <TagButtons tags={tags} />

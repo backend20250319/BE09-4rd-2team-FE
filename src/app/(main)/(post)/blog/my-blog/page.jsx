@@ -11,15 +11,18 @@ export default function myBlog() {
   const posts = [{ id: 1, title: '첫 번째 글', content: '안녕하세요, 꼬미의 블로그입니다.' }];
 
   // 🗝️ MyPostBox 샘플 데이터 입력
-  const myPost = {
-    category: '게시판',
-    blogTitle: '프로젝트',
-    nickName: '꼬미',
-    date: '2025.6.29 13:47',
-    profileImageUrl: '',
-    content: '프론트엔드가 어렵다...\n\n리액트도 어렵다...\n',
-    tags: ['프론트엔드', '리액트'],
-  };
+  // 여러 게시글이라서 객체{}가 아닌 배열[]로 받아줌
+  const myPost = [
+    {
+      category: '게시판',
+      blogTitle: '프로젝트',
+      nickname: '꼬미',
+      date: '2025.6.29 13:47',
+      profileImageUrl: '',
+      content: '프론트엔드가 어렵다...\n\n리액트도 어렵다...\n',
+      tags: ['프론트엔드', '리액트'],
+    },
+  ];
 
   // 🗝️ 프로필 샘플 데이터 입력
   const profileData = {
@@ -44,7 +47,7 @@ export default function myBlog() {
           <div>
             {/* 🗝️내 게시글 받아오기 */}
             <MyPostBox
-              post={myPost}
+              myPost={myPost[0]}
               onEdit={() => console.log('수정')}
               onDelete={() => console.log('삭제')}
             />
