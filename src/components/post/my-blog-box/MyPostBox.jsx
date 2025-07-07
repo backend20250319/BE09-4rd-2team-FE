@@ -1,11 +1,11 @@
 import React from 'react';
-import './MyPostBox.css'; // 스타일은 따로 관리
+import './MyPostBox.css';
 import MyPostBoxFooterIcons from './MyPostBoxFooterIcons';
 import MyPostMetaAction from './MyPostMetaAction';
 import TagEditor from './TapEditor';
 
 export default function MyPostBox({ post, onEdit, onDelete }) {
-  const { category, blogTitle, nickName, date, profileImageUrl, content, tags } = post;
+  const { category, blogTitle, nickname, date, profileImageUrl, content, tags } = post;
 
   return (
     <div className="post-box">
@@ -20,10 +20,10 @@ export default function MyPostBox({ post, onEdit, onDelete }) {
         <div className="post-author-info">
           <img
             src={profileImageUrl || '/assets/images/myblog/profile.png'}
-            alt={`${nickName} 프로필`}
+            alt={`${nickname} 프로필`}
             className="profile-img2"
           />
-          <span className="post-author-name">{nickName}</span>
+          <span className="post-author-name">{nickname}</span>
           <span className="post-date">{date}</span>
         </div>
 
