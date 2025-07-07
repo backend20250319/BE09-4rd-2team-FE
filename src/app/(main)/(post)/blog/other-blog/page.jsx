@@ -7,8 +7,8 @@ import Profile from '@/src/components/post/blog-header-footer/Profile';
 import PostBox from '/src/components/post/other-blog-box/PostBox';
 
 export default function myBlog() {
-  // 🗝️ 타인 블로그 샘플 글 데이터
-  const posts = [
+  // 🗝️ PostBox 샘플 데이터 입력
+  const post = [
     {
       category: '게시판',
       blogTitle: '기본 제목',
@@ -24,7 +24,7 @@ export default function myBlog() {
     },
   ];
 
-  // 🗝️ 프로필 데이터
+  // 🗝️ 프로필 데이터 입력
   const profileData = {
     blogTitle: '기본 블로그',
     nickname: '나는누구인가',
@@ -37,7 +37,7 @@ export default function myBlog() {
       <BlackHeader />
       <main>
         <div className="whole-border">
-          {/* 🗝️타이틀 닉네임 받아오기*/}
+          {/* 🗝️블로그 타이틀 받아오기*/}
           <BlogTitle nickname={posts[0].nickName} />
           <div>
             <PostList posts={posts} />

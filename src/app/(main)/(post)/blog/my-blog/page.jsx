@@ -7,10 +7,10 @@ import Profile from '@/src/components/post/blog-header-footer/Profile';
 import MyPostBox from '/src/components/post/my-blog-box/MyPostBox';
 
 export default function myBlog() {
-  /* 🗝️ 마이 블로그 샘플 글 데이터 (상수) */
+  // 🗝️ 게시글 글 데이터 입력
   const posts = [{ id: 1, title: '첫 번째 글', content: '안녕하세요, 꼬미의 블로그입니다.' }];
 
-  /* 🗝️ MyPostBox 샘플 데이터 */
+  // 🗝️ MyPostBox 샘플 데이터 입력
   const myPost = {
     category: '게시판',
     blogTitle: '프로젝트',
@@ -21,7 +21,7 @@ export default function myBlog() {
     tags: ['프론트엔드', '리액트'],
   };
 
-  /* 🗝️ 프로필 샘플 데이터 */
+  // 🗝️ 프로필 샘플 데이터 입력
   const profileData = {
     blogTitle: '꼬미의 블로그',
     nickname: '꼬미',
@@ -35,11 +35,14 @@ export default function myBlog() {
       <BlackHeader />
       <main>
         <div className="whole-border">
+          {/* 🗝️내 블로그 타이틀 받아오기 */}
           <BlogTitle />
           <div>
+            {/* 🗝️내 게시글 리스트 받아오기 */}
             <PostList posts={posts} />
           </div>
           <div>
+            {/* 🗝️내 게시글 받아오기 */}
             <MyPostBox
               post={myPost}
               onEdit={() => console.log('수정')}
