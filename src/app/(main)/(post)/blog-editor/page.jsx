@@ -2,16 +2,16 @@
 
 'use client';
 import React, { useState, useRef } from 'react';
-import { Toolbar } from '@/src/app/(main)/(article)/blog-editor/toolbar/InsertToolbar';
+import { Toolbar } from '@/src/app/(main)/(post)/blog-editor/toolbar/InsertToolbar';
 import TitleInput from './editor/TitleInput';
 import ContentEditor from './editor/ContentEditor';
 // 헤더 스타일 import (동작하지 않아도 로드)
 import styles from './Header.css';
 // 발행 설정창
-import PublishOptions from '@/src/app/(main)/(article)/blog-editor/posts/PublishOption.jsx';
-import SubjectSettings from '@/src/app/(main)/(article)/blog-editor/posts/SubjectSettings';
+import PublishOptions from '@/src/app/(main)/(post)/blog-editor/posts/PublishOption.jsx';
+import SubjectSettings from '@/src/app/(main)/(post)/blog-editor/posts/SubjectSettings';
 // 최상단 툴바
-import Header from '@/src/app/(main)/(article)/blog-editor/Header';
+import Header from '@/src/app/(main)/(post)/blog-editor/Header';
 import './editor/Editor.css';
 import Modal from './posts/Modal';
 // import PublishModal from './PublishModal'; // 모달 창 열고 닫기에 쓰임

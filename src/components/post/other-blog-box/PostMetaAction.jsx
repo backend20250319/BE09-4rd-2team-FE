@@ -12,6 +12,7 @@ export default function MetaActions({ onEdit, onDelete }) {
     <div className="post-meta-actions">
       <button className="copy-url">URL 복사</button>
 
+      {/* 🗝️이웃 추가 버튼 */}
       <button className="neighbor-button">+이웃추가</button>
     </div>
   );

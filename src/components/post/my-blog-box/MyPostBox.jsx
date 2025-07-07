@@ -1,12 +1,19 @@
 import React from 'react';
-import './PostBox.css';
-import PostBoxFooterIcons from './PostBoxFooterIcons';
-import MyPostMetaAction from './PostMetaAction';
-import TagButtons from './TagButton';
+import './MyPostBox.css';
+import MyPostBoxFooterIcons from './MyPostBoxFooterIcons';
+import MyPostMetaAction from './MyPostMetaAction';
+import TagEditor from './TapEditor';
 
-export default function PostBox({ post, onEdit, onDelete }) {
-  /* 🗝️ post 데이터 받아오기 */
-  const { category, blogTitle, nickName, date, profileImageUrl, content, tags } = post;
+export default function MyPostBox({ myPost = {}, onEdit, onDelete }) {
+  const {
+    category = '',
+    blogTitle = '',
+    nickname = '',
+    date = '',
+    profileImageUrl = '',
+    content = '',
+    tags = [],
+  } = myPost;
 
   return (
     <div className="post-box">
@@ -16,18 +23,19 @@ export default function PostBox({ post, onEdit, onDelete }) {
       {/* 글 제목 */}
       <h2 className="post-title">{blogTitle}</h2>
 
-      {/* 작성자 정보 */}
+      {/* 작성자 정보 + 우측 URL 복사/이웃추가 */}
       <div className="post-meta">
         <div className="post-author-info">
           <img
-            src={profileImageUrl || 'https://ssl.pstatic.net/static/blog/m/img_default.gif'}
-            alt={`${nickName} 프로필`}
+            src={profileImageUrl || '/assets/images/myblog/profile.png'}
+            alt={`${nickname} 프로필`}
             className="profile-img2"
           />
-          <span className="post-author-name">{nickName}</span>
+          <span className="post-author-name">{nickname}</span>
           <span className="post-date">{date}</span>
         </div>
 
+        {/* 메뉴/통계/복사 → 별도 컴포넌트로 대체 */}
         <MyPostMetaAction onEdit={onEdit} onDelete={onDelete} />
       </div>
 
@@ -38,11 +46,11 @@ export default function PostBox({ post, onEdit, onDelete }) {
         dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, '<br>') }}
       ></div>
 
-      {/* 태그 출력 */}
-      <TagButtons tags={tags} />
+      {/* 태그 출력+수정 */}
+      <TagEditor tags={tags} />
 
-      {/* 공감/댓글 등 */}
-      <PostBoxFooterIcons />
+      {/* 공감/댓글 <> 보내기/수정/삭제/설정 */}
+      <MyPostBoxFooterIcons />
     </div>
   );
 }
