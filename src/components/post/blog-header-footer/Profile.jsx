@@ -5,7 +5,7 @@ export default function Profile({ profileData }) {
   const [isOpen, setIsOpen] = useState(true);
 
   /* 🗝️ 프로필 데이터 받아오기 */
-  const { nickName, userId, profileImageUrl, categories, activity } = profileData;
+  const { blogTitle, nickname, blogId, profileIntro, profileImageUrl } = profileData;
 
   const handleToggle = () => {
     setIsOpen(prev => !prev);
