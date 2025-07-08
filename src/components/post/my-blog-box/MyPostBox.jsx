@@ -23,7 +23,7 @@ export default function MyPostBox({ myPost = {}, onEdit, onDelete }) {
       {/* 글 제목 */}
       <h2 className="post-title">{blogTitle}</h2>
 
-      {/* 작성자 정보 + 우측 URL 복사/이웃추가 */}
+      {/* 작성자 정보 + 우측 URL 복사 */}
       <div className="post-meta">
         <div className="post-author-info">
           <img
