@@ -1,12 +1,13 @@
 'use client';
-import { React, useState } from 'react';
+
+import React, { useState } from 'react';
 import BlackHeader from '@/src/components/post/blog-header-footer/BlackHeader';
 import BlogTitle from '@/src/components/post/blog-header-footer/BlogTitle';
 import PostList from '@/src/components/post/blog-header-footer/PostList';
 import Profile from '@/src/components/post/blog-header-footer/Profile';
 import MyPostBox from '/src/components/post/my-blog-box/MyPostBox';
 
-export default function myBlog() {
+export default function MyBlog() {
   // 🗝️ 게시글 글 데이터 입력
   const posts = [{ id: 1, title: '첫 번째 글', content: '안녕하세요, 꼬미의 블로그입니다.' }];
 
@@ -53,6 +54,7 @@ export default function myBlog() {
             />
           </div>
           <div>
+            {/* 🗝️ 프로필 데이터 받아오기 */}
             <Profile profileData={profileData} />
           </div>
         </div>
