@@ -6,7 +6,7 @@ import PostList from '@/src/components/post/blog-header-footer/PostList';
 import Profile from '@/src/components/post/blog-header-footer/Profile';
 import PostBox from '/src/components/post/other-blog-box/PostBox';
 
-export default function otherBlog() {
+export default function OtherBlog() {
   // 🗝️ 게시글 글 데이터 입력
   const posts = [
     {
