@@ -6,7 +6,7 @@ export default function BlogList({ blogs }) {
   return (
     <div className={styles.blogList}>
       {blogs.map(blog => (
-        <div key={blog.id} className={styles.blogItem}>
+        <div key={blog.postId} className={styles.blogItem}>
           {/* 카드 전체를 flex로 묶음 */}
           <div className={styles.cardRow}>
             {/* 왼쪽: 텍스트 영역 */}
@@ -15,7 +15,7 @@ export default function BlogList({ blogs }) {
               <div className={styles.profileRow}>
                 <Link href="/blogDetail">
                   <Image
-                    src={blog.authorImage}
+                    src={blog.profileImageUrl}
                     alt="프로필 이미지"
                     width={35}
                     height={35}
@@ -24,9 +24,9 @@ export default function BlogList({ blogs }) {
                 </Link>
                 <div>
                   <Link href="/blogDetail" className={styles.authorName}>
-                    {blog.author}
+                    {blog.nickname}
                   </Link>
-                  <div className={styles.authorDate}>{blog.date}</div>
+                  <div className={styles.authorDate}>{blog.createdAt}</div>
                 </div>
               </div>
               {/* 블로그 제목 및 내용 영역 */}
@@ -42,7 +42,7 @@ export default function BlogList({ blogs }) {
             {/* 오른쪽: 썸네일 이미지 영역 */}
             <Link className={styles.thumbnailBox} href={`/blogDetail`}>
               <Image
-                src={blog.thumbnail}
+                src={blog.thumbnailImageUrl}
                 alt="블로그 썸네일"
                 width={70}
                 height={70}
