@@ -1,4 +1,30 @@
-export default function NeighborList({ neighbors }) {
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { getMyAddedNeighbors } from '@/src/app/(main)/(neighbor)/services/neighborApi';
+
+export default function NeighborList({ UserId }) {
+  const [neighbors, setNeighbors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    console.log('neighbors:', neighbors);
+    console.log('타입:', typeof neighbors);
+    console.log('길이:', neighbors.length);
+
+    if (!UserId) return;
+    const fetchNeighbors = async () => {
+      try {
+        const response = await getMyAddedNeighbors(1);
+        setNeighbors(response.data);
+      } catch (error) {
+        console.error('이웃 정보를 불러오는데 실패했습니다.', error);
+        setNeighbors([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchNeighbors();
+  }, [UserId]);
   return (
     <div className="alert-card">
       <h3 style={{ margin: '0px' }}>전체 이웃</h3>
@@ -19,6 +45,7 @@ export default function NeighborList({ neighbors }) {
           ))}
         </div>
       )}
+      <Link href="/neighborHome">이웃 관리</Link>
     </div>
   );
 }
