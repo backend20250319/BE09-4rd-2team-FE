@@ -1,4 +1,3 @@
-import neighbors from './neighbors.json';
 import BlogList from '@/src/app/(main)/(blog)/common/BlogList';
 import Header from '@/src/app/(main)/searching/Header';
 import MenuTabs from '@/src/components/header/MenuTabs';

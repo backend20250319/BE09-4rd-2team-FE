@@ -16,8 +16,8 @@
     font-size: 14px;
     color: #222;
     line-height: 2.5em;
+    margin-left: 24px;
     margin-right: 24px;
-    margin-left: 16px;
     border-bottom: 4px solid transparent;
     text-decoration: none;
     transition: color 0.2s, border-bottom 0.2s;

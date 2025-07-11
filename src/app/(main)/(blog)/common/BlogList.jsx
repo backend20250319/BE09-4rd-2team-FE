@@ -2,7 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from './BlogList.module.css';
 
-export default function BlogList({ blogs }) {
+export default function BlogList({ blogs, pageable = {}, onPageChange }) {
+  // 페이지네이션
+  const { totalPages = 1, number = 0, first = true, last = true } = pageable;
+
   return (
     <div className={styles.blogList}>
       {blogs.map(blog => (
@@ -26,7 +29,12 @@ export default function BlogList({ blogs }) {
                   <Link href="/blogDetail" className={styles.authorName}>
                     {blog.nickname}
                   </Link>
-                  <div className={styles.authorDate}>{blog.createdAt}</div>
+                  <div className={styles.authorDate}>
+                    {(() => {
+                      const d = new Date(blog.publishedAt);
+                      return `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()}`;
+                    })()}
+                  </div>
                 </div>
               </div>
               {/* 블로그 제목 및 내용 영역 */}
@@ -37,6 +45,11 @@ export default function BlogList({ blogs }) {
                 <Link href="/blogDetail" className={styles.contentLink}>
                   {blog.content}
                 </Link>
+              </div>
+              {/* 좋아요/댓글 수 영역 */}
+              <div className={styles.metaRow}>
+                <span className={styles.metaItem}>공감 {blog.likeCount}</span>
+                <span className={styles.metaItem}>댓글 {blog.commentCount}</span>
               </div>
             </div>
             {/* 오른쪽: 썸네일 이미지 영역 */}
@@ -52,6 +65,25 @@ export default function BlogList({ blogs }) {
           </div>
         </div>
       ))}
+      {/* 페이지네이션 */}
+      <div className={styles.pagination}>
+        <button disabled={first} onClick={() => !first && onPageChange(number - 1)}>
+          이전
+        </button>
+        {Array.from({ length: totalPages }).map((_, idx) => (
+          <button
+            key={idx}
+            className={idx === number ? styles.activePage : ''}
+            onClick={() => onPageChange(idx)}
+            disabled={idx === number}
+          >
+            {idx + 1}
+          </button>
+        ))}
+        <button disabled={last} onClick={() => !last && onPageChange(number + 1)}>
+          다음
+        </button>
+      </div>
     </div>
   );
 }

@@ -6,20 +6,35 @@ import Header from '@/src/app/(main)/searching/Header';
 import MenuTabs from '@/src/components/header/MenuTabs';
 import LoginModal from '@/src/app/(main)/(loginmodal)/LoginModal';
 import axios from 'axios';
-import process from 'next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss';
 
 export default function BlogHome() {
-  const [blogs, setBlogs] = useState([]);
+  const [data, setData] = useState({
+    content: [],
+    totalPages: 1,
+    number: 0,
+    first: true,
+    last: true,
+  });
   const [selected, setSelected] = useState('전체');
 
+  // 페이지 변경 및 최초 진입 시 데이터 불러오기
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API_BLOG}/posts/all`).then(res => {
-      setBlogs(res.data.data.content ?? []);
-    });
-  }, []);
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_BLOG}/posts/all`, {
+        params: { page: data.number, size: 10 },
+      })
+      .then(res => setData(res.data.data ?? {}));
+    // eslint-disable-next-line
+  }, [data.number]);
 
-  const categories = ['전체', ...new Set(blogs.map(b => b.subTopic))];
-  const filtered = selected === '전체' ? blogs : blogs.filter(b => b.subTopic === selected);
+  // 페이지네이션 핸들러
+  const onPageChange = newPage => {
+    setData(prev => ({ ...prev, number: newPage }));
+  };
+
+  const blogs = data.content || [];
+  const categories = ['전체', ...new Set(blogs.map(b => b.subTopicName))];
+  const filtered = selected === '전체' ? blogs : blogs.filter(b => b.subTopicName === selected);
 
   return (
     <div style={{ fontFamily: 'NanumGothic' }}>
@@ -35,18 +50,16 @@ export default function BlogHome() {
           display: 'flex',
           alignItems: 'flex-start',
           justifyContent: 'space-between',
-          gap: '24px', // 본문–사이드바 사이
-          padding: '0 16px', // 화면 양쪽 패딩
-          maxWidth: '1032px', // 컨테이너 전체 최대 너비
-          margin: '0 auto', // 가운데 정렬
+          gap: '24px',
+          padding: '0 16px',
+          maxWidth: '1032px',
+          margin: '0 auto',
         }}
       >
-        {/* 좌측 본문 */}
         <div style={{ flex: 1, maxWidth: '720px' }}>
           <ChoiceMenu categories={categories} selected={selected} onSelect={setSelected} />
-          <BlogList blogs={filtered} />
+          <BlogList blogs={filtered} pageable={data} onPageChange={onPageChange} />
         </div>
-        {/* 우측 사이드바 */}
         <div style={{ width: '256px' }}>
           <LoginModal />
         </div>
