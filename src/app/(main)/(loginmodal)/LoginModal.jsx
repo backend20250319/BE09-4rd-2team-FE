@@ -6,8 +6,8 @@ import Activity from './Activity';
 import NeighborList from './NeighborList';
 import './loginModalstyle.css';
 
-export default function LoginModal() {
-  const [isLogin, setIstLogin] = useState(false);
+export default function LoginModal({ User }) {
+  const [isLogin, setIstLogin] = useState(true);
 
   const handleLogin = () => setIstLogin(true);
   const handleLogout = () => setIstLogin(false);
@@ -16,10 +16,15 @@ export default function LoginModal() {
     <div>
       {isLogin ? (
         <>
-          <button onClick={handleLogout}>로그아웃</button>
-          <div className="ugc-login">
+          <div className="ugc-login" style={{ border: '1px solid #ccc' }}>
             <p className="top-text">네이버를 보다 편리하고 안전하게 이용하세요.</p>
-            <button className="login-button">
+            <button
+              className="login-button"
+              onClick={() => {
+                handleLogin();
+                window.location.href = 'http://localhost:3000/login';
+              }}
+            >
               <strong>NAVER</strong>로그인
             </button>
             <div className="login-footer">
@@ -47,7 +52,9 @@ export default function LoginModal() {
                   </div>
                 </div>
               </div>
-              <button className="logout-btn">로그아웃</button>
+              <button className="logout-btn" onClick={handleLogout}>
+                로그아웃
+              </button>
             </div>
 
             {/* 상단 탭 */}
@@ -82,7 +89,7 @@ export default function LoginModal() {
             <div className="tab-content">
               {activeTab === '소식' && <NewsCard />}
               {activeTab === '활동' && <Activity />}
-              {activeTab === '이웃' && <NeighborList />}
+              {activeTab === '이웃' && <NeighborList UserId={1} />}
             </div>
           </div>
         </>
