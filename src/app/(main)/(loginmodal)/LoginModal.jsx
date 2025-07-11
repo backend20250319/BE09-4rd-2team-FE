@@ -5,6 +5,7 @@ import NewsCard from './NewsCard';
 import Activity from './Activity';
 import NeighborList from './NeighborList';
 import './loginModalstyle.css';
+import Link from 'next/link';
 
 export default function LoginModal({ User }) {
   const [isLogin, setIstLogin] = useState(true);
@@ -22,18 +23,20 @@ export default function LoginModal({ User }) {
               className="login-button"
               onClick={() => {
                 handleLogin();
-                window.location.href = 'http://localhost:3000/login';
               }}
             >
-              <strong>NAVER</strong>로그인
+              <Link href="/login" style={{ textDecoration: 'none', color: 'white' }}>
+                <strong>NAVER</strong>로그인
+              </Link>
             </button>
             <div className="login-footer">
-              <div className="left-links">
-                <div>아이디 찾기</div>
-                <div>비밀번호 찾기</div>
-              </div>
+              <div className="left-links"></div>
               <div className="right-link">
-                <div>회원가입</div>
+                <div>
+                  <Link href="/register" style={{ textDecoration: 'none', color: 'black' }}>
+                    회원가입
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
