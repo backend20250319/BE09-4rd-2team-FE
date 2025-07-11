@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import LoginForm from './LoginForm';
-import './AuthForm.css';
+import RegisterForm from './RegisterForm';
+import './RegisterForm.css';
 
 export default function Page() {
-  const [mode, setMode] = useState('login');
   return (
     <div
       style={{
@@ -16,7 +15,7 @@ export default function Page() {
         alignItems: 'center',
       }}
     >
-      <LoginForm />
+      <RegisterForm />
     </div>
   );
 }

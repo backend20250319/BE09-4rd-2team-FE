@@ -1,13 +1,16 @@
+'use client';
+
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation'; // ✅ Next.js용 라우터
 import './AuthForm.css';
 
-export default function LoginForm({ onSwitch }) {
+export default function LoginForm() {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
+  const router = useRouter(); // ✅ 페이지 이동용
 
   const handleSubmit = e => {
     e.preventDefault();
-    // 로그인 처리 로직 (API 연동 등)
     alert(`ID: ${id}\nPW: ${pw}`);
   };
 
@@ -32,7 +35,7 @@ export default function LoginForm({ onSwitch }) {
         </button>
       </form>
       <div className="auth-footer">
-        <button onClick={() => onSwitch('register')} className="switch-btn">
+        <button onClick={() => router.push('/register')} className="switch-btn">
           회원가입
         </button>
       </div>
