@@ -5,38 +5,6 @@
   font-family: "돋움", Dotum, Arial, sans-serif;
 }
 
-.sidebar {
-  width: 220px;
-  background: #fafafa;
-  border-right: 1px solid #eee;
-  padding: 32px 0 0 0;
-  min-height: 100vh;
-}
-
-.sidebar-title {
-  font-weight: bold;
-  font-size: 15px;
-  margin-left: 24px;
-  margin-bottom: 18px;
-}
-
-.sidebar-menu {
-  list-style: none;
-  margin: 0;
-  padding: 0 0 0 24px;
-}
-
-.sidebar-menu li {
-  font-size: 14px;
-  color: #222;
-  padding: 8px 0;
-  cursor: pointer;
-}
-
-.sidebar-menu li.active {
-  color: #1ec800;
-  font-weight: bold;
-}
 
 .main-content {
   flex: 1;
