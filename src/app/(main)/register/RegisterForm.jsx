@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import './AuthForm.css';
+import { useRouter } from 'next/navigation'; // ✅ Next.js용 라우터
 
 export default function RegisterForm({ onSwitch }) {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const [pw2, setPw2] = useState('');
   const [phone, setPhone] = useState('');
+  const router = useRouter();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -39,8 +40,8 @@ export default function RegisterForm({ onSwitch }) {
         </button>
       </form>
       <div className="auth-footer">
-        <button onClick={() => onSwitch('login')} className="switch-btn">
-          로그인
+        <button onClick={() => router.push('/login')} className="switch-btn">
+          로그인 화면으로
         </button>
       </div>
     </div>
