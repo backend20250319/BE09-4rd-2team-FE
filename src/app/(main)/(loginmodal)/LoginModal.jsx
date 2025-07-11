@@ -7,7 +7,7 @@ import NeighborList from './NeighborList';
 import './loginModalstyle.css';
 
 export default function LoginModal({ User }) {
-  const [isLogin, setIstLogin] = useState(false);
+  const [isLogin, setIstLogin] = useState(true);
 
   const handleLogin = () => setIstLogin(true);
   const handleLogout = () => setIstLogin(false);
@@ -16,9 +16,15 @@ export default function LoginModal({ User }) {
     <div>
       {isLogin ? (
         <>
-          <div className="ugc-login">
+          <div className="ugc-login" style={{ border: '1px solid #ccc' }}>
             <p className="top-text">네이버를 보다 편리하고 안전하게 이용하세요.</p>
-            <button className="login-button" onClick={handleLogin}>
+            <button
+              className="login-button"
+              onClick={() => {
+                handleLogin();
+                window.location.href = 'http://localhost:3000/login';
+              }}
+            >
               <strong>NAVER</strong>로그인
             </button>
             <div className="login-footer">
