@@ -31,16 +31,24 @@ export const rejectNeighbor = (userId, deleteUserId) =>
   });
 
 // 9. 이웃 관계 삭제
-export const deleteNeighbor = (userId, deleteUserId) =>
-  api.delete(`/neighbors/${deleteUserId}/delete`, {
-    headers: { userId },
+export const deleteNeighbor = (userId, selectedIds) =>
+  api.delete(`/neighbors/delete`, {
+    data: selectedIds, // DELETE method에서 data는 axios에서 이렇게 따로 명시해야 함
+    headers: { userId, 'Content-Type': 'application/json' },
   });
 
 // 6. 이웃 신청(다수)
-export const insertNeighbors = (userId, insertUserId) =>
-  api.patch(`/neighbors/accept`, insertUserId, {
-    headers: { fromUserId: userId, 'Content-Type': 'application/json' },
-  });
+export const insertNeighbors = (userId, insertUserIds) =>
+  api.patch(
+    `/neighbors/accept`,
+    insertUserIds, // body에 배열로 전송
+    {
+      headers: {
+        fromUserId: userId,
+        'Content-Type': 'application/json',
+      },
+    },
+  );
 
 // 7. 서로이웃 단체 수락
 export const acceptMultipleNeighbors = (userId, ids) =>
@@ -66,6 +74,6 @@ export const insertNeighbor = (userId, insertUserId) =>
     `/neighbors/${insertUserId}/accept`,
     {},
     {
-      headers: { fromUserId: userId, 'Content-Type': 'application/json' },
+      headers: { fromUserId: userId },
     },
   );

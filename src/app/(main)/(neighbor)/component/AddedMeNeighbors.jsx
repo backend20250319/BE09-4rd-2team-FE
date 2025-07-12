@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import {
   getMyReceivedNeighbors,
   insertNeighbor,
+  insertNeighbors,
 } from '@/src/app/(main)/(neighbor)/services/neighborApi';
 
 export default function AddedMeNeighbors() {
@@ -11,14 +12,24 @@ export default function AddedMeNeighbors() {
   const mutualNeighbors = neighbors.filter(n => n.mutual);
   const mutualCount = mutualNeighbors.length;
 
-  const handleCheck = id => {
+  const allIds = neighbors.map(neighbor => neighbor.id);
+
+  const handleIndividualCheck = id => {
     setSelectedIds(prev => (prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id]));
     console.log('handle check', selectedIds);
   };
+  const handleSelectAll = () => {
+    if (selectedIds.length === neighbors.length) {
+      setSelectedIds([]);
+    } else {
+      const allIds = neighbors.map(n => n.id);
+      setSelectedIds(allIds);
+    }
+  };
 
-  const handleAdd = async targetIds => {
+  const handleAdd = async targetId => {
     try {
-      await insertNeighbor(userId, targetIds);
+      await insertNeighbor(userId, targetId);
       alert('추가 성공!');
       setSelectedIds([]);
       const res = await getMyReceivedNeighbors(userId);
@@ -26,6 +37,20 @@ export default function AddedMeNeighbors() {
       setNeighbors(res.data);
     } catch (error) {
       console.error('이웃추가실패:', error);
+      alert('이웃추가에 실패했습니다.');
+    }
+  };
+  const handleAllAdd = async () => {
+    try {
+      await insertNeighbors(userId, selectedIds);
+      console.log('여기확인하고있음', selectedIds);
+      alert('추가 성공!');
+      setSelectedIds([]);
+      const res = await getMyReceivedNeighbors(userId);
+      console.log('업데이트된 이웃 목록', res.data);
+      setNeighbors(res.data);
+    } catch (error) {
+      console.error(('이웃추가실패:', error));
       alert('이웃추가에 실패했습니다.');
     }
   };
@@ -61,7 +86,7 @@ export default function AddedMeNeighbors() {
         </div>
         <div className="neighbor-table">
           <div className="table-header">
-            <input type="checkbox" style={{ marginLeft: '15px' }} />
+            <input type="checkbox" style={{ marginLeft: '15px' }} onChange={handleSelectAll} />
             <select className="table-box">
               <option>나를 이웃으로 추가한 사람 전체</option>
             </select>
@@ -79,8 +104,7 @@ export default function AddedMeNeighbors() {
               type="checkbox"
               checked={selectedIds.includes(neighbor.id)}
               onChange={() => {
-                console.log(neighbor);
-                handleCheck(neighbor.id);
+                handleIndividualCheck(neighbor.id);
               }}
             />
             <span className="table-box" style={{ width: '30px' }}>
@@ -96,7 +120,6 @@ export default function AddedMeNeighbors() {
             <button
               className="button-neighbor-mutual"
               onClick={() => {
-                console.log(neighbor);
                 handleAdd(neighbor.id);
               }}
             >
@@ -120,9 +143,11 @@ export default function AddedMeNeighbors() {
         ))}
         <div className="first-content" style={{ borderTop: '1px solid #e1e1e1' }}>
           <div className="first-content-left">
-            <input type="checkbox" style={{ marginLeft: '15px' }} />
-            <button>서로이웃 신청</button>
-            <button style={{ marginLeft: '0px' }}>아웃신청</button>
+            <input type="checkbox" style={{ marginLeft: '15px' }} onChange={handleSelectAll} />
+            <button onClick={handleAllAdd}>서로이웃 신청</button>
+            <button style={{ marginLeft: '0px' }} onClick={handleAllAdd}>
+              아웃신청
+            </button>
             <button style={{ marginLeft: '20px' }}>차단</button>
           </div>
         </div>
