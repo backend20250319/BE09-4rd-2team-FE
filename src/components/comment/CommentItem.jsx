@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 const CommentItem = ({ comment, onLike }) => {
-  const [isCommentLiked, setIsCommentLiked] = useState(false);
+  const [isCommentLiked, setIsCommentLiked] = useState(comment.isLiked || false);
   const [commentLikeCount, setCommentLikeCount] = useState(comment.likeCount || 0);
 
   const formatContent = content => {
@@ -18,17 +18,21 @@ const CommentItem = ({ comment, onLike }) => {
   };
 
   // 댓글 공감 클릭 핸들러
-  const handleCommentLike = () => {
-    setIsCommentLiked(!isCommentLiked);
-    if (!isCommentLiked) {
-      setCommentLikeCount(commentLikeCount + 1);
-    } else {
-      setCommentLikeCount(commentLikeCount - 1);
-    }
+  const handleCommentLike = async () => {
+    try {
+      if (onLike) {
+        const response = await onLike(comment.commentId);
 
-    // 부모 컴포넌트 onLike 함수도 호출 (기존 로직 유지)
-    if (onLike) {
-      onLike();
+        if (response && response.data) {
+          setIsCommentLiked(response.data.isLiked);
+          setCommentLikeCount(response.data.likeCount);
+        }
+      }
+    } catch (error) {
+      console.error('댓글 공감 오류: ', error);
+      // 에러 시 원래 상태로 복구
+      setIsCommentLiked(!isCommentLiked);
+      setCommentLikeCount(isCommentLiked ? commentLikeCount + 1 : commentLikeCount - 1);
     }
   };
 
