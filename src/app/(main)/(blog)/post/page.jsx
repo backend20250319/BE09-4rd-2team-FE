@@ -1,23 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import CommentSection from '@/src/components/comment/CommentSection';
 import SympathyList from '@/src/app/(main)/(blog)/sympathyList/page';
 
-export default function PostPage() {
+export default function PostPage({ postId = 1 }) {
   const [activeTab, setActiveTab] = useState(null); // 'sympathy' | 'comments' | null
   const [isLiked, setIsLiked] = useState(false);
-  const [sympathyCount, setSympathyCount] = useState(10);
+  const [sympathyCount, setSympathyCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
 
-  const commentCount = 5;
+  useEffect(() => {
+    fetchPostData();
+  }, [postId]);
+
+  const fetchPostData = async () => {
+    try {
+      const likeResponse = await axios.get(
+        `http://localhost:8081/api/posts/${postId}/like/status`,
+        { headers: { userId: '1' } },
+      );
+      setIsLiked(likeResponse.data.isLiked);
+      setSympathyCount(likeResponse.data.likeCount);
+
+      const commentResponse = await axios.get(`http://localhost:8081/api/posts/${postId}/comments`);
+      setCommentCount(commentResponse.data.totalCount);
+    } catch (error) {
+      console.error('게시글 데이터 로드 실패: ', error);
+    }
+  };
 
   // 공감 버튼 클릭 핸들러
-  const handleLikeClick = () => {
-    setIsLiked(!isLiked);
-    if (!isLiked) {
-      setSympathyCount(sympathyCount + 1);
-    } else {
-      setSympathyCount(sympathyCount - 1);
+  const handleLikeClick = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8081/api/posts/${postId}/like`,
+        {},
+        { headers: { userId: '1' } },
+      );
+
+      setIsLiked(response.data.isLiked);
+      setSympathyCount(response.data.likeCount);
+    } catch (error) {
+      console.error('공감 처리 실패:', error);
     }
   };
 
@@ -106,7 +132,7 @@ export default function PostPage() {
       {/* 토글 컨텐츠 영역 */}
       {activeTab === 'sympathy' && (
         <div style={{ marginTop: '20px' }}>
-          <SympathyList />
+          <SympathyList postId={postId} />
         </div>
       )}
 
@@ -114,7 +140,7 @@ export default function PostPage() {
         <div style={{ marginTop: '20px' }}>
           {/* 댓글 영역 */}
           <div style={{ border: 'none' }}>
-            <CommentSection />
+            <CommentSection postId={postId} onCommentChange={fetchPostData} />
           </div>
         </div>
       )}
