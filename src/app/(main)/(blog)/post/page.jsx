@@ -10,6 +10,7 @@ export default function PostPage({ postId = 1 }) {
   const [isLiked, setIsLiked] = useState(false);
   const [sympathyCount, setSympathyCount] = useState(0);
   const [commentCount, setCommentCount] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 개발용 임시 설정
 
   useEffect(() => {
     fetchPostData();
@@ -32,7 +33,14 @@ export default function PostPage({ postId = 1 }) {
   };
 
   // 공감 버튼 클릭 핸들러
-  const handleLikeClick = async () => {
+  const handleLikeClick = async e => {
+    e.stopPropagation();
+
+    if (!isLoggedIn) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+
     try {
       const response = await axios.post(
         `http://localhost:8081/api/posts/${postId}/like`,
@@ -67,7 +75,6 @@ export default function PostPage({ postId = 1 }) {
         <button
           onClick={() => {
             setActiveTab(activeTab === 'sympathy' ? null : 'sympathy');
-            handleLikeClick();
           }}
           style={{
             display: 'flex',
@@ -82,8 +89,13 @@ export default function PostPage({ postId = 1 }) {
           }}
         >
           <span
+            onClick={e => {
+              e.stopPropagation(); // 버튼 클릭 이벤트 차단
+              handleLikeClick(e); // 하트만 공감 처리
+            }}
             style={{
               fontSize: '16px',
+              cursor: 'pointer', // 하트가 클릭 기능이 있다는 걸 구분하기 위해
             }}
           >
             {isLiked ? '❤️' : '🤍'}
