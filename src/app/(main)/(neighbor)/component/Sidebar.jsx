@@ -3,7 +3,7 @@ import { useState } from 'react';
 export default function Sidebar({ setSelectedTab }) {
   const handleOpenPopup = () => {
     window.open(
-      '/popup-test', // 띄울 페이지 경로
+      '/popup', // 띄울 페이지 경로
       'NeighborPopupWindow', // 창 이름 (같은 이름이면 재사용됨)
       'width=500,height=600,scrollbars=yes,resizable=no',
     );
@@ -50,7 +50,6 @@ export default function Sidebar({ setSelectedTab }) {
           </li>
         </ul>
       </div>
-      <button onClick={handleOpenPopup}>이웃추가 새 창 열기</button>
       <div className="bottom-section">공지사항</div>
       <div className="bottom-section">블로그 이용 Tip</div>
       <div className="bottom-section">블로그 스마트봇</div>

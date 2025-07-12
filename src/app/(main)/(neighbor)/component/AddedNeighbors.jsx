@@ -35,7 +35,6 @@ export default function AddedNeighbors() {
   };
   const handleDelete = async () => {
     if (selectedIds.length === 0) return alert('선택된 항목이 없습니다.');
-
     try {
       if (deleteOption === 'all') {
         await deleteNeighbor(userId, selectedIds);
@@ -52,7 +51,6 @@ export default function AddedNeighbors() {
       alert('삭제에 실패했습니다.');
     }
   };
-
   return (
     <div className="neighbor-content">
       <h1 className="tab-title">내가 추가한 이웃</h1>
