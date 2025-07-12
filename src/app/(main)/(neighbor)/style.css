@@ -401,6 +401,11 @@ dd {
     color: #666666;
 }
 
+.popup-container{
+    width: 500px;
+    height: 600px;
+}
+
 .popup-buddy-box{
     margin-top: 21px;
     margin-bottom: 21px;

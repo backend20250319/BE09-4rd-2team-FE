@@ -22,15 +22,17 @@ export default function BlogHome() {
           로그아웃 상태입니다. <br /> 로그인하여 이웃새글을 확인해보세요.
         </p>
       </div>
-      <div>
-        <ChoiceMenu
-          categories={['전체', ...categories]}
-          selected={selected}
-          onSelect={setSelected}
-        />
-        <BlogList blogs={filtered} />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ marginRight: '35px' }}>
+          <ChoiceMenu
+            categories={['전체', ...categories]}
+            selected={selected}
+            onSelect={setSelected}
+          />
+          <BlogList blogs={filtered} />
+        </div>
+        <LoginModal />
       </div>
-      <LoginModal />
     </div>
   );
 }

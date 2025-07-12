@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './PostMetaAction.css';
+import Link from 'next/link';
 
 export default function MetaActions({ onEdit, onDelete }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -40,7 +41,7 @@ export default function MetaActions({ onEdit, onDelete }) {
 
       {/* 🗝️이웃 추가 버튼 */}
       <button className="neighbor-button" onClick={handleNeighborClick}>
-        {buttonText}
+        <Link href="/popup">{buttonText}</Link>
       </button>
     </div>
   );
