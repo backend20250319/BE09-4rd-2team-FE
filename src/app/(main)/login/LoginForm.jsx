@@ -55,7 +55,7 @@ export default function LoginForm() {
         // 예: 로컬 스토리지에 저장
         localStorage.setItem('accessToken', accessToken);
         alert('로그인 성공!');
-        router.push('/'); // 메인 페이지 등 이동
+        router.push('/neighborPost'); // 이웃새글 페이지로 이동
       }
     } catch (error) {
       console.error('로그인 실패:', error);
