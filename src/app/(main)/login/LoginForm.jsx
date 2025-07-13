@@ -1,17 +1,80 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; // ✅ Next.js용 라우터
 import './AuthForm.css';
+import axios from 'axios';
+
+function generateUUID() {
+  // 간단한 UUID 생성 함수 (RFC4122 버전4 형식)
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
 
 export default function LoginForm() {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
   const router = useRouter(); // ✅ 페이지 이동용
+  const [deviceId, setDeviceId] = useState('');
 
-  const handleSubmit = e => {
+  useEffect(() => {
+    // 기기에 저장된 deviceId가 있으면 불러오고, 없으면 새로 생성해서 저장
+    let storedDeviceId = localStorage.getItem('deviceId');
+    if (!storedDeviceId) {
+      storedDeviceId = generateUUID();
+      localStorage.setItem('deviceId', storedDeviceId);
+    }
+    setDeviceId(storedDeviceId);
+  }, []);
+
+  const handleSubmit = async e => {
     e.preventDefault();
-    alert(`ID: ${id}\nPW: ${pw}`);
+    console.log('[✅ handleSubmit 호출됨]');
+
+    try {
+      const url = `${process.env.NEXT_PUBLIC_API_USER}/user-management/auth/login`;
+      console.log('[로그인 요청 경로]', url); // 🔍 실제 요청 URL 확인
+
+      const response = await axios.post(url, {
+        emailId: id,
+        password: pw,
+        deviceId, // 자동 생성된 deviceId 사용
+      });
+
+      console.log('서버 응답:', response.data);
+
+      // 로그인 성공 시 처리
+      // 예) 토큰 저장, 페이지 이동 등
+      // 서버에서 토큰 받는다고 가정
+      const { accessToken } = response.data.data;
+
+      if (accessToken) {
+        // 예: 로컬 스토리지에 저장
+        localStorage.setItem('accessToken', accessToken);
+        alert('로그인 성공!');
+        router.push('/'); // 메인 페이지 등 이동
+      }
+    } catch (error) {
+      console.error('로그인 실패:', error);
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status;
+        if (status === 401) {
+          alert('아이디 또는 비밀번호가 올바르지 않습니다.');
+        } else {
+          alert(
+            '로그인 실패! ' +
+              (typeof error.response?.data === 'string'
+                ? error.response.data
+                : error.response?.data?.message || '서버 오류'),
+          );
+        }
+      } else {
+        alert('로그인 실패! 알 수 없는 오류가 발생했습니다.');
+      }
+    }
   };
 
   return (
