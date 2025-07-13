@@ -24,7 +24,9 @@ const CommentSection = ({ postId = 1 }) => {
   const fetchComments = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/posts/${postId}/comments`);
+      const response = await api.get(`/posts/${postId}/comments`, {
+        headers: { 'X-User-Id': '1' },
+      });
       setComments(response.data.comments || []);
     } catch (error) {
       console.error('댓글 조회 에러:', error);
@@ -44,10 +46,16 @@ const CommentSection = ({ postId = 1 }) => {
   // 댓글 작성
   const handleAddComment = async (content, isSecret) => {
     try {
-      const response = await api.post(`/posts/${postId}/comments`, {
-        content: content,
-        isSecret: isSecret || false,
-      });
+      const response = await api.post(
+        `/posts/${postId}/comments`,
+        {
+          content: content,
+          isSecret: isSecret || false,
+        },
+        {
+          headers: { 'X-User-Id': '1' },
+        },
+      );
 
       if (response.status === 201 || response.status === 200) {
         // 댓글 목록 다시 조회
@@ -65,7 +73,13 @@ const CommentSection = ({ postId = 1 }) => {
   // 댓글 공감
   const handleLikeComment = async commentId => {
     try {
-      const response = await api.post(`/comments/${commentId}/like`);
+      const response = await api.post(
+        `/comments/${commentId}/like`,
+        {},
+        {
+          headers: { 'X-User-Id': '1' },
+        },
+      );
 
       if (response.status === 200) {
         // 댓글 목록 다시 조회하여 공감 수 업데이트
@@ -84,7 +98,9 @@ const CommentSection = ({ postId = 1 }) => {
     if (!confirm('댓글을 삭제하시겠습니까?')) return;
 
     try {
-      const response = await api.delete(`/comments/${commentId}`);
+      const response = await api.delete(`/comments/${commentId}`, {
+        headers: { 'X-User-Id': '1' },
+      });
 
       if (response.status === 204 || response.status === 200) {
         // 댓글 목록 다시 조회

@@ -20,12 +20,17 @@ export default function PostPage({ postId = 1 }) {
     try {
       const likeResponse = await axios.get(
         `http://localhost:8081/api/posts/${postId}/like/status`,
-        { headers: { userId: '1' } },
+        { headers: { 'X-User-Id': '1' } },
       );
       setIsLiked(likeResponse.data.isLiked);
       setSympathyCount(likeResponse.data.likeCount);
 
-      const commentResponse = await axios.get(`http://localhost:8081/api/posts/${postId}/comments`);
+      const commentResponse = await axios.get(
+        `http://localhost:8081/api/posts/${postId}/comments`,
+        {
+          headers: { 'X-User-Id': '1' },
+        },
+      );
       setCommentCount(commentResponse.data.totalCount);
     } catch (error) {
       console.error('게시글 데이터 로드 실패: ', error);
@@ -45,7 +50,7 @@ export default function PostPage({ postId = 1 }) {
       const response = await axios.post(
         `http://localhost:8081/api/posts/${postId}/like`,
         {},
-        { headers: { userId: '1' } },
+        { headers: { 'X-User-Id': '1' } },
       );
 
       setIsLiked(response.data.isLiked);
