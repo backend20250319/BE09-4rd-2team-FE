@@ -52,7 +52,6 @@ export default function ContentResult({ query }) {
                   height={160}
                   className={styles.thumbnailImage}
                 />
-                <span className={styles.plusIcon}>＋</span>
               </Link>
             )}
           </div>

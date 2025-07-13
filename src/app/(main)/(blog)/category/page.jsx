@@ -8,6 +8,7 @@ import MenuTabs from '@/src/components/header/MenuTabs';
 import BigChoiceMenu from '@/src/app/(main)/(blog)/common/BigChoiceMenu';
 import ChoiceMenu from '@/src/app/(main)/(blog)/common/ChoiceMenu';
 import BlogList from '@/src/app/(main)/(blog)/common/BlogList';
+import LoginModal from '@/src/app/(main)/(loginmodal)/LoginModal';
 
 export default function CategoryPage() {
   const [topics, setTopics] = useState([]); // { topicType, topicName, subTopics[] }[]
@@ -65,24 +66,38 @@ export default function CategoryPage() {
     <div>
       <Header />
       <MenuTabs />
-
-      {/* 대주제 선택 */}
-      <BigChoiceMenu
-        categories={bigCategories}
-        selected={bigSelected}
-        onSelect={big => {
-          setBigSelected(big);
-          // 대주제 변경 시 첫 소주제로 자동 전환
-          const first = topics.find(t => t.topicTypeName === big)?.subTopics[0]?.subTopicName || '';
-          setSubSelected(first);
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
+          gap: '24px',
+          padding: '0 16px',
+          maxWidth: '1032px',
+          margin: '0 auto',
+          fontFamily: 'NanumGothic',
         }}
-      />
-
-      {/* 소주제 선택 */}
-      <ChoiceMenu categories={subCategories} selected={subSelected} onSelect={setSubSelected} />
-
-      {/* 결과 리스트 */}
-      <BlogList blogs={posts} />
+      >
+        {/* 왼쪽: 본문 */}
+        <div style={{ flex: 1, maxWidth: '720px' }}>
+          <BigChoiceMenu
+            categories={bigCategories}
+            selected={bigSelected}
+            onSelect={big => {
+              setBigSelected(big);
+              const first =
+                topics.find(t => t.topicTypeName === big)?.subTopics[0]?.subTopicName || '';
+              setSubSelected(first);
+            }}
+          />
+          <ChoiceMenu categories={subCategories} selected={subSelected} onSelect={setSubSelected} />
+          <BlogList blogs={posts} />
+        </div>
+        {/* 오른쪽: 사이드바 (로그인 모달/안내) */}
+        <div style={{ width: '256px' }}>
+          <LoginModal />
+        </div>
+      </div>
     </div>
   );
 }
