@@ -1,58 +1,58 @@
+import { useState } from 'react';
 
-import {useState} from "react";
-
-export default function Sidebar({setSelectedTab}) {
+export default function Sidebar({ setSelectedTab }) {
   const handleOpenPopup = () => {
     window.open(
-      '/popup-test',                   // 띄울 페이지 경로
-      'NeighborPopupWindow',               // 창 이름 (같은 이름이면 재사용됨)
-      'width=500,height=600,scrollbars=yes,resizable=no'
+      '/popup', // 띄울 페이지 경로
+      'NeighborPopupWindow', // 창 이름 (같은 이름이면 재사용됨)
+      'width=500,height=600,scrollbars=yes,resizable=no',
     );
   };
   const [showModal, setShowModal] = useState(false);
-    return (
-        <div className="sidebar">
-            <div className="sidebar-section" style={{borderTop:"0"}}>
-                <div className="sidebar-title">기본 정보 관리</div>
-                <ul>
-                    <li className="sidebar-content">블로그 정보</li>
-                    <li className="sidebar-content">기본 서체 설정</li>
-                </ul>
-            </div>
-            <div className="sidebar-section">
-                <div className="sidebar-title">사생활 보호</div>
-                <ul>
-                    <li className="sidebar-content">블로그 초기화</li>
-                    <li className="sidebar-content">방문집계 보호 설정</li>
-                    <li className="sidebar-content">콘텐츠 공유 설정</li>
-                </ul>
-            </div>
-            <div className="sidebar-section">
-                <div className="sidebar-title">스팸 차단 관리</div>
-                <ul>
-                    <li className="sidebar-content">차단 설정</li>
-                    <li className="sidebar-content">차단된 글목록</li>
-                    <li className="sidebar-content">댓글·안부글 권한</li>
-                </ul>
-            </div>
-            <div className="sidebar-section">
-                <div className="sidebar-title">이웃 관리</div>
-                <ul>
-                  <li className="sidebar-content" onClick={()=>setSelectedTab('add')}>내가 추가한 이웃</li>
-                  <li className="sidebar-content" onClick={()=>setSelectedTab('addedMe')}>나를 추가한 이웃</li>
-                    <li className="sidebar-content" onClick={()=>setSelectedTab("addedMutual")}>서로이웃 신청</li>
-                </ul>
-            </div>
-            <button onClick={handleOpenPopup}>이웃추가 새 창 열기</button>
-            <div className="bottom-section">
-                공지사항
-            </div>
-            <div className="bottom-section">
-                블로그 이용 Tip
-            </div>
-            <div className="bottom-section">
-                블로그 스마트봇
-            </div>
-        </div>
-    );
+  return (
+    <div className="sidebar">
+      <div className="sidebar-section" style={{ borderTop: '0' }}>
+        <div className="sidebar-title">기본 정보 관리</div>
+        <ul>
+          <li className="sidebar-content" onClick={() => setSelectedTab('blogInfo')}>
+            블로그 정보
+          </li>
+          <li className="sidebar-content">기본 서체 설정</li>
+        </ul>
+      </div>
+      <div className="sidebar-section">
+        <div className="sidebar-title">사생활 보호</div>
+        <ul>
+          <li className="sidebar-content">블로그 초기화</li>
+          <li className="sidebar-content">방문집계 보호 설정</li>
+          <li className="sidebar-content">콘텐츠 공유 설정</li>
+        </ul>
+      </div>
+      <div className="sidebar-section">
+        <div className="sidebar-title">스팸 차단 관리</div>
+        <ul>
+          <li className="sidebar-content">차단 설정</li>
+          <li className="sidebar-content">차단된 글목록</li>
+          <li className="sidebar-content">댓글·안부글 권한</li>
+        </ul>
+      </div>
+      <div className="sidebar-section">
+        <div className="sidebar-title">이웃 관리</div>
+        <ul>
+          <li className="sidebar-content" onClick={() => setSelectedTab('add')}>
+            내가 추가한 이웃
+          </li>
+          <li className="sidebar-content" onClick={() => setSelectedTab('addedMe')}>
+            나를 추가한 이웃
+          </li>
+          <li className="sidebar-content" onClick={() => setSelectedTab('addedMutual')}>
+            서로이웃 신청
+          </li>
+        </ul>
+      </div>
+      <div className="bottom-section">공지사항</div>
+      <div className="bottom-section">블로그 이용 Tip</div>
+      <div className="bottom-section">블로그 스마트봇</div>
+    </div>
+  );
 }

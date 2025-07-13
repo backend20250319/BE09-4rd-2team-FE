@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function SympathyItem({ blogger }) {
   const [isNeighbor, setIsNeighbor] = useState(blogger.isNeighbor);
@@ -35,7 +36,9 @@ export default function SympathyItem({ blogger }) {
       </div>
 
       {/* 이웃추가 버튼 */}
-      <button onClick={handleNeighborToggle}>이웃추가</button>
+      <button onClick={handleNeighborToggle}>
+        <Link href="/popup">이웃추가</Link>
+      </button>
     </div>
   );
 }

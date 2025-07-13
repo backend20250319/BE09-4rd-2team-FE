@@ -5,6 +5,7 @@ import BlogList from '@/src/app/(main)/(blog)/common/BlogList';
 import blogs from '../common/blogs.json';
 import Header from '@/src/app/(main)/searching/Header';
 import MenuTabs from '@/src/components/header/MenuTabs';
+import LoginModal from '@/src/app/(main)/(loginmodal)/LoginModal';
 
 const categories = [...new Set(blogs.map(b => b.category))];
 
@@ -21,15 +22,17 @@ export default function BlogHome() {
           로그아웃 상태입니다. <br /> 로그인하여 이웃새글을 확인해보세요.
         </p>
       </div>
-      <div>
-        <ChoiceMenu
-          categories={['전체', ...categories]}
-          selected={selected}
-          onSelect={setSelected}
-        />
-        <BlogList blogs={filtered} />
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ marginRight: '35px' }}>
+          <ChoiceMenu
+            categories={['전체', ...categories]}
+            selected={selected}
+            onSelect={setSelected}
+          />
+          <BlogList blogs={filtered} />
+        </div>
+        <LoginModal />
       </div>
-      {/*</div>*/}
     </div>
   );
 }
