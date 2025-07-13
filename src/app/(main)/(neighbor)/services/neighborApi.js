@@ -77,3 +77,15 @@ export const insertNeighbor = (userId, insertUserId) =>
       headers: { fromUserId: userId },
     },
   );
+
+// 12 이웃 신청 취소
+export const cancelMyRequest = (userId, ids) =>
+  api.post(`/neighbors/batch-cancel`, ids, {
+    headers: { userId },
+  });
+
+// 13 이웃 차단
+export const blockNeighbor = (userId, ids) =>
+  api.post(`/neighbors/batch-block`, ids, {
+    headers: { userId },
+  });

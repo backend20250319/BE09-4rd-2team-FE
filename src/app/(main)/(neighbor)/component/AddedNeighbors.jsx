@@ -30,8 +30,17 @@ export default function AddedNeighbors() {
     fetchData();
   }, []);
 
-  const handleCheck = id => {
+  const handleIndividualCheck = id => {
     setSelectedIds(prev => (prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id]));
+    console.log('handle check', selectedIds);
+  };
+  const handleSelectAll = () => {
+    if (selectedIds.length === neighbors.length) {
+      setSelectedIds([]);
+    } else {
+      const allIds = neighbors.map(n => n.id);
+      setSelectedIds(allIds);
+    }
   };
   const handleDelete = async () => {
     if (selectedIds.length === 0) return alert('선택된 항목이 없습니다.');
@@ -110,7 +119,7 @@ export default function AddedNeighbors() {
           <input
             type="checkbox"
             style={{ marginLeft: '15px' }}
-            onChange={() => handleCheck(neighbor.id)}
+            onChange={() => handleIndividualCheck(neighbor.id)}
             checked={selectedIds.includes(neighbor.id)}
           />
           <span className="table-box">새 그룹</span>
@@ -139,7 +148,7 @@ export default function AddedNeighbors() {
 
       <div className="first-content" style={{ borderTop: '1px solid #e1e1e1' }}>
         <div className="first-content-left">
-          <input type="checkbox" style={{ marginLeft: '15px' }} />
+          <input type="checkbox" style={{ marginLeft: '15px' }} onChange={handleSelectAll} />
           <button>그룹이동</button>
           <button>새글소식 설정</button>
           <button onClick={() => setShowDeletePopup(true)}>삭제</button>

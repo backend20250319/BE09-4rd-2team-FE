@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
+  blockNeighbor,
   getMyReceivedNeighbors,
   insertNeighbor,
   insertNeighbors,
@@ -11,8 +12,6 @@ export default function AddedMeNeighbors() {
   const [selectedIds, setSelectedIds] = useState([]);
   const mutualNeighbors = neighbors.filter(n => n.mutual);
   const mutualCount = mutualNeighbors.length;
-
-  const allIds = neighbors.map(neighbor => neighbor.id);
 
   const handleIndividualCheck = id => {
     setSelectedIds(prev => (prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id]));
@@ -26,6 +25,19 @@ export default function AddedMeNeighbors() {
       setSelectedIds(allIds);
     }
   };
+  const handleBlock = async () => {
+    try {
+      await blockNeighbor(userId, selectedIds);
+      alert('차단 성공!');
+      setSelectedIds([]);
+      const res = await getMyReceivedNeighbors(userId);
+      console.log('업데이트된 이웃 목록', res.data);
+      setNeighbors(res.data);
+    } catch (error) {
+      console.error(('이웃차단실패:', error));
+      alert('이웃차단에 실패했습니다.');
+    }
+  };
 
   const handleAdd = async targetId => {
     try {
@@ -36,14 +48,18 @@ export default function AddedMeNeighbors() {
       console.log('업데이트된 이웃 목록:', res.data);
       setNeighbors(res.data);
     } catch (error) {
-      console.error('이웃추가실패:', error);
-      alert('이웃추가에 실패했습니다.');
+      const message = error.response?.data?.message;
+      if (message === '이미 서로이웃입니다.') {
+        alert('이미 서로 이웃입니다.');
+      } else {
+        console.error('이웃추가실패:', error);
+        alert('이웃추가에 실패했습니다.');
+      }
     }
   };
   const handleAllAdd = async () => {
     try {
       await insertNeighbors(userId, selectedIds);
-      console.log('여기확인하고있음', selectedIds);
       alert('추가 성공!');
       setSelectedIds([]);
       const res = await getMyReceivedNeighbors(userId);
@@ -148,7 +164,9 @@ export default function AddedMeNeighbors() {
             <button style={{ marginLeft: '0px' }} onClick={handleAllAdd}>
               아웃신청
             </button>
-            <button style={{ marginLeft: '20px' }}>차단</button>
+            <button style={{ marginLeft: '20px' }} onClick={handleBlock}>
+              차단
+            </button>
           </div>
         </div>
       </div>
