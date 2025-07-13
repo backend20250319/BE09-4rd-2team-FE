@@ -96,6 +96,7 @@ export default function SubjectSettings({ onClose, onConfirm }) {
             type="radio"
             name="subject"
             value="주제 선택 안 함"
+            disabled
             checked={selectedSubject === '주제 선택 안 함'}
             onChange={handleSubjectChange}
           />{' '}
@@ -104,6 +105,7 @@ export default function SubjectSettings({ onClose, onConfirm }) {
         <label>
           <input
             type="checkbox"
+            disabled
             checked={alwaysUseCategory}
             onChange={e => setAlwaysUseCategory(e.target.checked)}
           />{' '}
