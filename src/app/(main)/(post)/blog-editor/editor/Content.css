@@ -16,3 +16,12 @@
     color: #aaa;                /* 연한 회색 */
     pointer-events: none;      /* 텍스트 선택 불가 */
 }
+
+.se_content img {
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+    resize: both;
+    overflow: auto;
+    display: inline-block;
+}
