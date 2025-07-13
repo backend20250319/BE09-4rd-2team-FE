@@ -5,9 +5,10 @@ import NewsCard from './NewsCard';
 import Activity from './Activity';
 import NeighborList from './NeighborList';
 import './loginModalstyle.css';
+import Link from 'next/link';
 
-export default function LoginModal() {
-  const [isLogin, setIstLogin] = useState(false);
+export default function LoginModal({ User }) {
+  const [isLogin, setIstLogin] = useState(true);
 
   const handleLogin = () => setIstLogin(true);
   const handleLogout = () => setIstLogin(false);
@@ -16,19 +17,26 @@ export default function LoginModal() {
     <div>
       {isLogin ? (
         <>
-          <button onClick={handleLogout}>로그아웃</button>
-          <div className="ugc-login">
+          <div className="ugc-login" style={{ border: '1px solid #ccc' }}>
             <p className="top-text">네이버를 보다 편리하고 안전하게 이용하세요.</p>
-            <button className="login-button">
-              <strong>NAVER</strong>로그인
+            <button
+              className="login-button"
+              onClick={() => {
+                handleLogin();
+              }}
+            >
+              <Link href="/login" style={{ textDecoration: 'none', color: 'white' }}>
+                <strong>NAVER</strong>로그인
+              </Link>
             </button>
             <div className="login-footer">
-              <div className="left-links">
-                <div>아이디 찾기</div>
-                <div>비밀번호 찾기</div>
-              </div>
+              <div className="left-links"></div>
               <div className="right-link">
-                <div>회원가입</div>
+                <div>
+                  <Link href="/register" style={{ textDecoration: 'none', color: 'black' }}>
+                    회원가입
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -47,7 +55,9 @@ export default function LoginModal() {
                   </div>
                 </div>
               </div>
-              <button className="logout-btn">로그아웃</button>
+              <button className="logout-btn" onClick={handleLogout}>
+                로그아웃
+              </button>
             </div>
 
             {/* 상단 탭 */}
@@ -82,7 +92,7 @@ export default function LoginModal() {
             <div className="tab-content">
               {activeTab === '소식' && <NewsCard />}
               {activeTab === '활동' && <Activity />}
-              {activeTab === '이웃' && <NeighborList />}
+              {activeTab === '이웃' && <NeighborList UserId={1} />}
             </div>
           </div>
         </>
