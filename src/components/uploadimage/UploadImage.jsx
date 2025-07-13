@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 
 export default function UploadImage({ onUpload }) {
   const fileInputRef = useRef(null);
+  const API_BASE = process.env.NEXT_PUBLIC_API_BLOG; // ← 여기에 .env.local 값이 들어옵니다
 
   const triggerFileSelect = () => {
     fileInputRef.current?.click();
@@ -17,8 +18,8 @@ export default function UploadImage({ onUpload }) {
     formData.append('file', file);
 
     try {
-      // 1) 호출할 API 경로 🛜 포트 변경 필요
-      const response = await fetch('http://localhost:8081/ftp/upload', {
+      // 1) 호출할 API 경로 🛜 포트 변경
+      const response = await fetch(`${API_BASE}/ftp/upload`, {
         method: 'POST',
         body: formData,
       });
