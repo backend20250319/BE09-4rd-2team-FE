@@ -1,79 +1,37 @@
+'use client';
+
 import SympathyItem from '@/src/components/sympathy/SympathyItem';
+import { useState, useEffect } from 'react';
+import api from '@/src/lib/axios'; // 전역 api 인스턴스 사용 (JWT 인터셉터 포함)
 
-const testBloggers = [
-  {
-    id: 1,
-    name: '김개발자',
-    description: '프론트엔드 개발과 일상을 기록하는 블로그입니다.',
-    profileImage: null,
-    isNeighbor: false,
-  },
-  {
-    id: 2,
-    name: '박디자이너',
-    description: 'UI/UX 디자인 트렌드와 포트폴리오를 공유합니다.',
-    profileImage: null,
-    isNeighbor: true,
-  },
-  {
-    id: 3,
-    name: '이백엔드',
-    description: '서버 개발 경험담과 기술 스택을 다룹니다.',
-    profileImage: null,
-    isNeighbor: false,
-  },
-  {
-    id: 4,
-    name: '최마케터',
-    description: '디지털 마케팅 인사이트와 성장 스토리',
-    profileImage: null,
-    isNeighbor: false,
-  },
-  {
-    id: 5,
-    name: '정작가',
-    description: '일상 속 소소한 이야기와 여행 기록을 남깁니다.',
-    profileImage: null,
-    isNeighbor: true,
-  },
-  {
-    id: 6,
-    name: '달빛조각사',
-    description: '밤하늘 아래, 책과 커피 이야기',
-    profileImage: null,
-    isNeighbor: false,
-  },
-  {
-    id: 7,
-    name: '지니의하루',
-    description: '오늘도 기록하는 작은 순간들',
-    profileImage: null,
-    isNeighbor: false,
-  },
-  {
-    id: 8,
-    name: '하루한끼',
-    description: '집밥 레시피와 건강한 생활',
-    profileImage: null,
-    isNeighbor: true,
-  },
-  {
-    id: 9,
-    name: '코딩하는감자',
-    description: '개발자 일상 + 공부 기록',
-    profileImage: null,
-    isNeighbor: false,
-  },
-  {
-    id: 10,
-    name: '꽃보다다육',
-    description: '다육이 키우며 마음도 자라요.',
-    profileImage: null,
-    isNeighbor: false,
-  },
-];
+export default function SympathyListPage({ postId = 1 }) {
+  const [likedUsers, setLikedUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-export default function SympathyListPage() {
+  // 백엔드 API 호출 함수 - JWT 토큰 자동 추가됨
+  const fetchPostLikeUsers = async postId => {
+    try {
+      setLoading(true);
+      // 전역 api 인스턴스 사용 (JWT 인터셉터가 자동으로 Authorization 헤더 추가)
+      const response = await api.get(`/posts/${postId}/likes`);
+      setLikedUsers(response.data.likedUsers || []);
+    } catch (error) {
+      console.error('공감한 블로거 목록 조회 오류:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 컴포넌트 마운트 시 데이터 로드
+  useEffect(() => {
+    fetchPostLikeUsers(postId);
+  }, [postId]);
+
+  // 로딩 중일 때
+  if (loading) {
+    return <div style={{ textAlign: 'center', padding: '20px' }}>로딩 중...</div>;
+  }
+
   return (
     <div
       style={{
@@ -92,25 +50,31 @@ export default function SympathyListPage() {
             color: '#111827',
           }}
         >
-          이 글에 공감한 블로거
+          이 글에 공감한 블로거 ({likedUsers.length}명)
         </h1>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-        {/* 왼쪽 열 */}
-        <div>
-          {testBloggers.slice(0, 5).map(blogger => (
-            <SympathyItem key={blogger.id} blogger={blogger} />
-          ))}
+      {likedUsers.length === 0 ? (
+        <div style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
+          아직 공감한 블로거가 없습니다.
         </div>
+      ) : (
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+          {/* 왼쪽 열 */}
+          <div>
+            {likedUsers.slice(0, Math.ceil(likedUsers.length / 2)).map((userItem, index) => (
+              <SympathyItem key={userItem.user.id || index} blogger={userItem.user} />
+            ))}
+          </div>
 
-        {/* 오른쪽 열 */}
-        <div>
-          {testBloggers.slice(5, 10).map(blogger => (
-            <SympathyItem key={blogger.id} blogger={blogger} />
-          ))}
+          {/* 오른쪽 열 */}
+          <div>
+            {likedUsers.slice(Math.ceil(likedUsers.length / 2)).map((userItem, index) => (
+              <SympathyItem key={userItem.user.id || index} blogger={userItem.user} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <div
         style={{

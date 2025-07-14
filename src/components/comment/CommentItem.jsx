@@ -3,14 +3,12 @@
 import { useState } from 'react';
 
 const CommentItem = ({ comment, onLike }) => {
-  const [isCommentLiked, setIsCommentLiked] = useState(false);
-  const [commentLikeCount, setCommentLikeCount] = useState(comment.likes || 0);
-
-  const getInitial = name => {
-    return name ? name.charAt(0) : '?';
-  };
+  const [isCommentLiked, setIsCommentLiked] = useState(comment.isLiked || false);
+  const [commentLikeCount, setCommentLikeCount] = useState(comment.likeCount || 0);
 
   const formatContent = content => {
+    if (!content) return '';
+
     return content.split('\n').map((line, index) => (
       <span key={index}>
         {line}
@@ -20,17 +18,21 @@ const CommentItem = ({ comment, onLike }) => {
   };
 
   // 댓글 공감 클릭 핸들러
-  const handleCommentLike = () => {
-    setIsCommentLiked(!isCommentLiked);
-    if (!isCommentLiked) {
-      setCommentLikeCount(commentLikeCount + 1);
-    } else {
-      setCommentLikeCount(commentLikeCount - 1);
-    }
+  const handleCommentLike = async () => {
+    try {
+      if (onLike) {
+        const response = await onLike(comment.commentId);
 
-    // 부모 컴포넌트 onLike 함수도 호출 (기존 로직 유지)
-    if (onLike) {
-      onLike();
+        if (response && response.data) {
+          setIsCommentLiked(response.data.isLiked);
+          setCommentLikeCount(response.data.likeCount);
+        }
+      }
+    } catch (error) {
+      console.error('댓글 공감 오류: ', error);
+      // 에러 시 원래 상태로 복구
+      setIsCommentLiked(!isCommentLiked);
+      setCommentLikeCount(isCommentLiked ? commentLikeCount + 1 : commentLikeCount - 1);
     }
   };
 
@@ -68,8 +70,8 @@ const CommentItem = ({ comment, onLike }) => {
           }}
         >
           <img
-            src={`https://i.pravatar.cc/36?u=${comment.author}`}
-            alt={comment.author}
+            src={`https://i.pravatar.cc/36?u=${comment.author?.nickname || '익명'}`}
+            alt={comment.author?.nickname || '익명'}
             style={{
               width: '100%',
               height: '100%',
@@ -86,7 +88,7 @@ const CommentItem = ({ comment, onLike }) => {
             color: '#333',
           }}
         >
-          {comment.author}
+          {comment.author?.nickname || '익명'}
         </div>
       </div>
 
@@ -126,7 +128,7 @@ const CommentItem = ({ comment, onLike }) => {
             wordBreak: 'break-word',
           }}
         >
-          {formatContent(comment.content)}
+          {formatContent(comment.comment)}
         </div>
 
         {/* 작성 시간 */}
@@ -137,7 +139,7 @@ const CommentItem = ({ comment, onLike }) => {
             marginBottom: '6px',
           }}
         >
-          {comment.timestamp}
+          {comment.createdAt}
         </div>
 
         {/* 답글 버튼 */}
