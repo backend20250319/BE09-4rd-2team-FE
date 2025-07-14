@@ -7,6 +7,8 @@ import AddedMeNeighbors from '../component/AddedMeNeighbors';
 import AddMutualNeighbor from '../component/AddMutualNeighbor';
 import BlogBasicInfo from '../../edit-profile/BlogInfo';
 import '../style.css';
+import Header from '@/src/app/(main)/searching/Header';
+import Footer from '@/src/components/Footer';
 
 export default function NeighborPage() {
   const [selectedTab, setSelectedTab] = useState('add');
@@ -28,10 +30,12 @@ export default function NeighborPage() {
 
   return (
     <div>
+      <Header />
       <div className="neighbor-container">
         <Sidebar setSelectedTab={setSelectedTab} />
         <div className="main-content">{renderContent()}</div>
       </div>
+      <Footer />
     </div>
   );
 }
