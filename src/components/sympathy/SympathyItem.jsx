@@ -1,34 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 
 export default function SympathyItem({ blogger }) {
-  const handleOpenPopup = () => {
-    const targetId = 123; // 전달할 유저 ID
-    const nickname = '홍길동'; // 전달할 닉네임
-
-    const popup = window.open('/popup', 'neighborPopup', 'width=500,height=400');
-
-    popup.onload = () => {
-      popup.postMessage({ targetId, nickname }, window.location.origin);
-    };
-  };
-
-  const [isNeighbor, setIsNeighbor] = useState(blogger.isNeighbor);
-
-  const handleNeighborToggle = () => {
-    setIsNeighbor(!isNeighbor);
-    // 실제로는 여기서 API 호출해서 이웃 추가/삭제 처리
-    console.log(`${blogger.name} ${!isNeighbor ? '이웃 추가' : '이웃 삭제'}`);
-  };
-
   return (
     <div style={{ display: 'flex', alignItems: 'center', padding: '12px' }}>
       {/* 프로필 이미지 */}
       <img
-        src={`https://i.pravatar.cc/50?u=${blogger.name}`}
-        alt={blogger.name}
+        src={blogger.profileImage || `https://api.pravatar.cc/150?img=${blogger.id % 50}`}
+        alt={blogger.nickname}
         style={{
           width: '50px',
           height: '50px',
@@ -40,14 +20,16 @@ export default function SympathyItem({ blogger }) {
 
       {/* 이름 + 설명 (세로로) */}
       <div style={{ flex: 1 }}>
-        <div style={{ fontWeight: 'bold', fontSize: '14px' }}>{blogger.name}</div>
+        <div style={{ fontWeight: 'bold', fontSize: '14px' }}>{blogger.nickname}</div>
         <div style={{ color: '#666', fontSize: '12px', marginTop: '2px' }}>
-          {blogger.description}
+          {blogger.profileIntro || '소개글이 없습니다.'}
         </div>
       </div>
 
       {/* 이웃추가 버튼 */}
-      <button onClick={handleOpenPopup}>이웃 추가</button>
+      <button>
+        <Link href="/popup">이웃추가</Link>
+      </button>
     </div>
   );
 }
