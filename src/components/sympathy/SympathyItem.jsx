@@ -27,9 +27,12 @@ export default function SympathyItem({ blogger }) {
       </div>
 
       {/* 이웃추가 버튼 */}
+
+
       <Link href={`/popup?userId=${blogger.id}&nickname=${encodeURIComponent(blogger.nickname)}`}>
         <button>이웃추가</button>
       </Link>
+
     </div>
   );
 }

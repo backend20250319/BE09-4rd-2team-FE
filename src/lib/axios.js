@@ -12,6 +12,7 @@ api.interceptors.request.use(config => {
   const token = localStorage.getItem('accessToken');
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
+  console.log('보내는 토큰:', localStorage.getItem('accessToken'));
 });
 
 export default api;

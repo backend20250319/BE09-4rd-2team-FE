@@ -8,7 +8,6 @@ import {
   getSentMutualNeighbors,
   rejectMultipleNeighbors,
 } from '@/src/app/(main)/(neighbor)/services/neighborApi';
-import { c } from 'react/compiler-runtime';
 import useUserId from '@/src/lib/useUserId';
 
 export default function AddMutualNeighbor() {
