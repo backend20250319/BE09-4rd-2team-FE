@@ -2,37 +2,95 @@
 
 import { useEffect, useState } from 'react';
 import {
-  getMyReceivedNeighbors,
+  acceptMultipleNeighbors,
+  cancelMyRequest,
   getReceivedMutualNeighbors,
   getSentMutualNeighbors,
+  rejectMultipleNeighbors,
 } from '@/src/app/(main)/(neighbor)/services/neighborApi';
+import { c } from 'react/compiler-runtime';
+import useUserId from '@/src/lib/useUserId';
 
 export default function AddMutualNeighbor() {
-  const userId = 1;
-  const [activeTab, setActiveTab] = useState('received');
-  const [neighbors, setNeighbors] = useState([]);
+  const userId = useUserId();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let response;
-        if (activeTab === 'received') {
-          response = await getReceivedMutualNeighbors(userId);
-        } else if (activeTab === 'sent') {
-          response = await getSentMutualNeighbors(userId);
-        } else {
-          return; // 유효하지 않은 탭이면 아무 것도 안 함
-        }
+    if (userId) {
+      console.log('로그인한 유저 ID:', userId);
+    }
+  }, [userId]);
 
-        setNeighbors(response.data);
-        console.log('neighbor.id 값:', response.data);
-      } catch (error) {
-        console.error('이웃 목록 불러오기 실패:', error);
+  const [activeTab, setActiveTab] = useState('received');
+  const [neighbors, setNeighbors] = useState([]);
+  const [selectedIds, setSelectedIds] = useState([]);
+
+  const handleIndividualCheck = id => {
+    setSelectedIds(prev => (prev.includes(id) ? prev.filter(v => v !== id) : [...prev, id]));
+    console.log('handle check', selectedIds);
+  };
+  const handleSelectAll = () => {
+    if (selectedIds.length === neighbors.length) {
+      setSelectedIds([]);
+    } else {
+      const allIds = neighbors.map(n => n.id);
+      setSelectedIds(allIds);
+    }
+  };
+  const fetchData = async () => {
+    try {
+      let response;
+      if (activeTab === 'received') {
+        response = await getReceivedMutualNeighbors();
+      } else if (activeTab === 'sent') {
+        response = await getSentMutualNeighbors();
+      } else {
+        return;
       }
-    };
+      setNeighbors(response.data);
+    } catch (error) {
+      console.error('이웃 목록 불러오기 실패:', error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, [activeTab, userId]);
+
+  const handleReject = async () => {
+    try {
+      await rejectMultipleNeighbors(selectedIds);
+      console.log('거절 성공!');
+      setSelectedIds([]);
+      await fetchData();
+    } catch (error) {
+      console.log('거절 실패:', error);
+      alert('이웃거절에 실패했습니다.');
+    }
+  };
+
+  const handleAccept = async () => {
+    try {
+      await acceptMultipleNeighbors(selectedIds);
+      console.log('수락 성공!');
+      setSelectedIds([]);
+      await fetchData();
+    } catch (error) {
+      console.log('수락 실패:', error);
+      alert('이웃수락에 실패했습니다.');
+    }
+  };
+
+  const handleCancel = async () => {
+    try {
+      await cancelMyRequest(selectedIds);
+      console.log('취소 성공!');
+      setSelectedIds([]);
+      await fetchData();
+    } catch (error) {
+      console.log('취소 실패', error);
+      alert('신청 취소에 실패했습니다.');
+    }
+  };
 
   return (
     <div className="neighbor-content">
@@ -83,8 +141,8 @@ export default function AddMutualNeighbor() {
           <div>
             <div className="first-content">
               <div className="first-content-left">
-                <button>수락</button>
-                <button>거절</button>
+                <button onClick={handleAccept}>수락</button>
+                <button onClick={handleReject}>거절</button>
               </div>
             </div>
             <table className="request-table">
@@ -108,7 +166,14 @@ export default function AddMutualNeighbor() {
                   neighbors.map(neighbor => (
                     <tr key={neighbor.id}>
                       <td>
-                        <input type="checkbox" style={{ margin: '12px', marginLeft: '15px' }} />
+                        <input
+                          type="checkbox"
+                          style={{ margin: '12px', marginLeft: '15px' }}
+                          checked={selectedIds.includes(neighbor.id)}
+                          onChange={() => {
+                            handleIndividualCheck(neighbor.id);
+                          }}
+                        />
                       </td>
                       <td>{neighbor.nickname}</td>
                       <td>우리 심심한데 이웃이나 할까?</td>
@@ -120,10 +185,15 @@ export default function AddMutualNeighbor() {
             </table>
             <div className="first-content">
               <div className="first-content-left">
-                <input type="checkbox" style={{ marginLeft: '15px' }} id="r3" />
+                <input
+                  type="checkbox"
+                  style={{ marginLeft: '15px' }}
+                  id="r3"
+                  onChange={handleSelectAll}
+                />
                 <label className="mutualBuddyCheckbox">전체선택</label>
-                <button>수락</button>
-                <button>거절</button>
+                <button onClick={handleAccept}>수락</button>
+                <button onClick={handleReject}>거절</button>
               </div>
             </div>
           </div>
@@ -132,14 +202,14 @@ export default function AddMutualNeighbor() {
           <div>
             <div className="first-content">
               <div className="first-content-left">
-                <button>신청취소</button>
+                <button onClick={handleCancel}>신청취소</button>
               </div>
             </div>
             <table className="request-table">
               <thead>
                 <tr>
                   <th>
-                    <input type="checkbox" />
+                    <input type="checkbox" onChange={handleSelectAll} />
                   </th>
                   <th>신청한 사람</th>
                   <th>메시지</th>
@@ -156,7 +226,14 @@ export default function AddMutualNeighbor() {
                   neighbors.map(neighbor => (
                     <tr key={neighbor.id}>
                       <td>
-                        <input type="checkbox" style={{ margin: '12px', marginLeft: '15px' }} />
+                        <input
+                          type="checkbox"
+                          style={{ margin: '12px', marginLeft: '15px' }}
+                          checked={selectedIds.includes(neighbor.id)}
+                          onChange={() => {
+                            handleIndividualCheck(neighbor.id);
+                          }}
+                        />
                       </td>
                       <td>{neighbor.nickname}</td>
                       <td>우리 심심한데 이웃이나 할까?</td>
@@ -168,9 +245,14 @@ export default function AddMutualNeighbor() {
             </table>
             <div className="first-content">
               <div className="first-content-left">
-                <input type="checkbox" style={{ marginLeft: '15px' }} id="r3" />
+                <input
+                  type="checkbox"
+                  style={{ marginLeft: '15px' }}
+                  id="r3"
+                  onChange={handleSelectAll}
+                />
                 <label className="mutualBuddyCheckbox">전체선택</label>
-                <button>신청취소</button>
+                <button onClick={handleCancel}>신청취소</button>
               </div>
             </div>
           </div>

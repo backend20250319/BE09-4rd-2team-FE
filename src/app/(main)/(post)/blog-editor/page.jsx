@@ -14,6 +14,7 @@ import SubjectSettings from '@/src/app/(main)/(post)/blog-editor/posts/SubjectSe
 import Header from '@/src/app/(main)/(post)/blog-editor/Header';
 import './editor/Editor.css';
 import Modal from './posts/Modal';
+import UploadImage from '../../../../components/uploadimage/UploadImage';
 // import PublishModal from './PublishModal'; // 모달 창 열고 닫기에 쓰임
 
 export default function BlogEditor() {
@@ -31,6 +32,10 @@ export default function BlogEditor() {
   const [showPublishOptions, setShowPublishOptions] = useState(false);
   const [showSubjectSettings, setShowSubjectSettings] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState('주제 선택 안 함');
+
+  const handleImageUpload = imageUrl => {
+    setContent(prev => prev + `<img src="${imageUrl}" alt="업로드 이미지" />`);
+  };
 
   return (
     <div>
@@ -76,7 +81,7 @@ export default function BlogEditor() {
       </>
 
       {/* 삽입 툴바 (이미지, 링크 등) */}
-      <Toolbar />
+      <Toolbar setContent={setContent} />
 
       {/* 본문 작성 영역 */}
       <main className="flex justify-center py-8">

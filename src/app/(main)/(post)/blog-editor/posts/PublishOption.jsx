@@ -59,10 +59,10 @@ export default function PublishOptions({ onClose, onOpenSubject, selectedSubject
             <input type="checkbox" /> 검색 허용
           </label>
           <label>
-            <input type="checkbox" defaultChecked /> 블로그카페 공유 링크 허용
+            <input type="checkbox" disabled /> 블로그카페 공유 링크 허용
           </label>
           <label>
-            <input type="checkbox" /> 일부 공유 허용
+            <input type="checkbox" disabled /> 일부 공유 허용
           </label>
         </div>
       </div>
@@ -81,7 +81,7 @@ export default function PublishOptions({ onClose, onOpenSubject, selectedSubject
             <input type="radio" name="time" defaultChecked /> 현재
           </label>
           <label>
-            <input type="radio" name="time" /> 예약
+            <input type="radio" name="time" disabled /> 예약
           </label>
         </div>
       </div>
@@ -89,7 +89,7 @@ export default function PublishOptions({ onClose, onOpenSubject, selectedSubject
       {/* 공지사항 등록 */}
       <div className="option-row">
         <label>
-          <input type="checkbox" /> 공지사항으로 등록
+          <input type="checkbox" disabled /> 공지사항으로 등록
         </label>
       </div>
 

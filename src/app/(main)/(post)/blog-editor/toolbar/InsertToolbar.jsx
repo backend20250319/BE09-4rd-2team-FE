@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import './Sprite.css';
 import UploadImage from '../../../../../components/uploadimage/UploadImage';
 
@@ -28,16 +28,23 @@ const rightTools = [
   { key: 'template', sprite: 'bg-template', label: '템플릿' },
 ];
 
-export function Toolbar() {
-  const handleImageUpload = url => {
-    console.log('삽입할 이미지 URL:', url);
+export function Toolbar({ setContent }) {
+  // 상태 훅 추가
+  const [thumbnailUrl, setThumbnailUrl] = useState(null);
+
+  const handleImageUpload = ({ editorUrl, thumbnailUrl: thumbUrl }) => {
+    console.log('삽입할 이미지 URL:', editorUrl);
+    // 1) 에디터 본문에 이미지 삽입
+    setContent(prev => prev + `<img src="${editorUrl}" alt="업로드 이미지" />`);
+    // 2) 썸네일이 아직 설정되지 않았다면 저장
+    setThumbnailUrl(prev => prev || thumbUrl);
   };
 
   return (
     <div
       style={{
         display: 'flex',
-        justifyContent: 'space-between', // 좌우 배치
+        justifyContent: 'space-between',
         alignItems: 'center',
         background: '#fff',
         borderBottom: '1px solid #ddd',
@@ -45,19 +52,10 @@ export function Toolbar() {
       }}
     >
       {/* 좌측 도구 */}
-      <ul
-        style={{
-          display: 'flex',
-          gap: '4px',
-          flexWrap: 'wrap',
-          padding: 0,
-          margin: 0,
-          listStyle: 'none',
-        }}
-      >
+      <ul style={{ display: 'flex', gap: '4px', padding: 0, margin: 0, listStyle: 'none' }}>
         {leftTools.map(tool =>
           tool.key === 'photo' ? (
-            <li key={tool.key}>
+            <li key="photo">
               <UploadImage onUpload={handleImageUpload} />
             </li>
           ) : (
@@ -73,11 +71,10 @@ export function Toolbar() {
                   border: 'none',
                   background: 'none',
                   cursor: 'pointer',
-                  textAlign: 'center',
                   padding: 0,
                 }}
               >
-                <span className={tool.sprite}></span>
+                <span className={tool.sprite} />
                 <span
                   style={{
                     fontSize: '12px',
@@ -99,7 +96,6 @@ export function Toolbar() {
         style={{
           display: 'flex',
           gap: '4px',
-          flexWrap: 'wrap',
           padding: 0,
           margin: 0,
           listStyle: 'none',
@@ -118,11 +114,10 @@ export function Toolbar() {
                 border: 'none',
                 background: 'none',
                 cursor: 'pointer',
-                textAlign: 'center',
                 padding: 0,
               }}
             >
-              <span className={tool.sprite}></span>
+              <span className={tool.sprite} />
               <span
                 style={{
                   fontSize: '12px',
