@@ -1,68 +1,43 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { deleteNeighbor, getBlockedUsers, unblockUser } from '../services/neighborApi';
 
-export default function BlockedUserList() {
+export default function BlockedList() {
   const [blockedUsers, setBlockedUsers] = useState([]);
 
-  // 차단된 사용자 목록 불러오기
   useEffect(() => {
-    const fetchBlockedUsers = async () => {
+    const fetchBlocked = async () => {
       try {
-        const token = localStorage.getItem('accessToken');
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_USER}/blocked`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await res.json();
-        setBlockedUsers(data);
-      } catch (err) {
-        console.error('차단 목록 불러오기 실패:', err);
+        const res = await getBlockedUsers();
+        setBlockedUsers(res.data);
+      } catch (e) {
+        console.error('차단 목록 불러오기 실패', e);
       }
     };
-
-    fetchBlockedUsers();
+    fetchBlocked();
   }, []);
 
   const handleUnblock = async userId => {
     try {
-      const token = localStorage.getItem('accessToken');
-      await fetch(`${process.env.NEXT_PUBLIC_API_USER}/blocked/${userId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setBlockedUsers(prev => prev.filter(user => user.id !== userId));
-    } catch (err) {
-      console.error('차단 해제 실패:', err);
+      await deleteNeighbor(userId);
+      setBlockedUsers(prev => prev.filter(u => u.id !== userId));
+    } catch (e) {
+      console.error('차단 해제 실패', e);
     }
   };
 
   return (
     <div style={{ padding: '20px' }}>
-      <h2 style={{ fontSize: '24px', fontWeight: 'bold' }}>차단된 사용자 목록</h2>
-      <hr style={{ marginTop: '10px', marginBottom: '20px' }} />
+      <h2>차단된 사용자</h2>
       {blockedUsers.length === 0 ? (
-        <p>차단한 사용자가 없습니다.</p>
+        <p>차단된 사용자가 없습니다.</p>
       ) : (
-        <ul style={{ listStyle: 'none', padding: 0 }}>
+        <ul>
           {blockedUsers.map(user => (
-            <li key={user.id} style={{ marginBottom: '10px' }}>
-              <span>
-                {user.blogId} ({user.nickname})
-              </span>
-              <button
-                onClick={() => handleUnblock(user.id)}
-                style={{
-                  marginLeft: '10px',
-                  padding: '4px 8px',
-                  backgroundColor: '#ccc',
-                  border: 'none',
-                  cursor: 'pointer',
-                }}
-              >
+            <li key={user.id}>
+              {user.nickname} ({user.blogId})
+              <button onClick={() => handleUnblock(user.id)} style={{ marginLeft: '10px' }}>
                 차단 해제
               </button>
             </li>

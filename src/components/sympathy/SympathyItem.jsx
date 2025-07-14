@@ -4,6 +4,17 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 export default function SympathyItem({ blogger }) {
+  const handleOpenPopup = () => {
+    const targetId = 123; // 전달할 유저 ID
+    const nickname = '홍길동'; // 전달할 닉네임
+
+    const popup = window.open('/popup', 'neighborPopup', 'width=500,height=400');
+
+    popup.onload = () => {
+      popup.postMessage({ targetId, nickname }, window.location.origin);
+    };
+  };
+
   const [isNeighbor, setIsNeighbor] = useState(blogger.isNeighbor);
 
   const handleNeighborToggle = () => {
@@ -36,9 +47,7 @@ export default function SympathyItem({ blogger }) {
       </div>
 
       {/* 이웃추가 버튼 */}
-      <button onClick={handleNeighborToggle}>
-        <Link href="/popup">이웃추가</Link>
-      </button>
+      <button onClick={handleOpenPopup}>이웃 추가</button>
     </div>
   );
 }

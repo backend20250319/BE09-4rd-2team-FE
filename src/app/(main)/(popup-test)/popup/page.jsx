@@ -1,7 +1,7 @@
 'use client';
 import '../../(neighbor)/style.css';
 import { insertNeighbor } from '@/src/app/(main)/(neighbor)/services/neighborApi';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useUserId from '@/src/lib/useUserId';
 
 export default function NeighborPopupPage({}) {
