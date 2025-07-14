@@ -7,10 +7,10 @@ const CommentList = ({ comments, onLikeComment, onDeleteComment }) => {
     <div style={{ marginBottom: '20px' }}>
       {comments.map(comment => (
         <CommentItem
-          key={comment.id}
+          key={comment.commentId}
           comment={comment}
-          onLike={() => onLikeComment(comment.id)}
-          onDelete={() => onDeleteComment(comment.id)}
+          onLike={() => onLikeComment(comment.commentId)}
+          onDelete={() => onDeleteComment(comment.commentId)}
         />
       ))}
 
