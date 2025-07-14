@@ -9,18 +9,25 @@ import {
   getMyAddedNeighbors,
 } from '../services/neighborApi';
 import { compileNonPath } from 'next/dist/shared/lib/router/utils/prepare-destination';
+import useUserId from '@/src/lib/useUserId';
 
 export default function AddedNeighbors() {
+  const userId = useUserId();
+
+  useEffect(() => {
+    if (userId) {
+      console.log('로그인한 유저 ID:', userId);
+    }
+  }, [userId]);
   const [activeTab, setActiveTab] = useState('list');
   const [selectedIds, setSelectedIds] = useState([]);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [deleteOption, setDeleteOption] = useState('all');
   const [neighbors, setNeighbors] = useState([]);
-  const userId = 1;
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getMyAddedNeighbors(userId);
+        const response = await getMyAddedNeighbors();
         setNeighbors(response.data);
         console.log('neighbor.id 값:', response.data);
       } catch (error) {
@@ -46,13 +53,13 @@ export default function AddedNeighbors() {
     if (selectedIds.length === 0) return alert('선택된 항목이 없습니다.');
     try {
       if (deleteOption === 'all') {
-        await deleteNeighbor(userId, selectedIds);
+        await deleteNeighbor(selectedIds);
       } else if (deleteOption === 'mutual') {
-        await changeRelationNeighbors(userId, selectedIds);
+        await changeRelationNeighbors(selectedIds);
       }
       alert('삭제 성공!');
       setSelectedIds([]);
-      const res = await getMyAddedNeighbors(userId);
+      const res = await getMyAddedNeighbors();
       console.log('업데이트된 이웃 목록:', res.data);
       setNeighbors(res.data);
     } catch (error) {

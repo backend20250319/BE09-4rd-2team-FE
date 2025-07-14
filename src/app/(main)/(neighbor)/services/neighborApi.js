@@ -1,91 +1,40 @@
 import api from '@/src/lib/axios';
 
 // 1. 내가 추가한 이웃
-export const getMyAddedNeighbors = userId =>
-  api.get('/neighbors/my-following/added', {
-    headers: { userId },
-  });
+export const getMyAddedNeighbors = () => api.get('/neighbors/my-following/added');
 
 // 2. 나를 추가한 이웃
-export const getMyReceivedNeighbors = userId =>
-  api.get('/neighbors/my-following/received', {
-    headers: { userId },
-  });
+export const getMyReceivedNeighbors = () => api.get('/neighbors/my-following/received');
 
 // 3. 내가 보낸 서로이웃
-export const getSentMutualNeighbors = userId =>
-  api.get('/neighbors/my-following/sent-mutual', {
-    headers: { userId },
-  });
+export const getSentMutualNeighbors = () => api.get('/neighbors/my-following/sent-mutual');
 
 // 4. 내가 받은 서로이웃
-export const getReceivedMutualNeighbors = userId =>
-  api.get(`/neighbors/my-following/received-mutual`, {
-    headers: { userId },
-  });
+export const getReceivedMutualNeighbors = () => api.get('/neighbors/my-following/received-mutual');
 
-// 5. 이웃 해제
-export const rejectNeighbor = (userId, deleteUserId) =>
-  api.patch(`/neighbors/${deleteUserId}/reject`, {
-    headers: { userId },
-  });
+// 5. 이웃 해제 (단일)
+export const rejectNeighbor = deleteUserId => api.patch(`/neighbors/${deleteUserId}/reject`);
 
-// 9. 이웃 관계 삭제
-export const deleteNeighbor = (userId, selectedIds) =>
-  api.delete(`/neighbors/delete`, {
-    data: selectedIds, // DELETE method에서 data는 axios에서 이렇게 따로 명시해야 함
-    headers: { userId, 'Content-Type': 'application/json' },
-  });
+// 6. 이웃 관계 삭제 (다중)
+export const deleteNeighbor = selectedIds => api.delete('/neighbors/delete', { data: selectedIds });
 
-// 6. 이웃 신청(다수)
-export const insertNeighbors = (userId, insertUserIds) =>
-  api.patch(
-    `/neighbors/accept`,
-    insertUserIds, // body에 배열로 전송
-    {
-      headers: {
-        fromUserId: userId,
-        'Content-Type': 'application/json',
-      },
-    },
-  );
+// 7. 이웃 신청 — 다수 수락
+export const insertNeighbors = insertUserIds => api.patch('/neighbors/accept', insertUserIds);
 
-// 7. 서로이웃 단체 수락
-export const acceptMultipleNeighbors = (userId, ids) =>
-  api.post('/neighbors/batch-accept', ids, {
-    headers: { userId },
-  });
+// 8. 서로이웃 단체 수락
+export const acceptMultipleNeighbors = ids => api.post('/neighbors/batch-accept', ids);
 
-// 8. 서로이웃 단체 거절
-export const rejectMultipleNeighbors = (userId, ids) =>
-  api.post('/neighbors/batch-rejected', ids, {
-    headers: { userId },
-  });
+// 9. 서로이웃 단체 거절
+export const rejectMultipleNeighbors = ids => api.post('/neighbors/batch-rejected', ids);
 
 // 10. 이웃 관계 변경
-export const changeRelationNeighbors = (userId, ids) =>
-  api.post(`/neighbors/batch-change`, ids, {
-    headers: { userId },
-  });
+export const changeRelationNeighbors = ids => api.post('/neighbors/batch-change', ids);
 
-// 11. 이웃 신청(단일)
-export const insertNeighbor = (userId, insertUserId) =>
-  api.patch(
-    `/neighbors/${insertUserId}/accept`,
-    {},
-    {
-      headers: { fromUserId: userId },
-    },
-  );
+// 11. 이웃 신청 — 단일
+export const insertNeighbor = insertUserId => api.patch(`/neighbors/${insertUserId}/accept`);
 
-// 12 이웃 신청 취소
-export const cancelMyRequest = (userId, ids) =>
-  api.post(`/neighbors/batch-cancel`, ids, {
-    headers: { userId },
-  });
+// 12. 이웃 신청 취소
+export const cancelMyRequest = ids => api.post('/neighbors/batch-cancel', ids);
 
-// 13 이웃 차단
-export const blockNeighbor = (userId, ids) =>
-  api.post(`/neighbors/batch-block`, ids, {
-    headers: { userId },
-  });
+// 13. 이웃 차단
+export const blockNeighbor = ids => api.post('/neighbors/batch-block', ids);
