@@ -39,7 +39,7 @@ export default function BlogList({ blogs, pageable = {}, onPageChange }) {
               </div>
               {/* 블로그 제목 및 내용 영역 */}
               <div>
-                <Link href="/blogDetail" className={styles.titleLink}>
+                <Link href={`/blogDetail/${blog.postId}`} className={styles.titleLink}>
                   {blog.title}
                 </Link>
                 <Link href="/blogDetail" className={styles.contentLink}>

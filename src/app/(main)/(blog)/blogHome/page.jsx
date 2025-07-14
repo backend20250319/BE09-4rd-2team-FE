@@ -20,7 +20,7 @@ export default function BlogHome() {
   // 페이지 변경 및 최초 진입 시 데이터 불러오기
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_BLOG}/posts/all`, {
+      .get(`${process.env.NEXT_PUBLIC_API_BLOG}/blog-service/posts/all`, {
         params: { page: data.number, size: 10 },
       })
       .then(res => setData(res.data.data ?? {}));
