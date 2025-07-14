@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '@/src/lib/axios'; // 전역 api 인스턴스 사용 (JWT 인터셉터 포함)
 import CommentSection from '@/src/components/comment/CommentSection';
 import SympathyList from '@/src/app/(main)/(blog)/sympathyList/page';
 
@@ -10,76 +10,41 @@ export default function PostPage({ postId = 1 }) {
   const [isLiked, setIsLiked] = useState(false);
   const [sympathyCount, setSympathyCount] = useState(0);
   const [commentCount, setCommentCount] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 개발용 임시 설정
 
   useEffect(() => {
     fetchPostData();
   }, [postId]);
 
-  const handleLogin = async () => {
-    try {
-      const loginResponse = await axios.post('http://localhost:8000/api/auth/login', {
-        loginId: 'user03@test.com', // 실제 계정으로 바꾸세요
-        password: 'password1234', // 실제 비밀번호로 바꾸세요
-        deviceId: '1',
-      });
-
-      localStorage.setItem('accessToken', loginResponse.data.accessToken);
-      setIsLoggedIn(true);
-      alert('로그인 성공!');
-      fetchPostData(); // 데이터 다시 로드
-    } catch (error) {
-      console.error('로그인 실패:', error);
-      alert('로그인 실패');
-    }
-  };
-
   const fetchPostData = async () => {
     try {
-      // JWT 토큰 가져오기
-      const token = localStorage.getItem('accessToken');
-      const headers = token ? { Authorization: `Bearer ${token}` } : { 'X-User-Id': '1' };
-
-      const likeResponse = await axios.get(
-        `http://localhost:8000/api/blog-service/posts/${postId}/like/status`,
-        { headers },
-      );
+      // 전역 api 인스턴스 사용 (JWT 인터셉터가 자동으로 헤더 추가)
+      const likeResponse = await api.get(`/posts/${postId}/like/status`);
       setIsLiked(likeResponse.data.isLiked);
       setSympathyCount(likeResponse.data.likeCount);
 
-      const commentResponse = await axios.get(
-        `http://localhost:8000/api/blog-service/posts/${postId}/comments`,
-        { headers },
-      );
+      const commentResponse = await api.get(`/posts/${postId}/comments`);
       setCommentCount(commentResponse.data.totalCount);
     } catch (error) {
       console.error('게시글 데이터 로드 실패: ', error);
     }
   };
 
-  // 공감 버튼 클릭 핸들러
+  // 공감 버튼 클릭 핸들러 - JWT 토큰 자동 추가됨
   const handleLikeClick = async e => {
     e.stopPropagation();
 
-    if (!isLoggedIn) {
-      alert('로그인이 필요합니다.');
-      return;
-    }
-
     try {
-      const token = localStorage.getItem('accessToken');
-      const headers = token ? { Authorization: `Bearer ${token}` } : { 'X-User-Id': '1' };
-
-      const response = await axios.post(
-        `http://localhost:8000/api/blog-service/posts/${postId}/like`,
-        {},
-        { headers },
-      );
+      // 전역 api 인스턴스 사용 (JWT 인터셉터가 자동으로 헤더 추가)
+      const response = await api.post(`/posts/${postId}/like`);
 
       setIsLiked(response.data.isLiked);
       setSympathyCount(response.data.likeCount);
     } catch (error) {
       console.error('공감 처리 실패:', error);
+      // 로그인이 필요한 경우 에러 메시지 표시
+      if (error.response && error.response.status === 500) {
+        alert('로그인이 필요합니다.');
+      }
     }
   };
 
@@ -91,10 +56,6 @@ export default function PostPage({ postId = 1 }) {
         padding: '20px',
       }}
     >
-      <button onClick={handleLogin} style={{ marginBottom: '10px' }}>
-        임시 로그인
-      </button>
-
       {/* 공감/댓글 버튼 영역 */}
       <div
         style={{

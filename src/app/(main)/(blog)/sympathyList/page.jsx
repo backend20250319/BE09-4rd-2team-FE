@@ -2,22 +2,18 @@
 
 import SympathyItem from '@/src/components/sympathy/SympathyItem';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '@/src/lib/axios'; // 전역 api 인스턴스 사용 (JWT 인터셉터 포함)
 
 export default function SympathyListPage({ postId = 1 }) {
   const [likedUsers, setLikedUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // 백엔드 API 호출 함수
+  // 백엔드 API 호출 함수 - JWT 토큰 자동 추가됨
   const fetchPostLikeUsers = async postId => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        `http://localhost:8000/api/blog-service/posts/${postId}/likes`,
-        {
-          headers: { 'X-User-Id': '1' },
-        },
-      );
+      // 전역 api 인스턴스 사용 (JWT 인터셉터가 자동으로 Authorization 헤더 추가)
+      const response = await api.get(`/posts/${postId}/likes`);
       setLikedUsers(response.data.likedUsers || []);
     } catch (error) {
       console.error('공감한 블로거 목록 조회 오류:', error);
