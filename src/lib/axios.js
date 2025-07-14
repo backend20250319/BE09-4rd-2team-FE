@@ -1,8 +1,8 @@
+// src/lib/axios.js
 import axios from 'axios';
-import process from 'next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss';
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BLOG,
+  baseURL: 'http://localhost:8000/api/blog-service', // 직접 설정
   headers: {
     'Content-Type': 'application/json',
   },

@@ -16,20 +16,40 @@ export default function PostPage({ postId = 1 }) {
     fetchPostData();
   }, [postId]);
 
+  const handleLogin = async () => {
+    try {
+      const loginResponse = await axios.post('http://localhost:8000/api/auth/login', {
+        loginId: 'user03@test.com', // 실제 계정으로 바꾸세요
+        password: 'password1234', // 실제 비밀번호로 바꾸세요
+        deviceId: '1',
+      });
+
+      localStorage.setItem('accessToken', loginResponse.data.accessToken);
+      setIsLoggedIn(true);
+      alert('로그인 성공!');
+      fetchPostData(); // 데이터 다시 로드
+    } catch (error) {
+      console.error('로그인 실패:', error);
+      alert('로그인 실패');
+    }
+  };
+
   const fetchPostData = async () => {
     try {
+      // JWT 토큰 가져오기
+      const token = localStorage.getItem('accessToken');
+      const headers = token ? { Authorization: `Bearer ${token}` } : { 'X-User-Id': '1' };
+
       const likeResponse = await axios.get(
-        `http://localhost:8081/api/posts/${postId}/like/status`,
-        { headers: { 'X-User-Id': '1' } },
+        `http://localhost:8000/api/blog-service/posts/${postId}/like/status`,
+        { headers },
       );
       setIsLiked(likeResponse.data.isLiked);
       setSympathyCount(likeResponse.data.likeCount);
 
       const commentResponse = await axios.get(
-        `http://localhost:8081/api/posts/${postId}/comments`,
-        {
-          headers: { 'X-User-Id': '1' },
-        },
+        `http://localhost:8000/api/blog-service/posts/${postId}/comments`,
+        { headers },
       );
       setCommentCount(commentResponse.data.totalCount);
     } catch (error) {
@@ -47,10 +67,13 @@ export default function PostPage({ postId = 1 }) {
     }
 
     try {
+      const token = localStorage.getItem('accessToken');
+      const headers = token ? { Authorization: `Bearer ${token}` } : { 'X-User-Id': '1' };
+
       const response = await axios.post(
-        `http://localhost:8081/api/posts/${postId}/like`,
+        `http://localhost:8000/api/blog-service/posts/${postId}/like`,
         {},
-        { headers: { 'X-User-Id': '1' } },
+        { headers },
       );
 
       setIsLiked(response.data.isLiked);
@@ -68,6 +91,10 @@ export default function PostPage({ postId = 1 }) {
         padding: '20px',
       }}
     >
+      <button onClick={handleLogin} style={{ marginBottom: '10px' }}>
+        임시 로그인
+      </button>
+
       {/* 공감/댓글 버튼 영역 */}
       <div
         style={{

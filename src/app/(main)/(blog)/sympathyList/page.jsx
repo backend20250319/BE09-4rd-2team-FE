@@ -12,9 +12,12 @@ export default function SympathyListPage({ postId = 1 }) {
   const fetchPostLikeUsers = async postId => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:8081/api/posts/${postId}/likes`, {
-        headers: { 'X-User-Id': '1' },
-      });
+      const response = await axios.get(
+        `http://localhost:8000/api/blog-service/posts/${postId}/likes`,
+        {
+          headers: { 'X-User-Id': '1' },
+        },
+      );
       setLikedUsers(response.data.likedUsers || []);
     } catch (error) {
       console.error('공감한 블로거 목록 조회 오류:', error);

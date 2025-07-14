@@ -10,7 +10,7 @@ const CommentSection = ({ postId = 1 }) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const API_BASE_URL = 'http://localhost:8081/api';
+  const API_BASE_URL = 'http://localhost:8000/api/blog-service';
 
   // axios 기본 설정
   const api = axios.create({
