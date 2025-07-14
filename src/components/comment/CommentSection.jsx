@@ -1,32 +1,20 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '@/src/lib/axios'; // 전역 api 인스턴스 사용 (JWT 인터셉터 포함)
 import CommentForm from './CommentForm';
 import CommentList from './CommentList';
 
 const CommentSection = ({ postId = 1 }) => {
-  // postId props 추가
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  const API_BASE_URL = 'http://localhost:8000/api/blog-service';
-
-  // axios 기본 설정
-  const api = axios.create({
-    baseURL: API_BASE_URL,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
 
   // 댓글 목록 조회
   const fetchComments = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/posts/${postId}/comments`, {
-        headers: { 'X-User-Id': '1' },
-      });
+      // 전역 api 인스턴스 사용 (자동으로 JWT 토큰 추가됨)
+      const response = await api.get(`/posts/${postId}/comments`);
       setComments(response.data.comments || []);
     } catch (error) {
       console.error('댓글 조회 에러:', error);
@@ -46,19 +34,13 @@ const CommentSection = ({ postId = 1 }) => {
   // 댓글 작성
   const handleAddComment = async (content, isSecret) => {
     try {
-      const response = await api.post(
-        `/posts/${postId}/comments`,
-        {
-          content: content,
-          isSecret: isSecret || false,
-        },
-        {
-          headers: { 'X-User-Id': '1' },
-        },
-      );
+      // 전역 api 인스턴스 사용 (자동으로 JWT 토큰 추가됨)
+      const response = await api.post(`/posts/${postId}/comments`, {
+        content: content,
+        isSecret: isSecret || false,
+      });
 
       if (response.status === 201 || response.status === 200) {
-        // 댓글 목록 다시 조회
         fetchComments();
       }
     } catch (error) {
@@ -70,19 +52,13 @@ const CommentSection = ({ postId = 1 }) => {
     }
   };
 
-  // 댓글 공감
+  // 댓글 공감 - JWT 토큰이 자동으로 포함됨!
   const handleLikeComment = async commentId => {
     try {
-      const response = await api.post(
-        `/comments/${commentId}/like`,
-        {},
-        {
-          headers: { 'X-User-Id': '1' },
-        },
-      );
+      // 전역 api 인스턴스 사용 (자동으로 JWT 토큰 추가됨)
+      const response = await api.post(`/comments/${commentId}/like`);
 
       if (response.status === 200) {
-        // 댓글 목록 다시 조회하여 공감 수 업데이트
         fetchComments();
       }
     } catch (error) {
@@ -98,12 +74,10 @@ const CommentSection = ({ postId = 1 }) => {
     if (!confirm('댓글을 삭제하시겠습니까?')) return;
 
     try {
-      const response = await api.delete(`/comments/${commentId}`, {
-        headers: { 'X-User-Id': '1' },
-      });
+      // 전역 api 인스턴스 사용 (자동으로 JWT 토큰 추가됨)
+      const response = await api.delete(`/comments/${commentId}`);
 
       if (response.status === 204 || response.status === 200) {
-        // 댓글 목록 다시 조회
         fetchComments();
         alert('댓글이 삭제되었습니다.');
       }
