@@ -1,10 +1,12 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import BlackHeader from '@/src/components/post/blog-header-footer/BlackHeader';
+import BlogTitle from '@/src/components/post/blog-header-footer/BlogTitle';
+import PostList from '@/src/components/post/blog-header-footer/PostList';
+import Profile from '@/src/components/post/blog-header-footer/Profile';
+import PostBox from '@/src/components/post/other-blog-box/PostBox';
 import axios from 'axios';
-import Header from '@/src/app/(main)/searching/Header';
-import MenuTabs from '@/src/components/header/MenuTabs';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BLOG;
 
@@ -26,38 +28,50 @@ export default function BlogDetail() {
   if (loading) return <div>로딩중...</div>;
   if (!post) return <div>게시글을 불러올 수 없습니다.</div>;
 
-  // 지환님 페이지 구조로 바꾸시면 됩니다!
+  // 1. BlogTitle
+  // 2. PostList(이 글만 단독으로 띄우려면 [post] 전달)
+  // 3. PostBox(상세 컨텐츠, 이미지 등)
+  // 4. Profile(작성자/블로그 정보)
+
+  // 예시: PostBox용 데이터 변환 (필요시)
+  const postBoxData = {
+    category: post.mainTopic || '카테고리없음',
+    blogTitle: post.blogTitle,
+    nickname: post.nickname,
+    date: post.publishedAt || '', // 날짜 데이터가 있다면
+    profileImageUrl: post.profileImageUrl,
+    content: post.content,
+    tags: post.tags || [],
+    thumbnailImageUrl: post.thumbnailImageUrl,
+  };
+
+  // 예시: Profile용 데이터 변환 (필요시)
+  const profileData = {
+    blogTitle: post.blogTitle,
+    nickname: post.nickname,
+    blogId: post.blogId,
+    profileIntro: post.profileIntro,
+    profileImageUrl: post.profileImageUrl,
+  };
+
   return (
-    <div>
-      <Header />
-      <MenuTabs />
-      <h2>{post.title}</h2>
-      <p>{post.content}</p>
-      <p>블로그명: {post.blogTitle}</p>
-      <p>작성자: {post.nickname}</p>
-      <img
-        src={post.profileImageUrl}
-        alt={post.nickname}
-        width={40}
-        height={40}
-        style={{ borderRadius: '50%' }}
-      />
-      <div>공감수: {post.likeCount}</div>
-      <div>공개여부: {post.visibility === 'PUBLIC' ? '전체공개' : '비공개'}</div>
-      <div>
-        댓글허용: {post.allowComment ? 'O' : 'X'} / 공감허용: {post.allowLike ? 'O' : 'X'} /
-        검색허용: {post.allowSearch ? 'O' : 'X'}
-      </div>
-      {/* 썸네일 있을 때만 표시 */}
-      {post.thumbnailImageUrl && (
-        <div>
-          <img src={post.thumbnailImageUrl} alt="썸네일" width={200} />
+    <>
+      <BlackHeader />
+      <main>
+        <div className="whole-border">
+          <BlogTitle nickname={post.nickname} />
+          <div>
+            {/* PostList는 여러 게시글이 아니라면 [post]로 전달 */}
+            <PostList posts={[post]} />
+          </div>
+          <div>
+            <PostBox post={postBoxData} />
+          </div>
+          <div>
+            <Profile profileData={profileData} />
+          </div>
         </div>
-      )}
-      {/* 주제 정보 */}
-      <div>
-        주제: {post.mainTopic || '(없음)'} / {post.subTopic || '(없음)'}
-      </div>
-    </div>
+      </main>
+    </>
   );
 }
