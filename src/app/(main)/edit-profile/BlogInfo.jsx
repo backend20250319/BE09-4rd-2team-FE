@@ -1,83 +1,151 @@
-import React, { useState } from 'react';
+'use client';
+import React, { useState, useEffect, useRef } from 'react';
 import './BlogBasicInfo.css';
 
-export default function BlogBasicInfo() {
+export default function BlogBasicInfo({ userId }) {
+  // 상태
   const [blogTitle, setBlogTitle] = useState('');
   const [nickname, setNickname] = useState('');
   const [description, setDescription] = useState('');
-  const [profileImg, setProfileImg] = useState(
-    'https://blogpfthumb-phinf.pstatic.net/MjAyNDA1MTlfMTg4/MDAxNzE2Mzg1ODgxNDc2.4A4vG3eX9nQKjH1w4sK8w0Q8HkHf4oQh5rQwK-3r1nUg.h3B6Qd1Wn6vN9h9N9yA6lQh5rQwK-3r1nUg.jpeg',
-  );
+  const [profileFile, setProfileFile] = useState(null);
+  const [profilePreview, setProfilePreview] = useState('');
+  const fileInputRef = useRef(null);
 
-  // 팝업에서 이미지 등록 시
-  window.handleImageUpload = imgDataUrl => {
-    setProfileImg(imgDataUrl);
+  // 초기값 저장 (수정 체크용)
+  const [initialBlogTitle, setInitialBlogTitle] = useState('');
+  const [initialNickname, setInitialNickname] = useState('');
+  const [initialDescription, setInitialDescription] = useState('');
+  const [initialProfilePreview, setInitialProfilePreview] = useState('');
+  const accessToken = localStorage.getItem('accessToken');
+  const currentUserId = localStorage.getItem('userId');
+  // 1. userInfo 데이터 받아오기
+  useEffect(() => {
+    async function fetchUserInfo() {
+      try {
+        if (userId == null) userId = localStorage.getItem('userId');
+        console.log(userId);
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BLOG}/blog-service/api/user-info/${userId}`,
+        );
+        if (!res.ok) throw new Error('데이터를 불러오는데 실패했습니다.');
+        const data = await res.json();
+
+        // 상태 세팅
+        setBlogTitle(data.blogTitle || '');
+        setNickname(data.nickname || '');
+        setDescription(data.profileIntro || '');
+        setProfilePreview(data.profileImgUrl || '');
+
+        // 초기값도 같이 세팅 (변경 비교용)
+        setInitialBlogTitle(data.blogTitle || '');
+        setInitialNickname(data.nickname || '');
+        setInitialDescription(data.profileIntro || '');
+        setInitialProfilePreview(data.profileImgUrl || '');
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+    fetchUserInfo();
+  }, [userId]);
+
+  // 파일 선택 시
+  const handleFileChange = e => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfileFile(file);
+      setProfilePreview(URL.createObjectURL(file));
+    }
   };
 
-  const handleOpenPopup = () => {
-    window.open('/image-upload-popup', '이미지업로드', 'width=400,height=300,scrollbars=no');
-  };
-
+  // 이미지 삭제
   const handleDeleteImage = () => {
-    setProfileImg('');
+    setProfileFile(null);
+    setProfilePreview(initialProfilePreview);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = null; // 파일 input 비우기
+    }
   };
 
-  // 확인 버튼 클릭 시
+  // 2. 수정된 필드만 PATCH 요청 보내기
   const handleSubmit = async e => {
     e.preventDefault();
 
-    let uploadedImgUrl = profileImg; // 기본값: 미리보기 URL(업로드 안 했을 때)
+    let uploadedImgUrl = profilePreview; // 이미지 URL 기본값
 
-    // 1. 이미지 파일이 있으면 먼저 업로드
-    if (profileImg) {
-      const imgFormData = new FormData();
-      imgFormData.append('file', profileImg);
-
+    // 이미지 새로 선택했으면 업로드
+    if (profileFile) {
+      const formData = new FormData();
+      formData.append('file', profileFile);
       try {
-        const imgRes = await fetch('http://localhost:8081/ftp/upload', {
+        const response = await fetch('http://localhost:8000/api/blog-service/ftp/upload', {
           method: 'POST',
-          body: imgFormData,
+          headers: {
+            Authorization: `Bearer ${accessToken}`, // 토큰 넣기
+          },
+          body: formData,
         });
-        const imgData = await imgRes.json();
+        const data = await response.json();
 
-        if (imgRes.ok && imgData.success && imgData.imageUrls && imgData.imageUrls.length > 0) {
-          uploadedImgUrl = imgData.imageUrls[0];
+        if (response.ok && data.success && data.imageUrls && data.imageUrls.length > 0) {
+          uploadedImgUrl = data.imageUrls[0];
         } else {
-          alert('이미지 업로드 실패: ' + (imgData.message || ''));
+          alert('이미지 업로드 실패: ' + (data.message || ''));
           return;
         }
-      } catch (err) {
-        alert('이미지 업로드 중 에러: ' + err.message);
+      } catch (error) {
+        alert('이미지 업로드 중 에러: ' + error.message);
         return;
       }
     }
 
-    // // 2. 전체 데이터 JSON으로 전송 (이미지 URL 포함)
-    // const data = {
-    //   blogTitle,
-    //   nickname,
-    //   description,
-    //   profileImg: uploadedImgUrl, // 이미지 URL만 보냄
-    // };
+    // 변경 여부 체크용 플래그
+    const isChanged =
+      blogTitle !== initialBlogTitle ||
+      nickname !== initialNickname ||
+      description !== initialDescription ||
+      profilePreview !== initialProfilePreview;
 
-    // try {
-    //   const response = await fetch('/api/blog-info', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(data),
-    //   });
+    if (!isChanged) {
+      alert('수정된 내용이 없습니다.');
+      return;
+    }
 
-    //   if (response.ok) {
-    //     alert('저장되었습니다!');
-    //     // 필요하다면 추가 동작
-    //   } else {
-    //     alert('저장 실패!');
-    //   }
-    // } catch (error) {
-    //   alert('에러 발생: ' + error.message);
-    // }
+    // 서버에 보낼 모든 필드 (무조건 포함)
+    const updatedFields = {
+      blogTitle,
+      nickname,
+      profileIntro: description,
+      profileImagUrl: uploadedImgUrl,
+    };
+
+    // PATCH 요청 보내기
+    try {
+      console.log('edit: ' + userId);
+      console.log(updatedFields);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BLOG}/blog-service/api/user-info/${currentUserId}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json', // JSON임을 명시
+            Authorization: `Bearer ${accessToken}`, // 토큰 넣기
+          },
+          body: JSON.stringify(updatedFields),
+        },
+      );
+      if (res.ok) {
+        alert('정보가 성공적으로 수정되었습니다.');
+        // 초기값 업데이트
+        setInitialBlogTitle(blogTitle);
+        setInitialNickname(nickname);
+        setInitialDescription(description);
+        setInitialProfilePreview(uploadedImgUrl);
+      } else {
+        alert('수정에 실패했습니다.');
+      }
+    } catch (err) {
+      alert('서버 오류: ' + err.message);
+    }
   };
 
   return (
@@ -114,26 +182,37 @@ export default function BlogBasicInfo() {
           />
         </div>
         <div className="form-row">
-          <label>블로그 프로필 이미지</label>
-          <div className="profile-img-box">
-            {profileImg ? (
-              <img src={profileImg} alt="프로필" className="profile-img" />
-            ) : (
-              <div className="no-image">이미지가 없습니다</div>
-            )}
+          <label htmlFor="profile-img">블로그 프로필 이미지</label>
+          <div className="form-row-left">
+            <input
+              id="profile-img"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              ref={fileInputRef}
+            />
           </div>
-          <div className="img-desc">
-            <span>프로필 이미지는 가로 160px 이상을 권장합니다.</span>
-            <button type="button" onClick={handleOpenPopup} className="img-upload-btn">
-              이미지 업로드
-            </button>
-            <button type="button" onClick={handleDeleteImage} className="img-delete-btn">
-              이미지 삭제
-            </button>
+          <div className="form-row-right">
+            <div className="profile-img-box">
+              <img
+                src={profilePreview || 'https://ssl.pstatic.net/static/blog/no_image_161.png'}
+                alt="프로필"
+                className="profile-img"
+              />
+            </div>
+
+            {profilePreview && (
+              <button type="button" onClick={handleDeleteImage} className="img-delete-btn">
+                이미지 삭제
+              </button>
+            )}
+            <div className="img-desc">
+              <span>프로필 이미지는 가로 160px 이상을 권장합니다.</span>
+            </div>
           </div>
         </div>
         <div className="form-row">
-          <button type="submit" onClick={handleSubmit} className="confirm-btn">
+          <button type="submit" className="confirm-btn">
             확인
           </button>
         </div>

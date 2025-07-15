@@ -14,6 +14,22 @@ function generateUUID() {
   });
 }
 
+function parseJwt(token) {
+  try {
+    const base64Url = token.split('.')[1]; // payload 부분
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join(''),
+    );
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    return null;
+  }
+}
+
 export default function LoginForm() {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
@@ -54,6 +70,12 @@ export default function LoginForm() {
       if (accessToken) {
         // 예: 로컬 스토리지에 저장
         localStorage.setItem('accessToken', accessToken);
+        // 사용 예
+        const token = localStorage.getItem('accessToken');
+        const payload = parseJwt(token);
+        const userId = payload ? payload.userId : null;
+        localStorage.setItem('userId', userId);
+        console.log('userId:', localStorage.getItem('userId'));
         alert('로그인 성공!');
         router.push('/neighborPost'); // 이웃새글 페이지로 이동
       }
