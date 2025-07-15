@@ -79,6 +79,18 @@ export default function PostPage({
     fetchPostData();
   };
 
+  // 댓글 버튼 텍스트 동적 생성 (네이버 방식)
+  const getCommentButtonText = () => {
+    if (commentCount === 0) {
+      return '댓글 쓰기';
+    } else {
+      return `댓글 ${commentCount}`;
+    }
+  };
+
+  // NEW 배지 표시 여부
+  const showNewBadge = commentCount > 0;
+
   // 버튼만 렌더링 (mode === 'buttons')
   if (mode === 'buttons') {
     return (
@@ -129,17 +141,22 @@ export default function PostPage({
           }}
         >
           <span>💬</span>
-          <span>댓글 {commentCount}</span>
-          <span
-            style={{
-              fontSize: '10px',
-              backgroundColor: '#ff4757',
-              color: 'white',
-              padding: '2px 4px',
-              marginLeft: '2px',
-            }}
-          >
-            NEW
+          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            {getCommentButtonText()}
+            {showNewBadge && (
+              <span
+                style={{
+                  fontSize: '10px',
+                  backgroundColor: '#ff4757',
+                  color: 'white',
+                  padding: '2px 4px',
+                  borderRadius: '2px',
+                  fontWeight: 'bold',
+                }}
+              >
+                NEW
+              </span>
+            )}
           </span>
           <span style={{ fontSize: '12px', color: '#999' }}>
             {activeTab === 'comments' ? '▲' : '▼'}
@@ -153,9 +170,9 @@ export default function PostPage({
   if (mode === 'content') {
     return (
       <div style={{ padding: '20px' }}>
-        {currentActiveTab === 'sympathy' && <SympathyList postId={postId} />}
+        {activeTab === 'sympathy' && <SympathyList postId={postId} />}
 
-        {currentActiveTab === 'comments' && (
+        {activeTab === 'comments' && (
           <CommentSection postId={postId} onCommentChange={handleCommentChange} />
         )}
       </div>
@@ -222,17 +239,22 @@ export default function PostPage({
           }}
         >
           <span>💬</span>
-          <span>댓글 {commentCount}</span>
-          <span
-            style={{
-              fontSize: '10px',
-              backgroundColor: '#ff4757',
-              color: 'white',
-              padding: '2px 4px',
-              marginLeft: '2px',
-            }}
-          >
-            NEW
+          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            {getCommentButtonText()}
+            {showNewBadge && (
+              <span
+                style={{
+                  fontSize: '10px',
+                  backgroundColor: '#ff4757',
+                  color: 'white',
+                  padding: '2px 4px',
+                  borderRadius: '2px',
+                  fontWeight: 'bold',
+                }}
+              >
+                NEW
+              </span>
+            )}
           </span>
           <span style={{ fontSize: '12px', color: '#999' }}>
             {currentActiveTab === 'comments' ? '▲' : '▼'}
