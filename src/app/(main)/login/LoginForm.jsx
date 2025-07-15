@@ -74,7 +74,8 @@ export default function LoginForm() {
         const token = localStorage.getItem('accessToken');
         const payload = parseJwt(token);
         const userId = payload ? payload.userId : null;
-        console.log('userId:', userId);
+        localStorage.setItem('userId', userId);
+        console.log('userId:', localStorage.getItem('userId'));
         alert('로그인 성공!');
         router.push('/neighborPost'); // 이웃새글 페이지로 이동
       }
