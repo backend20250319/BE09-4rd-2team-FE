@@ -1,9 +1,32 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import './PublishOptions.css';
 
-export default function PublishOptions({ onClose, onOpenSubject, selectedSubject }) {
+export default function PublishOptions({
+  onClose,
+  onOpenSubject,
+  selectedSubject,
+  onPublish,
+  loading,
+}) {
+  // 상태 관리
+  const [category, setCategory] = useState('');
+  const [visibility, setVisibility] = useState('PUBLIC');
+  const [allowComment, setAllowComment] = useState(true);
+  const [allowLike, setAllowLike] = useState(true);
+  const [allowSearch, setAllowSearch] = useState(true);
+
+  const handlePublish = () => {
+    onPublish({
+      category,
+      visibility,
+      allowComment,
+      allowLike,
+      allowSearch,
+    });
+  };
+
   return (
     <div className="publish-options">
       <h3 className="title">발행 설정</h3>
@@ -11,14 +34,14 @@ export default function PublishOptions({ onClose, onOpenSubject, selectedSubject
       {/* 카테고리 선택 */}
       <div className="option-row">
         <label className="label">카테고리</label>
-        <select>
+        <select value={category} onChange={e => setCategory(e.target.value)}>
           <option value="">게시판</option>
-          <option value="">공지사항</option>
-          <option value="">일상</option>
+          <option value="NOTICE">공지사항</option>
+          <option value="DAILY">일상</option>
         </select>
       </div>
 
-      {/* 주제 선택: 버튼 클릭 시 부모에서 넘긴 onOpenSubject 실행 */}
+      {/* 주제 선택 */}
       <div className="option-row">
         <label className="label">주제</label>
         <button type="button" className="subject-trigger" onClick={onOpenSubject}>
@@ -31,16 +54,44 @@ export default function PublishOptions({ onClose, onOpenSubject, selectedSubject
         <label className="label">공개 설정</label>
         <div className="checkbox-group">
           <label>
-            <input type="radio" name="public" defaultChecked /> 전체공개
+            <input
+              type="radio"
+              name="visibility"
+              value="PUBLIC"
+              checked={visibility === 'PUBLIC'}
+              onChange={() => setVisibility('PUBLIC')}
+            />
+            전체공개
           </label>
           <label>
-            <input type="radio" name="public" /> 이웃공개
+            <input
+              type="radio"
+              name="visibility"
+              value="NEIGHBOR"
+              checked={visibility === 'NEIGHBOR'}
+              onChange={() => setVisibility('NEIGHBOR')}
+            />
+            이웃공개
           </label>
           <label>
-            <input type="radio" name="public" /> 서로이웃공개
+            <input
+              type="radio"
+              name="visibility"
+              value="MUTUAL"
+              checked={visibility === 'MUTUAL'}
+              onChange={() => setVisibility('MUTUAL')}
+            />
+            서로이웃공개
           </label>
           <label>
-            <input type="radio" name="public" /> 비공개
+            <input
+              type="radio"
+              name="visibility"
+              value="PRIVATE"
+              checked={visibility === 'PRIVATE'}
+              onChange={() => setVisibility('PRIVATE')}
+            />
+            비공개
           </label>
         </div>
       </div>
@@ -50,13 +101,28 @@ export default function PublishOptions({ onClose, onOpenSubject, selectedSubject
         <label className="label">발행 설정</label>
         <div className="checkbox-group">
           <label>
-            <input type="checkbox" defaultChecked /> 댓글 허용
+            <input
+              type="checkbox"
+              checked={allowComment}
+              onChange={e => setAllowComment(e.target.checked)}
+            />
+            댓글 허용
           </label>
           <label>
-            <input type="checkbox" defaultChecked /> 공감 허용
+            <input
+              type="checkbox"
+              checked={allowLike}
+              onChange={e => setAllowLike(e.target.checked)}
+            />
+            공감 허용
           </label>
           <label>
-            <input type="checkbox" /> 검색 허용
+            <input
+              type="checkbox"
+              checked={allowSearch}
+              onChange={e => setAllowSearch(e.target.checked)}
+            />
+            검색 허용
           </label>
           <label>
             <input type="checkbox" disabled /> 블로그카페 공유 링크 허용
@@ -96,7 +162,9 @@ export default function PublishOptions({ onClose, onOpenSubject, selectedSubject
       {/* 닫기/발행 버튼 */}
       <div className="actions">
         <button onClick={onClose}>닫기</button>
-        <button className="publish-btn">발행</button>
+        <button className="publish-btn" onClick={handlePublish} disabled={loading}>
+          {loading ? '발행 중...' : '발행'}
+        </button>
       </div>
     </div>
   );

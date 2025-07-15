@@ -1,21 +1,26 @@
 /* page.jsx */
-
 'use client';
+
 import React, { useState, useRef } from 'react';
-import { Toolbar } from '@/src/app/(main)/(post)/blog-editor/toolbar/InsertToolbar';
+import { Toolbar } from './toolbar/InsertToolbar';
 import TitleInput from './editor/TitleInput';
 import ContentEditor from './editor/ContentEditor';
 // 헤더 스타일 import (동작하지 않아도 로드)
 import styles from './Header.css';
 // 발행 설정창
-import PublishOptions from '@/src/app/(main)/(post)/blog-editor/posts/PublishOption.jsx';
-import SubjectSettings from '@/src/app/(main)/(post)/blog-editor/posts/SubjectSettings';
+import PublishOptions from './posts/PublishOption';
+import SubjectSettings from './posts/SubjectSettings';
 // 최상단 툴바
-import Header from '@/src/app/(main)/(post)/blog-editor/Header';
+import Header from './Header';
 import './editor/Editor.css';
 import Modal from './posts/Modal';
-import UploadImage from '../../../../components/uploadimage/UploadImage';
+import axios from 'axios';
 // import PublishModal from './PublishModal'; // 모달 창 열고 닫기에 쓰임
+
+const api = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL + '/api',
+  withCredentials: true,
+});
 
 export default function BlogEditor() {
   styles; // CSS가 빌드에 포함되도록만 처리
@@ -23,18 +28,55 @@ export default function BlogEditor() {
   // 제목모드, 본문모드
   // const [activeSection, setActiveSection] = useState('title'); <<<< 보류 : 서식 변경 필요?
 
-  // 제목 상태
   const [title, setTitle] = useState('');
-  // 내용 상태
   const [content, setContent] = useState('');
-  // 제목에서 엔터 시 내용으로 이동하기 위한 ref
   const contentRef = useRef(null);
+  const [thumbnailFile, setThumbnail] = useState(null);
+  const [subTopic, setSubTopic] = useState('');
+  const [visibility, setVisibility] = useState('PUBLIC');
+  const [allowComment, setAllowComment] = useState(true);
+  const [allowLike, setAllowLike] = useState(true);
+  const [allowSearch, setAllowSearch] = useState(true);
+
   const [showPublishOptions, setShowPublishOptions] = useState(false);
   const [showSubjectSettings, setShowSubjectSettings] = useState(false);
   const [selectedSubject, setSelectedSubject] = useState('주제 선택 안 함');
+  const [mainTopic, setMainTopic] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleImageUpload = imageUrl => {
-    setContent(prev => prev + `<img src="${imageUrl}" alt="업로드 이미지" />`);
+  // 1) 발행 API 호출 함수
+  const handlePublish = async () => {
+    setLoading(true);
+    try {
+      const requestDto = {
+        title,
+        content,
+        visibility,
+        allowComment,
+        allowLike,
+        allowSearch,
+        mainTopic,
+        subTopic,
+      };
+      const formData = new FormData();
+
+      formData.append(
+        'requestDto',
+        new Blob([JSON.stringify(requestDto)], { type: 'application/json' }),
+      );
+      if (thumbnailFile) {
+        formData.append('thumbnailFile', thumbnailFile);
+      }
+
+      await axios.post('/api/posts', formData, {});
+
+      // 이후 처리: 리다이렉트 또는 알림
+    } catch (error) {
+      console.error(error);
+      // 오류 핸들링
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -56,6 +98,8 @@ export default function BlogEditor() {
                 setShowSubjectSettings(true); // 주제설정 모달 켬
               }}
               selectedSubject={selectedSubject}
+              onPublish={handlePublish} // 제목, 내용 입력 메시지
+              loading={loading} // 선택적: 로딩 중 버튼 비활성화
             />
           </Modal>
         )}

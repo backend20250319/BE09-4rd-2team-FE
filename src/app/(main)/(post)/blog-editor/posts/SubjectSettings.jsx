@@ -3,10 +3,18 @@ import './SubjectSettings.css';
 
 export default function SubjectSettings({ onClose, onConfirm }) {
   const [selectedSubject, setSelectedSubject] = useState('주제 선택 안 함');
+  const [selectedGroup, setSelectedGroup] = useState('');
   const [alwaysUseCategory, setAlwaysUseCategory] = useState(false);
 
-  const handleSubjectChange = e => setSelectedSubject(e.target.value);
-  const handleConfirm = () => onConfirm(selectedSubject, alwaysUseCategory);
+  // 선택된 주제 핸들링
+  const handleSubjectSelect = (group, subject) => {
+    setSelectedGroup(group);
+    setSelectedSubject(subject);
+  };
+
+  const handleConfirm = () => {
+    onConfirm(selectedSubject, selectedGroup);
+  };
 
   return (
     <div className="subject-settings">
@@ -21,7 +29,6 @@ export default function SubjectSettings({ onClose, onConfirm }) {
       </p>
 
       <div className="subject-groups">
-        {/* 엔터테인먼트·예술 */}
         <div className="subject-group">
           <strong>엔터테인먼트·예술</strong>
           {['문학·책', '영화', '미술·디자인'].map(item => (
@@ -31,14 +38,13 @@ export default function SubjectSettings({ onClose, onConfirm }) {
                 name="subject"
                 value={item}
                 checked={selectedSubject === item}
-                onChange={handleSubjectChange}
+                onChange={() => handleSubjectSelect('엔터테인먼트·예술', item)}
               />{' '}
               {item}
             </label>
           ))}
         </div>
 
-        {/* 생활·노하우·쇼핑 */}
         <div className="subject-group">
           <strong>생활·노하우·쇼핑</strong>
           {['일상·생각', '육아·결혼', '반려동물'].map(item => (
@@ -48,14 +54,13 @@ export default function SubjectSettings({ onClose, onConfirm }) {
                 name="subject"
                 value={item}
                 checked={selectedSubject === item}
-                onChange={handleSubjectChange}
+                onChange={() => handleSubjectSelect('생활·노하우·쇼핑', item)}
               />{' '}
               {item}
             </label>
           ))}
         </div>
 
-        {/* 취미·여가·여행 */}
         <div className="subject-group">
           <strong>취미·여가·여행</strong>
           {['게임', '스포츠', '사진'].map(item => (
@@ -65,14 +70,13 @@ export default function SubjectSettings({ onClose, onConfirm }) {
                 name="subject"
                 value={item}
                 checked={selectedSubject === item}
-                onChange={handleSubjectChange}
+                onChange={() => handleSubjectSelect('취미·여가·여행', item)}
               />{' '}
               {item}
             </label>
           ))}
         </div>
 
-        {/* 지식·동향 */}
         <div className="subject-group">
           <strong>지식·동향</strong>
           {['IT·컴퓨터', '사회·정치', '건강·의학'].map(item => (
@@ -82,7 +86,7 @@ export default function SubjectSettings({ onClose, onConfirm }) {
                 name="subject"
                 value={item}
                 checked={selectedSubject === item}
-                onChange={handleSubjectChange}
+                onChange={() => handleSubjectSelect('지식·동향', item)}
               />{' '}
               {item}
             </label>
@@ -98,7 +102,7 @@ export default function SubjectSettings({ onClose, onConfirm }) {
             value="주제 선택 안 함"
             disabled
             checked={selectedSubject === '주제 선택 안 함'}
-            onChange={handleSubjectChange}
+            onChange={() => handleSubjectSelect('', '주제 선택 안 함')}
           />{' '}
           주제 선택 안 함
         </label>
