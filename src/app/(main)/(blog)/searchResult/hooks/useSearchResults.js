@@ -15,13 +15,13 @@ export default function useSearchResults(mode, query) {
     let apiUrl = '';
     let params = {};
     if (mode === '글') {
-      apiUrl = `${process.env.NEXT_PUBLIC_API_BLOG}/posts/search/title`;
+      apiUrl = `${process.env.NEXT_PUBLIC_API_BLOG}/blog-service/posts/search/title`;
       params = { keyword: query };
     } else if (mode === '블로그') {
-      apiUrl = `${process.env.NEXT_PUBLIC_API_BLOG}/posts/search/blogtitle`;
+      apiUrl = `${process.env.NEXT_PUBLIC_API_BLOG}/blog-service/posts/search/blogtitle`;
       params = { blogTitle: query };
     } else if (mode === '별명.아이디') {
-      apiUrl = `${process.env.NEXT_PUBLIC_API_BLOG}/posts/search/nickname`;
+      apiUrl = `${process.env.NEXT_PUBLIC_API_BLOG}/blog-service/posts/search/nickname`;
       params = { nickname: query };
     }
     if (apiUrl) {
