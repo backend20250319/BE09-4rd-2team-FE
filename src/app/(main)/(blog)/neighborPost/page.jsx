@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import BlogList from '@/src/app/(main)/(blog)/common/BlogList';
 import Header from '@/src/app/(main)/searching/Header';
 import MenuTabs from '@/src/components/header/MenuTabs';
+import LoginModal from '@/src/app/(main)/(loginmodal)/LoginModal';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BLOG;
 
@@ -15,6 +16,7 @@ export default function NeighborPost() {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
   const router = useRouter();
+  const [userInfo, setUserInfo] = useState(null);
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken'); // 로컬 스토리지에서 토큰 제거
@@ -32,7 +34,7 @@ export default function NeighborPost() {
 
     setLoading(true);
     setError('');
-    const url = `${API_BASE}/posts/neighbors?page=${page}&size=${size}`;
+    const url = `${API_BASE}/blog-service/posts/neighbors?page=${page}&size=${size}`;
     fetch(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -100,9 +102,11 @@ export default function NeighborPost() {
               cursor: 'pointer',
               marginLeft: '20px',
             }}
-          >
-            로그아웃
-          </button>
+          ></button>
+          로그아웃
+        </div>
+        <div style={{ width: '256px' }}>
+          <LoginModal />
         </div>
       </div>
     </div>

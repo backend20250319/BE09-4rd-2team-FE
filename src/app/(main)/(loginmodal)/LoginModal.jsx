@@ -8,7 +8,7 @@ import './loginModalstyle.css';
 import Link from 'next/link';
 
 export default function LoginModal({ User }) {
-  const [isLogin, setIstLogin] = useState(true);
+  const [isLogin, setIstLogin] = useState(false);
 
   const handleLogin = () => setIstLogin(true);
   const handleLogout = () => setIstLogin(false);
