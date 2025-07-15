@@ -4,15 +4,20 @@
     border-top: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
     font-family: 'NanumGothic', sans-serif;
-    padding: 10px;
-    height: 2em;
+    max-width: 1032px;   /* 위 헤더와 동일하게 */
+    margin: 0 auto;      /* 가운데 정렬 */
+    padding: 0 16px;     /* 좌우 여백 */
+    height: 2.5em;
+    align-items: center;
 }
 
 .menuLink {
     font-weight: bold;
     font-size: 14px;
     color: #222;
-    margin-right: 32px;
+    line-height: 2.5em;
+    margin-left: 24px;
+    margin-right: 24px;
     border-bottom: 4px solid transparent;
     text-decoration: none;
     transition: color 0.2s, border-bottom 0.2s;

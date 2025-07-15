@@ -5,9 +5,16 @@ import {
   insertNeighbor,
   insertNeighbors,
 } from '@/src/app/(main)/(neighbor)/services/neighborApi';
+import useUserId from '@/src/lib/useUserId';
 
 export default function AddedMeNeighbors() {
-  const userId = 1;
+  const userId = useUserId();
+
+  useEffect(() => {
+    if (userId) {
+      console.log('로그인한 유저 ID:', userId);
+    }
+  }, [userId]);
   const [neighbors, setNeighbors] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
   const mutualNeighbors = neighbors.filter(n => n.mutual);
@@ -30,7 +37,7 @@ export default function AddedMeNeighbors() {
       await blockNeighbor(userId, selectedIds);
       alert('차단 성공!');
       setSelectedIds([]);
-      const res = await getMyReceivedNeighbors(userId);
+      const res = await getMyReceivedNeighbors();
       console.log('업데이트된 이웃 목록', res.data);
       setNeighbors(res.data);
     } catch (error) {
@@ -44,7 +51,7 @@ export default function AddedMeNeighbors() {
       await insertNeighbor(userId, targetId);
       alert('추가 성공!');
       setSelectedIds([]);
-      const res = await getMyReceivedNeighbors(userId);
+      const res = await getMyReceivedNeighbors();
       console.log('업데이트된 이웃 목록:', res.data);
       setNeighbors(res.data);
     } catch (error) {
@@ -62,7 +69,7 @@ export default function AddedMeNeighbors() {
       await insertNeighbors(userId, selectedIds);
       alert('추가 성공!');
       setSelectedIds([]);
-      const res = await getMyReceivedNeighbors(userId);
+      const res = await getMyReceivedNeighbors();
       console.log('업데이트된 이웃 목록', res.data);
       setNeighbors(res.data);
     } catch (error) {
@@ -74,7 +81,7 @@ export default function AddedMeNeighbors() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getMyReceivedNeighbors(userId);
+        const response = await getMyReceivedNeighbors();
         setNeighbors(response.data);
         console.log('neighbor.id 값:', response.data);
       } catch (error) {

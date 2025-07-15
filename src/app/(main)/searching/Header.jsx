@@ -45,7 +45,7 @@ export default function Header({ selected = '글' }) {
           <a className="link-naver" href="http://www.naver.com">
             <span className="blind">blog</span>
           </a>
-          <a className="link-blog" href="/blogHome">
+          <a className="link-blog" href="/">
             <span className="blind">naver</span>
           </a>
         </div>
