@@ -5,6 +5,7 @@ import BlogList from '@/src/app/(main)/(blog)/common/BlogList';
 import Header from '@/src/app/(main)/searching/Header';
 import MenuTabs from '@/src/components/header/MenuTabs';
 import LoginModal from '@/src/app/(main)/(loginmodal)/LoginModal';
+import { savedUserInfo } from '@/src/app/(main)/(neighbor)/services/neighborApi';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BLOG;
 
@@ -31,6 +32,14 @@ export default function NeighborPost() {
       router.push('/login'); // 로그인 페이지로 이동
       return;
     }
+    savedUserInfo()
+      .then(res => {
+        setUserInfo(res.data); // 여기서 유저 정보 상태로 저장
+      })
+      .catch(err => {
+        console.error('유저 정보 불러오기 실패:', err);
+        setUserInfo(null);
+      });
 
     setLoading(true);
     setError('');
@@ -91,22 +100,9 @@ export default function NeighborPost() {
           {!loading && !error && (
             <BlogList blogs={blogs} pageable={pageable} onPageChange={handlePageChange} />
           )}
-          <button
-            onClick={handleLogout}
-            style={{
-              padding: '8px 18px',
-              border: '1px solid #ddd',
-              borderRadius: '8px',
-              background: '#fff',
-              fontWeight: 600,
-              cursor: 'pointer',
-              marginLeft: '20px',
-            }}
-          ></button>
-          로그아웃
         </div>
         <div style={{ width: '256px' }}>
-          <LoginModal />
+          <LoginModal userInfo={userInfo} />
         </div>
       </div>
     </div>

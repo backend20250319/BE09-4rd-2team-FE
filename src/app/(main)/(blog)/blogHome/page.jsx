@@ -61,7 +61,7 @@ export default function BlogHome() {
           <BlogList blogs={filtered} pageable={data} onPageChange={onPageChange} />
         </div>
         <div style={{ width: '256px' }}>
-          <LoginModal />
+          <LoginModal userInfo={null} />
         </div>
       </div>
     </div>
