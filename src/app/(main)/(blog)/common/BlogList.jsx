@@ -16,7 +16,7 @@ export default function BlogList({ blogs, pageable = {}, onPageChange }) {
             <div className={styles.cardContent}>
               {/* 프로필(작성자) 영역 */}
               <div className={styles.profileRow}>
-                <Link href="/blogDetail">
+                <Link href={`/blogDetail/${blog.postId}`}>
                   <Image
                     src={blog.profileImageUrl}
                     alt="프로필 이미지"
@@ -26,7 +26,7 @@ export default function BlogList({ blogs, pageable = {}, onPageChange }) {
                   />
                 </Link>
                 <div>
-                  <Link href="/blogDetail" className={styles.authorName}>
+                  <Link href={`/blogDetail/${blog.postId}`} className={styles.authorName}>
                     {blog.nickname}
                   </Link>
                   <div className={styles.authorDate}>
@@ -39,10 +39,10 @@ export default function BlogList({ blogs, pageable = {}, onPageChange }) {
               </div>
               {/* 블로그 제목 및 내용 영역 */}
               <div>
-                <Link href="/blogDetail" className={styles.titleLink}>
+                <Link href={`/blogDetail/${blog.postId}`} className={styles.titleLink}>
                   {blog.title}
                 </Link>
-                <Link href="/blogDetail" className={styles.contentLink}>
+                <Link href={`/blogDetail/${blog.postId}`} className={styles.contentLink}>
                   {blog.content}
                 </Link>
               </div>
@@ -53,7 +53,7 @@ export default function BlogList({ blogs, pageable = {}, onPageChange }) {
               </div>
             </div>
             {/* 오른쪽: 썸네일 이미지 영역 */}
-            <Link className={styles.thumbnailBox} href={`/blogDetail`}>
+            <Link className={styles.thumbnailBox} href={`/blogDetail/${blog.postId}`}>
               <Image
                 src={blog.thumbnailImageUrl}
                 alt="블로그 썸네일"

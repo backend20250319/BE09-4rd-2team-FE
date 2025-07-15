@@ -1,17 +1,27 @@
 'use client';
 import '../../(neighbor)/style.css';
 import { insertNeighbor } from '@/src/app/(main)/(neighbor)/services/neighborApi';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useUserId from '@/src/lib/useUserId';
 
-export default function NeighborPopupPage({ targetId, nickname }) {
+export default function NeighborPopupPage({}) {
   const userId = useUserId();
 
+  const [targetInfo, setTargetInfo] = useState({ targetId: null, nickname: '' });
+
   useEffect(() => {
-    if (userId) {
-      console.log('로그인한 유저 ID:', userId);
-    }
-  }, [userId]);
+    const handleMessage = event => {
+      // 보안 체크
+      if (event.origin !== window.location.origin) return;
+
+      const { targetId, nickname } = event.data;
+      setTargetInfo({ targetId, nickname });
+    };
+
+    window.addEventListener('message', handleMessage);
+
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   const handleAdd = async () => {
     try {
@@ -33,9 +43,9 @@ export default function NeighborPopupPage({ targetId, nickname }) {
     <div className="popup-container" style={{ padding: '30px', fontFamily: '나눔스퀘어' }}>
       <h2 style={{ fontSize: '20px', fontWeight: 'bold' }}>이웃추가</h2>
       <p className="popup-buddy-box">
-        <strong style={{ color: '#00c73c' }}>{nickname}</strong>님을
+        <strong style={{ color: '#00c73c' }}>{targetInfo.nickname}</strong>님을
         <label>
-          <input type="radio" name="relation" /> 이웃
+          <input type="radio" name="relation" defaultChecked /> 이웃
         </label>
         <label>
           <input type="radio" name="relation" /> 서로이웃

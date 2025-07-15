@@ -32,7 +32,7 @@ export default function NeighborPost() {
 
     setLoading(true);
     setError('');
-    const url = `${API_BASE}/posts/neighbors?page=${page}&size=${size}`;
+    const url = `${API_BASE}/blog-service/posts/neighbors?page=${page}&size=${size}`;
     fetch(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`,

@@ -12,6 +12,8 @@ import { compileNonPath } from 'next/dist/shared/lib/router/utils/prepare-destin
 import useUserId from '@/src/lib/useUserId';
 
 export default function AddedNeighbors() {
+  const url = `${process.env.NEXT_PUBLIC_API_BLOG}/blog-service/api/neighbors/my-following/added`;
+  console.log('✅ 최종 요청 URL:', url);
   const userId = useUserId();
 
   useEffect(() => {
@@ -26,10 +28,15 @@ export default function AddedNeighbors() {
   const [neighbors, setNeighbors] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
+      console.log('요청 주소:', `${process.env.NEXT_PUBLIC_API_BLOG}/neighbors/my-following/added`);
+      console.log('토큰:', localStorage.getItem('accessToken'));
+
       try {
         const response = await getMyAddedNeighbors();
         setNeighbors(response.data);
         console.log('neighbor.id 값:', response.data);
+        console.log('🔥 response 전체:', response);
+        console.log('🔥 response.data:', response.data);
       } catch (error) {
         console.error('이웃 목록 불러오기 실패:', error);
       }

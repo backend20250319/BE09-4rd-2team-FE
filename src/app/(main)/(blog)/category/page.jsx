@@ -19,7 +19,7 @@ export default function CategoryPage() {
   // 1) 마운트 시 전체 주제(topicName, subTopics) 받아오기
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_BLOG}/posts/topics`)
+      .get(`${process.env.NEXT_PUBLIC_API_BLOG}/blog-service/posts/topics`)
       .then(res => {
         const data = res.data.data || [];
         setTopics(data);
@@ -48,7 +48,7 @@ export default function CategoryPage() {
     }
 
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_BLOG}/posts/subtopics`, {
+      .get(`${process.env.NEXT_PUBLIC_API_BLOG}/blog-service/posts/subtopics`, {
         params: { subTopic: code },
       })
       .then(res => setPosts(res.data.data || []))
