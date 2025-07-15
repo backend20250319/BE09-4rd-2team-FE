@@ -24,6 +24,21 @@ export default function RegisterForm({ onSwitch }) {
         password: pw,
       });
 
+      const userId = response.data.userId;
+      // ✅ 2️⃣ 회원가입 성공 후, userInfo 등록 API 호출
+      const userInfoUrl = `${process.env.NEXT_PUBLIC_API_BLOG}/blog-service/api/user-info/${userId}`; // 👈 실제 블로그 서비스 API 경로
+      const userInfoPayload = {
+        userId: userId, // 백엔드에서 userId를 반환해야 함
+        nickname: '',
+        blogId: id,
+        blogTitle: `${id}님의블로그`,
+        profileIntro: '',
+        profileImageUrl: '',
+      };
+
+      console.log('[UserInfo 등록 요청]', userInfoPayload);
+      await axios.post(userInfoUrl);
+
       alert('회원가입 성공!');
       console.log('서버 응답:', response.data);
       router.push('/login'); // 성공 시 로그인 페이지로 이동
