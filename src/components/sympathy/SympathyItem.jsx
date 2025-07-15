@@ -1,8 +1,10 @@
 'use client';
 
-import Link from 'next/link';
-
 export default function SympathyItem({ blogger }) {
+  const handleOpenPopup = () => {
+    const popupUrl = `/popup?nickname=${encodeURIComponent(blogger.nickname)}`;
+    window.open(popupUrl, '_blank', 'width=500,height=600');
+  };
   return (
     <div style={{ display: 'flex', alignItems: 'center', padding: '12px' }}>
       {/* 프로필 이미지 */}
@@ -28,11 +30,20 @@ export default function SympathyItem({ blogger }) {
 
       {/* 이웃추가 버튼 */}
 
-
-      <Link href={`/popup?userId=${blogger.id}&nickname=${encodeURIComponent(blogger.nickname)}`}>
-        <button>이웃추가</button>
-      </Link>
-
+      <button
+        onClick={handleOpenPopup}
+        style={{
+          padding: '6px 12px',
+          backgroundColor: '#fff',
+          color: '#000',
+          border: '1px solid black',
+          borderRadius: '4px',
+          fontSize: '13px',
+          cursor: 'pointer',
+        }}
+      >
+        이웃추가
+      </button>
     </div>
   );
 }

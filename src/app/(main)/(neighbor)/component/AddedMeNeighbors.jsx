@@ -34,7 +34,7 @@ export default function AddedMeNeighbors() {
   };
   const handleBlock = async () => {
     try {
-      await blockNeighbor(userId, selectedIds);
+      await blockNeighbor(selectedIds);
       alert('차단 성공!');
       setSelectedIds([]);
       const res = await getMyReceivedNeighbors();
@@ -48,7 +48,7 @@ export default function AddedMeNeighbors() {
 
   const handleAdd = async targetId => {
     try {
-      await insertNeighbor(userId, targetId);
+      await insertNeighbor(targetId);
       alert('추가 성공!');
       setSelectedIds([]);
       const res = await getMyReceivedNeighbors();
@@ -66,7 +66,7 @@ export default function AddedMeNeighbors() {
   };
   const handleAllAdd = async () => {
     try {
-      await insertNeighbors(userId, selectedIds);
+      await insertNeighbors(selectedIds);
       alert('추가 성공!');
       setSelectedIds([]);
       const res = await getMyReceivedNeighbors();
