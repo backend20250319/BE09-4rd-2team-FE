@@ -6,11 +6,13 @@ import PostList from '@/src/components/post/blog-header-footer/PostList';
 import Profile from '@/src/components/post/blog-header-footer/Profile';
 import PostBox from '/src/components/post/other-blog-box/PostBox';
 
+import CommentSection from '@/src/components/comment/CommentSection';
+
 export default function OtherBlog() {
   // 🗝️ 게시글 글 데이터 입력
   const posts = [
     {
-      id: 1,
+      id: 2,
       title: '첫 번째 글',
       content: '안녕하세요, 나는누구인가의 블로그입니다.',
       nickname: '나는누구인가',
@@ -55,6 +57,9 @@ export default function OtherBlog() {
           <div>
             {/* 🗝️ 게시글: 카테고리, 제목, 닉네임, 작성일시, 이미지, 내용, 태그 받아오기 */}
             <PostBox post={post[0]} />
+
+            {/* 🎉 실제 댓글 시스템 연동! */}
+            <CommentSection postId={post[0].id} />
           </div>
           <div>
             {/* 🗝️ 프로필 데이터 받아오기 */}

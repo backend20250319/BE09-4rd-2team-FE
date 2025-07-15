@@ -50,7 +50,7 @@ export default function MyPostBox({ myPost = {}, onEdit, onDelete }) {
       <TagEditor tags={tags} />
 
       {/* 공감/댓글 <> 보내기/수정/삭제/설정 */}
-      <MyPostBoxFooterIcons />
+      <MyPostBoxFooterIcons postId={myPost.id} />
     </div>
   );
 }
