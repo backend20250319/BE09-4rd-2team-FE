@@ -1,49 +1,59 @@
 'use client';
 import '../../(neighbor)/style.css';
-import { insertNeighbor } from '@/src/app/(main)/(neighbor)/services/neighborApi';
+import {
+  getUserByNickname,
+  insertNeighbor,
+} from '@/src/app/(main)/(neighbor)/services/neighborApi';
 import { useEffect, useState } from 'react';
 import useUserId from '@/src/lib/useUserId';
+import { useSearchParams } from 'next/navigation';
+import axios from 'axios';
 
-export default function NeighborPopupPage({}) {
+export default function NeighborPopupPage() {
   const userId = useUserId();
+  const searchParams = useSearchParams();
+  const nickname = searchParams.get('nickname');
 
-  const [targetInfo, setTargetInfo] = useState({ targetId: null, nickname: '' });
+  const [targetUserId, setTargetUserId] = useState(null);
 
   useEffect(() => {
-    const handleMessage = event => {
-      // 보안 체크
-      if (event.origin !== window.location.origin) return;
+    if (!nickname) return;
 
-      const { targetId, nickname } = event.data;
-      setTargetInfo({ targetId, nickname });
+    const fetchUser = async () => {
+      try {
+        const user = await getUserByNickname(nickname);
+        setTargetUserId(user.id);
+      } catch (err) {
+        console.error('유저 조회 실패:', err);
+      }
     };
-
-    window.addEventListener('message', handleMessage);
-
-    return () => window.removeEventListener('message', handleMessage);
-  }, []);
-
+    fetchUser();
+  }, [nickname]);
   const handleAdd = async () => {
     try {
-      await insertNeighbor(userId, targetId);
+      await insertNeighbor(targetUserId);
       alert('이웃 추가 성공!');
-      window.close(); // 팝업 닫기
+      window.close();
     } catch (error) {
-      const message = error.response?.data?.message;
-      if (message === '이미 서로이웃입니다.') {
+      const status = error.response?.status;
+      const message = error.response?.data?.message || error.message || '알 수 없는 오류';
+
+      console.error('❌ 이웃 추가 실패:', status, message);
+
+      if (status === 400 && message.includes('이미 서로이웃')) {
         alert('이미 서로 이웃입니다.');
+      } else if (status === 500 && message.includes('자기 자신')) {
+        alert('자기 자신에게 이웃 요청을 보낼 수 없습니다.');
       } else {
-        console.error('이웃 추가 실패:', error);
-        alert('이웃 추가에 실패했습니다.');
+        alert(`이웃 추가에 실패했습니다. (${message})`);
       }
     }
   };
-
   return (
     <div className="popup-container" style={{ padding: '30px', fontFamily: '나눔스퀘어' }}>
       <h2 style={{ fontSize: '20px', fontWeight: 'bold' }}>이웃추가</h2>
       <p className="popup-buddy-box">
-        <strong style={{ color: '#00c73c' }}>{targetInfo.nickname}</strong>님을
+        <strong style={{ color: '#00c73c' }}>{nickname}</strong>님을
         <label>
           <input type="radio" name="relation" defaultChecked /> 이웃
         </label>
@@ -63,7 +73,7 @@ export default function NeighborPopupPage({}) {
         <button className="popup-bottom-cancle" onClick={() => window.close()}>
           취소
         </button>
-        <button className="popup-bottom-check" onClick={handleAdd}>
+        <button className="popup-bottom-check" onClick={handleAdd} disabled={targetUserId === null}>
           확인
         </button>
       </div>

@@ -1,10 +1,19 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { deleteNeighbor, getBlockedUsers, unblockUser } from '../services/neighborApi';
+import { deleteNeighbor, getBlockedUsers } from '../services/neighborApi';
+import useUserId from '@/src/lib/useUserId';
 
 export default function BlockedList() {
   const [blockedUsers, setBlockedUsers] = useState([]);
+
+  const userId = useUserId();
+
+  useEffect(() => {
+    if (userId) {
+      console.log('로그인한 유저 ID:', userId);
+    }
+  }, [userId]);
 
   useEffect(() => {
     const fetchBlocked = async () => {
@@ -18,10 +27,11 @@ export default function BlockedList() {
     fetchBlocked();
   }, []);
 
-  const handleUnblock = async userId => {
+  const handleUnblock = async targetUserId => {
     try {
-      await deleteNeighbor(userId);
-      setBlockedUsers(prev => prev.filter(u => u.id !== userId));
+      await deleteNeighbor([targetUserId]);
+      alert('차단 성공!');
+      setBlockedUsers(prev => prev.filter(u => u.id !== targetUserId));
     } catch (e) {
       console.error('차단 해제 실패', e);
     }
