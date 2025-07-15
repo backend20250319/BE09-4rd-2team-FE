@@ -8,10 +8,17 @@ import {
   getSentMutualNeighbors,
   rejectMultipleNeighbors,
 } from '@/src/app/(main)/(neighbor)/services/neighborApi';
-import { c } from 'react/compiler-runtime';
+import useUserId from '@/src/lib/useUserId';
 
 export default function AddMutualNeighbor() {
-  const userId = 1;
+  const userId = useUserId();
+
+  useEffect(() => {
+    if (userId) {
+      console.log('로그인한 유저 ID:', userId);
+    }
+  }, [userId]);
+
   const [activeTab, setActiveTab] = useState('received');
   const [neighbors, setNeighbors] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
@@ -32,9 +39,9 @@ export default function AddMutualNeighbor() {
     try {
       let response;
       if (activeTab === 'received') {
-        response = await getReceivedMutualNeighbors(userId);
+        response = await getReceivedMutualNeighbors();
       } else if (activeTab === 'sent') {
-        response = await getSentMutualNeighbors(userId);
+        response = await getSentMutualNeighbors();
       } else {
         return;
       }
@@ -50,7 +57,7 @@ export default function AddMutualNeighbor() {
 
   const handleReject = async () => {
     try {
-      await rejectMultipleNeighbors(userId, selectedIds);
+      await rejectMultipleNeighbors(selectedIds);
       console.log('거절 성공!');
       setSelectedIds([]);
       await fetchData();
@@ -62,7 +69,7 @@ export default function AddMutualNeighbor() {
 
   const handleAccept = async () => {
     try {
-      await acceptMultipleNeighbors(userId, selectedIds);
+      await acceptMultipleNeighbors(selectedIds);
       console.log('수락 성공!');
       setSelectedIds([]);
       await fetchData();
@@ -74,7 +81,7 @@ export default function AddMutualNeighbor() {
 
   const handleCancel = async () => {
     try {
-      await cancelMyRequest(userId, selectedIds);
+      await cancelMyRequest(selectedIds);
       console.log('취소 성공!');
       setSelectedIds([]);
       await fetchData();

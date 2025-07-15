@@ -1,14 +1,6 @@
 import { useState } from 'react';
 
 export default function Sidebar({ setSelectedTab }) {
-  const handleOpenPopup = () => {
-    window.open(
-      '/popup', // 띄울 페이지 경로
-      'NeighborPopupWindow', // 창 이름 (같은 이름이면 재사용됨)
-      'width=500,height=600,scrollbars=yes,resizable=no',
-    );
-  };
-  const [showModal, setShowModal] = useState(false);
   return (
     <div className="sidebar">
       <div className="sidebar-section" style={{ borderTop: '0' }}>
@@ -31,7 +23,9 @@ export default function Sidebar({ setSelectedTab }) {
       <div className="sidebar-section">
         <div className="sidebar-title">스팸 차단 관리</div>
         <ul>
-          <li className="sidebar-content">차단 설정</li>
+          <li className="sidebar-content" onClick={() => setSelectedTab('blocked')}>
+            차단 설정
+          </li>
           <li className="sidebar-content">차단된 글목록</li>
           <li className="sidebar-content">댓글·안부글 권한</li>
         </ul>

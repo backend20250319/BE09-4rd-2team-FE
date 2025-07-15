@@ -16,6 +16,9 @@ body {
   height: 100%;
   display: flex;
   align-items: center;
+  max-width: 1032px;   /* 노트북 화면 가로폭에 맞춘 컨테이너 최대 너비 */
+  margin: 0 auto;      /* 가운데 정렬 */
+  padding: 0 16px;     /* 좌우 여백 */
 }
 
 /* 로고 영역 */

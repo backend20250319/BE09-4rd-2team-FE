@@ -5,9 +5,8 @@ import Link from 'next/link';
 import styles from './MenuTabs.module.css';
 
 const menuItems = [
-  { name: '블로그 홈', href: '/blogHome' },
+  { name: '블로그 홈', href: '/' },
   { name: '주제별 보기', href: '/category' },
-  { name: '이웃새글', href: '/neighborPost' },
   { name: '글쓰기', href: '/blog-editor' },
 ];
 

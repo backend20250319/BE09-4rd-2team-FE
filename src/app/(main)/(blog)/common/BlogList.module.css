@@ -90,3 +90,42 @@
 .contentLink:hover {
     text-decoration: underline;
 }
+
+.metaRow {
+    margin-top: 8px;
+    display: flex;
+    gap: 18px;
+    color: #888;
+    font-size: 13px;
+    align-items: center;
+}
+
+.metaItem {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin: 18px 0 0 0;
+}
+
+.pagination button {
+    border: none;
+    background: #eee;
+    padding: 6px 12px;
+    margin: 0 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.pagination .activePage {
+    background: #4caf50;
+    color: #fff;
+    font-weight: bold;
+}
+
