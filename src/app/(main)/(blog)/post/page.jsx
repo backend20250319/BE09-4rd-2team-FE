@@ -16,7 +16,7 @@ export default function PostPage({
   const [localActiveTab, setLocalActiveTab] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const [sympathyCount, setSympathyCount] = useState(0);
-  const [commentCount, setCommentCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(null);
 
   // mode가 'full'일 때는 내부 상태 사용, 아니면 외부 props 사용
   const currentActiveTab = mode === 'full' ? localActiveTab : activeTab;
@@ -109,6 +109,10 @@ export default function PostPage({
 
   // 댓글 버튼 텍스트 동적 생성 (네이버 방식)
   const getCommentButtonText = () => {
+    if (commentCount === null) {
+      return '댓글'; // 로딩 중
+    }
+
     if (commentCount === 0) {
       return '댓글 쓰기';
     } else {
