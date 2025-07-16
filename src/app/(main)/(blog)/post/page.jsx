@@ -11,6 +11,7 @@ export default function PostPage({
   activeTab,
   onTabChange,
   onDataUpdate,
+  onCommentChange,
 }) {
   const [localActiveTab, setLocalActiveTab] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
@@ -23,7 +24,26 @@ export default function PostPage({
 
   useEffect(() => {
     fetchPostData();
-  }, [postId]);
+
+    // 전역 댓글 변경 이벤트 리스너 등록
+    const handleCommentChanged = event => {
+      const { postId: changedPostId, commentCount: newCommentCount } = event.detail;
+      if (changedPostId === postId) {
+        if (newCommentCount !== undefined) {
+          setCommentCount(newCommentCount); // API 호출 없이 업데이트
+        } else {
+          fetchPostData(); // fallback
+        }
+      }
+    };
+
+    window.addEventListener('commentChanged', handleCommentChanged);
+
+    // 클린업
+    return () => {
+      window.removeEventListener('commentChanged', handleCommentChanged);
+    };
+  }, [postId, mode]);
 
   const fetchPostData = async () => {
     try {
@@ -75,8 +95,16 @@ export default function PostPage({
   };
 
   // 댓글 변경 시 업데이트
-  const handleCommentChange = () => {
-    fetchPostData();
+  const handleCommentChange = newCommentCount => {
+    if (newCommentCount !== undefined) {
+      setCommentCount(newCommentCount); // API 호출 없이 업데이트
+    } else {
+      fetchPostData(); // fallback
+    }
+
+    if (onCommentChange) {
+      onCommentChange();
+    }
   };
 
   // 댓글 버튼 텍스트 동적 생성 (네이버 방식)

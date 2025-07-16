@@ -50,7 +50,7 @@ export default function SympathyListPage({ postId = 1 }) {
             color: '#111827',
           }}
         >
-          이 글에 공감한 블로거 ({likedUsers.length}명)
+          이 글에 공감한 블로거
         </h1>
       </div>
 
