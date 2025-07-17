@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './PostList.css';
+// import './PostList.css';
 
 const posts = [
   {

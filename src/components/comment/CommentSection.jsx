@@ -1,4 +1,5 @@
 'use client';
+const styles = {};
 
 import { useState, useEffect } from 'react';
 import api from '@/src/lib/axios'; // 전역 api 인스턴스 사용 (JWT 인터셉터 포함)

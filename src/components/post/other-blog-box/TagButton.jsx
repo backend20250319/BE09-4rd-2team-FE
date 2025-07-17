@@ -1,5 +1,5 @@
 import React from 'react';
-import './TagButtons.css';
+// import './TagButtons.css';
 
 export default function TagButtons({ tags }) {
   return (

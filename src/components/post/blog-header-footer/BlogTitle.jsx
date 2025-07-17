@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './BlogTitle.css';
+// import './BlogTitle.css';
 
 function BlogTitle() {
   /* 🗝️닉네임 샘플 데이터 */

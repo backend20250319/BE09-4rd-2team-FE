@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './PostMetaAction.css';
+// import './PostMetaAction.css';
 import Link from 'next/link';
 
 export default function MetaActions({ onEdit, onDelete }) {

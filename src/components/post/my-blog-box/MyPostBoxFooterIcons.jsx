@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '@/src/components/post/my-blog-box/MyPostBoxFooterIcons.css';
+// import '@/src/components/post/my-blog-box/MyPostBoxFooterIcons.css';
 import PostPage from '@/src/app/(main)/(blog)/post/page';
 
 export default function PostBoxFooterIcons({ postId = 1 }) {

@@ -1,4 +1,5 @@
 'use client';
+const styles = {};
 
 export default function SympathyItem({ blogger }) {
   const handleOpenPopup = () => {

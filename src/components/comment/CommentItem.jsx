@@ -1,4 +1,5 @@
 'use client';
+const styles = {};
 
 import { useState } from 'react';
 

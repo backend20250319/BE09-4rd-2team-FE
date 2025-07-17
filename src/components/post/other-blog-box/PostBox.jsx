@@ -1,5 +1,5 @@
 import React from 'react';
-import './PostBox.css';
+// import './PostBox.css';
 import PostBoxFooterIcons from './PostBoxFooterIcons';
 import MyPostMetaAction from './PostMetaAction';
 import TagButtons from './TagButton';
@@ -51,7 +51,14 @@ export default function PostBox({ post = {}, onEdit, onDelete }) {
       <TagButtons tags={tags} />
 
       {/* 공감/댓글 등 */}
-      <PostBoxFooterIcons postId={id} />
+      {/*<PostBoxFooterIcons postId={id} />*/}
+
+      {/* 🚨 임시 대체 (Docker 빌드용) */}
+      <div
+        style={{ padding: '10px', textAlign: 'center', border: '1px solid #ddd', margin: '10px 0' }}
+      >
+        <span>공감 0 | 댓글 0 (빌드 후 복구 예정)</span>
+      </div>
     </div>
   );
 }
