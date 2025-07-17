@@ -15,6 +15,7 @@ import Header from './Header';
 import './editor/Editor.css';
 import Modal from './posts/Modal';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 // import PublishModal from './PublishModal'; // 모달 창 열고 닫기에 쓰임
 
 const api = axios.create({
@@ -40,9 +41,11 @@ export default function BlogEditor() {
 
   const [showPublishOptions, setShowPublishOptions] = useState(false);
   const [showSubjectSettings, setShowSubjectSettings] = useState(false);
-  const [selectedSubject, setSelectedSubject] = useState('주제 선택 안 함');
+  const [selectedSubject, setSelectedSubject] = useState('주제없음');
   const [mainTopic, setMainTopic] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
 
   // 1) 발행 API 호출 함수
   const handlePublish = async () => {
@@ -60,6 +63,9 @@ export default function BlogEditor() {
       };
       const formData = new FormData();
 
+      if (requestDto.subTopic.length <= 0) {
+        requestDto.subTopic = '주제없음';
+      }
       formData.append(
         'requestDto',
         new Blob([JSON.stringify(requestDto)], { type: 'application/json' }),
@@ -67,8 +73,17 @@ export default function BlogEditor() {
       if (thumbnailFile) {
         formData.append('thumbnailFile', thumbnailFile);
       }
+      const accessToken = localStorage.getItem('accessToken');
 
-      await axios.post('/api/posts', formData, {});
+      // for (const value of formData.values()) {
+      //   console.log('--------->', value);
+      // }
+
+      const result = await axios.post('http://localhost:8000/api/blog-service/posts', formData, {
+        headers: { Authorization: 'Bearer ' + accessToken },
+      });
+
+      router.push('/');
 
       // 이후 처리: 리다이렉트 또는 알림
     } catch (error) {
@@ -108,6 +123,7 @@ export default function BlogEditor() {
         {showSubjectSettings && (
           <Modal onClose={() => setShowSubjectSettings(false)}>
             <SubjectSettings
+              setSubTopic={setSubTopic}
               onClose={() => {
                 setShowSubjectSettings(false);
                 setShowPublishOptions(true);

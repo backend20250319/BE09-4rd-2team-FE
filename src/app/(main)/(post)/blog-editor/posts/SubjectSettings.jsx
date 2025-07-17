@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './SubjectSettings.css';
 
-export default function SubjectSettings({ onClose, onConfirm }) {
+export default function SubjectSettings({ onClose, onConfirm, setSubTopic }) {
   const [selectedSubject, setSelectedSubject] = useState('주제 선택 안 함');
   const [selectedGroup, setSelectedGroup] = useState('');
   const [alwaysUseCategory, setAlwaysUseCategory] = useState(false);
@@ -10,6 +10,7 @@ export default function SubjectSettings({ onClose, onConfirm }) {
   const handleSubjectSelect = (group, subject) => {
     setSelectedGroup(group);
     setSelectedSubject(subject);
+    setSubTopic(subject);
   };
 
   const handleConfirm = () => {

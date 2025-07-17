@@ -1,26 +1,60 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import BlackHeader from '@/src/components/post/blog-header-footer/BlackHeader';
 import BlogTitle from '@/src/components/post/blog-header-footer/BlogTitle';
 import Profile from '@/src/components/post/blog-header-footer/Profile';
 import MyPostBox from '/src/components/post/my-blog-box/MyPostBox';
+import PostList from '@/src/components/post/blog-header-footer/PostList';
+import axios from 'axios';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function MyBlog() {
   // 🗝️ MyPostBox 샘플 데이터 입력
   // 여러 게시글이라서 객체{}가 아닌 배열[]로 받아줌
-  const myPost = [
-    {
-      id: 1, // postId 추가
-      category: '게시판',
-      blogTitle: '프로젝트',
-      nickname: '꼬미',
-      date: '2025.6.29 13:47',
-      profileImageUrl: '',
-      content: '프론트엔드가 어렵다...\n\n리액트도 어렵다...\n',
-      tags: ['프론트엔드', '리액트'],
-    },
-  ];
+  // const myPost = [
+  //   {
+  //     id: 1, // postId 추가
+  //     category: '게시판',
+  //     blogTitle: '프로젝트',
+  //     nickname: '꼬미',
+  //     date: '2025.6.29 13:47',
+  //     profileImageUrl: '',
+  //     content: '프론트엔드가 어렵다...\n\n리액트도 어렵다...\n',
+  //     tags: ['프론트엔드', '리액트'],
+  //   },
+  // ];
+  const [myPost, setMyPost] = useState(null);
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
+
+  useEffect(() => {
+    if (!id) return;
+
+    const fetchMyPost = async () => {
+      try {
+        const url = `${process.env.NEXT_PUBLIC_API_USER}/blog-service/posts/main/` + id;
+        const token = localStorage.getItem('accessToken');
+
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setMyPost(response.data.data);
+        console.log('---->', myPost);
+      } catch (error) {
+        console.error('목록을 불러오는데 실패했습니다.', error);
+      }
+    };
+
+    fetchMyPost();
+  }, [id]);
+
+  useEffect(() => {
+    console.log('myPost 변경됨:', myPost);
+  }, [myPost]);
 
   // 🗝️ 프로필 샘플 데이터 입력
   const profileData = {
@@ -38,17 +72,19 @@ export default function MyBlog() {
         <div className="whole-border">
           {/* 🗝️내 블로그 타이틀 받아오기 */}
           <BlogTitle />
-          {/*<div>*/}
-          {/*  /!* 🗝️내 게시글 리스트 받아오기 *!/*/}
-          {/*  /!*<PostList posts={posts} />*!/*/}
-          {/*</div>*/}
+          <div>
+            {/*  /!* 🗝️내 게시글 리스트 받아오기 *!/*/}
+            <PostList />
+          </div>~
           <div>
             {/* 🗝️내 게시글 받아오기 */}
-            <MyPostBox
-              myPost={myPost[0]}
-              onEdit={() => console.log('수정')}
-              onDelete={() => console.log('삭제')}
-            />
+            {myPost && (
+              <MyPostBox
+                myPost={myPost}
+                onEdit={() => console.log('수정')}
+                onDelete={() => console.log('삭제')}
+              />
+            )}
           </div>
           <div>
             {/* 🗝️ 프로필 데이터 받아오기 */}
