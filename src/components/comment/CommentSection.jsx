@@ -5,7 +5,7 @@ import api from '@/src/lib/axios'; // 전역 api 인스턴스 사용 (JWT 인터
 import CommentForm from './CommentForm';
 import CommentList from './CommentList';
 
-const CommentSection = ({ postId = 1 }) => {
+const CommentSection = ({ postId = 1, onCommentChange }) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -16,6 +16,7 @@ const CommentSection = ({ postId = 1 }) => {
       // 전역 api 인스턴스 사용 (자동으로 JWT 토큰 추가됨)
       const response = await api.get(`/posts/${postId}/comments`);
       setComments(response.data.comments || []);
+      return response.data.totalCount;
     } catch (error) {
       console.error('댓글 조회 에러:', error);
       if (error.response) {
@@ -31,6 +32,24 @@ const CommentSection = ({ postId = 1 }) => {
     fetchComments();
   }, [postId]);
 
+  // 전역 댓글 변경 알림 함수 (댯굴 뵨굥 사 모든 PostPage에 알림)
+  const notifyCommentChange = async () => {
+    const newCommentCount = await fetchComments(); // 댓글 수 받기
+
+    if (onCommentChange) {
+      onCommentChange(newCommentCount); // 댓글 수 전달
+    }
+
+    window.dispatchEvent(
+      new CustomEvent('commentChanged', {
+        detail: {
+          postId,
+          commentCount: newCommentCount, // 댓글 수 포함
+        },
+      }),
+    );
+  };
+
   // 댓글 작성
   const handleAddComment = async (content, isSecret) => {
     try {
@@ -41,7 +60,7 @@ const CommentSection = ({ postId = 1 }) => {
       });
 
       if (response.status === 201 || response.status === 200) {
-        fetchComments();
+        await notifyCommentChange();
       }
     } catch (error) {
       console.error('댓글 작성 에러:', error);
@@ -59,7 +78,7 @@ const CommentSection = ({ postId = 1 }) => {
       const response = await api.post(`/comments/${commentId}/like`);
 
       if (response.status === 200) {
-        fetchComments();
+        await fetchComments();
       }
     } catch (error) {
       console.error('댓글 공감 에러:', error);
@@ -78,7 +97,7 @@ const CommentSection = ({ postId = 1 }) => {
       const response = await api.delete(`/comments/${commentId}`);
 
       if (response.status === 204 || response.status === 200) {
-        fetchComments();
+        await notifyCommentChange();
         alert('댓글이 삭제되었습니다.');
       }
     } catch (error) {

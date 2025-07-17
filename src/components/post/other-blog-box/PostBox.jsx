@@ -7,6 +7,7 @@ import TagButtons from './TagButton';
 export default function PostBox({ post = {}, onEdit, onDelete }) {
   /* 🗝️ post 데이터 받아오기 */
   const {
+    id,
     category = '',
     blogTitle = '',
     nickname = '',
@@ -50,7 +51,7 @@ export default function PostBox({ post = {}, onEdit, onDelete }) {
       <TagButtons tags={tags} />
 
       {/* 공감/댓글 등 */}
-      <PostBoxFooterIcons />
+      <PostBoxFooterIcons postId={id} />
     </div>
   );
 }
