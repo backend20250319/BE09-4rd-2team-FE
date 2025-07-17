@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './MyPostBoxFooterIcons.css';
 import PostPage from '@/src/app/(main)/(blog)/post/page';
 
-export default function MyPostBoxFooterIcons({ postId = 1 }) {
+export default function MyPostBoxFooterIcons({ postId = 1, onDelete, onEdit }) {
   console.log('받은 postId:', postId);
 
   // 토글 상태 관리
@@ -47,12 +47,12 @@ export default function MyPostBoxFooterIcons({ postId = 1 }) {
               <button className="icon-btn realse-spi" aria-label="기타 보내기 펼치기"></button>
             </div>
             <div className="manage-btns">
-              <a href="#" className="owner-btn">
+              <button href="#" className="owner-btn">
                 수정
-              </a>
-              <a href="#" className="owner-btn">
+              </button>
+              <button href="#" className="owner-btn" onClick={onDelete}>
                 삭제
-              </a>
+              </button>
               <a
                 href="#"
                 id="configBtn1"

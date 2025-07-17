@@ -18,7 +18,7 @@ export default function UploadImage({ onUpload }) {
     formData.append('file', file);
 
     try {
-      // 1) 호출할 API 경로 🛜 포트 변경
+      // 1) 호출할 API 경로 포트 변경
       const response = await fetch(`${API_BASE}/ftp/upload`, {
         method: 'POST',
         body: formData,

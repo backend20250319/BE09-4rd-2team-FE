@@ -50,6 +50,7 @@ function PostList() {
     setIsCollapsed(!isCollapsed);
   };
 
+  // 내 블로그 클릭 핸들러
   const handleDetailClick = id => {
     try {
       router.push(`http://localhost:3000/blog/my-blog?id=${id}`);

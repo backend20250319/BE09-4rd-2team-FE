@@ -65,6 +65,31 @@ export default function MyBlog() {
     profileImageUrl: 'https://example.com/myimage.jpg',
   };
 
+  // 삭제 버튼 핸들러
+  const handleDeleteClick = async postId => {
+    try {
+      const confirmed = window.confirm('정말 삭제하시겠습니까?');
+      if (!confirmed) return; // 취소 (cancel)누르면 삭제 중단
+
+      const token = localStorage.getItem('accessToken');
+      const response = await fetch(`http://localhost:8000/api/blog-service/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('삭제 실패');
+      }
+
+      alert('삭제되었습니다.');
+      router.push('/blog'); // 삭제 후 이동할 주소
+    } catch (error) {
+      console.log('삭제 중 오류 발생:', error);
+    }
+  };
+
   return (
     <>
       <BlackHeader />
@@ -75,14 +100,15 @@ export default function MyBlog() {
           <div>
             {/*  /!* 🗝️내 게시글 리스트 받아오기 *!/*/}
             <PostList />
-          </div>~
+          </div>
+          ~
           <div>
             {/* 🗝️내 게시글 받아오기 */}
             {myPost && (
               <MyPostBox
                 myPost={myPost}
                 onEdit={() => console.log('수정')}
-                onDelete={() => console.log('삭제')}
+                onDelete={() => handleDeleteClick(post.id)} // 삭제 버튼 클릭 시 실행
               />
             )}
           </div>
