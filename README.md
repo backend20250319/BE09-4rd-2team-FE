@@ -36,3 +36,4 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 # Webhook 테스트 - Sat Jul 19 07:35:11     2025
 # 자동 배포 테스트 2차 - Sat Jul 19 07:41:07     2025
+# Jenkins 브랜치 설정 완료 테스트 - Sat Jul 19 08:03:15     2025
