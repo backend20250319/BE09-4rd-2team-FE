@@ -4,7 +4,7 @@ import MyPostBoxFooterIcons from './MyPostBoxFooterIcons';
 import MyPostMetaAction from './MyPostMetaAction';
 import TagEditor from './TapEditor';
 
-export default function MyPostBox({ myPost = {}, onEdit, onDelete }) {
+export default function MyPostBox({ post = {}, postId, onEdit, onDelete }) {
   const {
     category = '',
     blogTitle = '',
@@ -13,7 +13,7 @@ export default function MyPostBox({ myPost = {}, onEdit, onDelete }) {
     profileImageUrl = '',
     content = '',
     tags = [],
-  } = myPost;
+  } = post;
 
   return (
     <div className="post-box">
@@ -50,7 +50,7 @@ export default function MyPostBox({ myPost = {}, onEdit, onDelete }) {
       <TagEditor tags={tags} />
 
       {/* 공감/댓글 <> 보내기/수정/삭제/설정 */}
-      <MyPostBoxFooterIcons postId={myPost.id} />
+      <MyPostBoxFooterIcons postId={postId} />
     </div>
   );
 }
