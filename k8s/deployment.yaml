@@ -5,7 +5,7 @@ metadata:
   labels:
     app: vlog-frontend
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: vlog-frontend
