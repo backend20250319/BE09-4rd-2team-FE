@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vlog-frontend
+  labels:
+    app: vlog-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vlog-frontend
+  template:
+    metadata:
+      labels:
+        app: vlog-frontend
+    spec:
+      containers:
+        - name: vlog-frontend
+          image: juhuiya/vlog-frontend:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: "production"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
