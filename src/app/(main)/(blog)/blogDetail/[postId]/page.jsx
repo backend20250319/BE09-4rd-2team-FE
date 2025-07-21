@@ -24,7 +24,6 @@ export default function BlogDetail() {
       .catch(() => setPost(null))
       .finally(() => setLoading(false));
   }, [postId]);
-  console.log(postId);
 
   if (loading) return <div>로딩중...</div>;
   if (!post) return <div>게시글을 불러올 수 없습니다.</div>;

@@ -1,122 +1,14 @@
-import React, { useState } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import './PostList.css';
+import axios from 'axios';
 
-const posts = [
-  {
-    id: 1,
-    title: '장마철의 시작, 빗소리와 함께',
-    commentCount: 6,
-    visibility: null, // 공개
-    views: 14,
-    date: '2025. 6. 15.',
-  },
-  {
-    id: 2,
-    title: '여름 바다에서의 하루',
-    commentCount: 9,
-    visibility: null, // 공개
-    views: 38,
-    date: '2025. 6. 20.',
-  },
-  {
-    id: 3,
-    title: '무더운 여름밤, 선풍기와 함께',
-    commentCount: 0,
-    visibility: null, // 공개
-    views: 0,
-    date: '2025. 6. 25.',
-  },
-  {
-    id: 4,
-    title: '장맛비에 젖은 도시 풍경',
-    commentCount: 7,
-    visibility: '비공개',
-    views: 38,
-    date: '2025. 6. 18.',
-  },
-  {
-    id: 5,
-    title: '여름철 시원한 음료 추천',
-    commentCount: 4,
-    visibility: null, // 공개
-    views: 41,
-    date: '2025. 6. 22.',
-  },
-  {
-    id: 6,
-    title: '봄맞이 방 청소 후기',
-    commentCount: 2,
-    visibility: null, // 공개
-    views: 15,
-    date: '2025. 2. 20.',
-  },
-  {
-    id: 7,
-    title: '친구와 함께한 제주 여행',
-    commentCount: 5,
-    visibility: '서로이웃공개',
-    views: 32,
-    date: '2025. 2. 10.',
-  },
-  {
-    id: 8,
-    title: '새로운 취미, 자전거 타기',
-    commentCount: 1,
-    visibility: null, // 공개
-    views: 8,
-    date: '2025. 1. 28.',
-  },
-  {
-    id: 9,
-    title: '2025년 목표 세우기',
-    commentCount: 3,
-    visibility: '비공개',
-    views: 3,
-    date: '2025. 1. 1.',
-  },
-  {
-    id: 10,
-    title: '겨울방학 알차게 보내는 법',
-    commentCount: 6,
-    visibility: '검색비허용',
-    views: 27,
-    date: '2024. 12. 22.',
-  },
-  {
-    id: 11,
-    title: '내가 사랑하는 카페 TOP3',
-    commentCount: 0,
-    visibility: null, // 공개
-    views: 11,
-    date: '2024. 12. 10.',
-  },
-  {
-    id: 12,
-    title: '첫 눈 오는 날의 기록',
-    commentCount: 4,
-    visibility: '서로이웃공개',
-    views: 19,
-    date: '2024. 11. 29.',
-  },
-  {
-    id: 13,
-    title: '가을 단풍 여행 사진첩',
-    commentCount: 7,
-    visibility: null, // 공개
-    views: 44,
-    date: '2024. 11. 12.',
-  },
-  {
-    id: 14,
-    title: '블로그 시작! 첫 글',
-    commentCount: 2,
-    visibility: null, // 공개
-    views: 5,
-    date: '2024. 10. 1.',
-  },
-];
+import { useRouter } from 'next/navigation';
 
 function PostList() {
+  const router = useRouter();
+
+  const [posts, setPosts] = useState([]);
   // 목록 숨김 상태
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -132,9 +24,39 @@ function PostList() {
   const indexOfFirst = indexOfLast - postsPerPage;
   const currentPosts = posts.slice(indexOfFirst, indexOfLast);
 
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const url = `${process.env.NEXT_PUBLIC_API_USER}/blog-service/posts/lists`;
+        const token = localStorage.getItem('accessToken');
+
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setPosts(response.data.data);
+      } catch (error) {
+        console.log('목록을 불러오는데 실패했습니다.', error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
   // 목록 닫기 버튼 클릭 핸들러
   const handleCollapse = () => {
     setIsCollapsed(!isCollapsed);
+  };
+
+  // 내 블로그 클릭 핸들러
+  const handleDetailClick = id => {
+    try {
+      router.push(`http://localhost:3000/blog/my-blog?id=${id}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // 페이지 버튼 클릭 핸들러
@@ -212,7 +134,7 @@ function PostList() {
               </thead>
               <tbody>
                 {currentPosts.map(post => (
-                  <tr key={post.id}>
+                  <tr key={post.id} onClick={() => handleDetailClick(post.id)}>
                     <td className="title-cell">
                       <span className="main-title">{post.title}</span>
                       {post.commentCount > 0 && (

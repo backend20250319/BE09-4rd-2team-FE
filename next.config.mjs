@@ -7,6 +7,7 @@ const nextConfig = {
       'i.namu.wiki',
       'cdn.example.com',
       'picsum.photos',
+      'dev.macacolabs.site',
     ],
   },
 };
